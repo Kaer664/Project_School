@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,15 +26,16 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
         partyActivityPresenter.getAllPartyActivity();
     }
 
+
     @Override
-    public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list) {
+    public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list, Bitmap[] bitmaps) {
         for(int i=0;i<list.size();i++){
             Log.i("TestNum",list.get(i).getCreateDate());
         }
     }
 
     @Override
-    public void showPartyActivityInfo(PartyActivityBean bean) {
+    public void showPartyActivityInfo(PartyActivityBean bean, Bitmap bitmap) {
 
     }
 }

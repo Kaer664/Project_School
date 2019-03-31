@@ -1,6 +1,8 @@
 package com.mo.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -107,7 +109,25 @@ public class HttpTools {
         return sb.toString();
     }
 
-    public static String postJsonByOKHTTP(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value) {
-        return "";
+    public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName){
+        if (!checkNetWorkAction(context)) {
+            return null;
+        }
+        Bitmap bitmap=null;
+        try {
+            URL u = new URL(url+picName);
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setConnectTimeout(5 * 1000);
+            conn.setDoInput(true);
+            conn.connect();
+            if (conn.getResponseCode() == 200) {
+                InputStream is = conn.getInputStream();
+                bitmap = BitmapFactory.decodeStream(is);
+            }
+            Log.i("Test", "getBitmap: 图片获取成功");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 }

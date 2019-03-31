@@ -1,5 +1,7 @@
 package com.mo.view;
 
+import android.graphics.Bitmap;
+
 import com.mo.bean.AdvancePersonBean;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public interface IAdvancePersonView {
     //显示先进党员列表
-    void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list) ;
+    void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list,Bitmap[] bitmaps) ;
     //显示先进党员信息
-    void showAdvancePersonInfo(List<AdvancePersonBean.AdvancedPersonListBean> list);
+    void showAdvancePersonInfo(AdvancePersonBean.AdvancedPersonListBean bean, Bitmap bitmap);
 }
