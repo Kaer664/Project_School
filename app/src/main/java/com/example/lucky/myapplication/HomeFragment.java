@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -17,6 +18,7 @@ import android.widget.Toast;
  */
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
+    private TextView tvRollMessage,tvNews1,tvNews2;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +38,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         lineVoice= (LinearLayout) getActivity().findViewById(R.id.lineVoice);
         lineStudy= (LinearLayout) getActivity().findViewById(R.id.lineStudy);
         lineBirthday= (LinearLayout) getActivity().findViewById(R.id.lineBirthday);
+        tvRollMessage= (TextView) getActivity().findViewById(R.id.tvRollMessage);
+        tvRollMessage.setSelected(true);
+        tvNews1= (TextView) getActivity().findViewById(R.id.tvNews1);
+        tvNews2= (TextView) getActivity().findViewById(R.id.tvNews2);
 
         lineAnswer.setOnClickListener(this);
         linePart.setOnClickListener(this);
@@ -43,7 +49,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         lineVoice.setOnClickListener(this);
         lineStudy.setOnClickListener(this);
         lineBirthday.setOnClickListener(this);
-
+        tvNews1.setOnClickListener(this);
+        tvNews2.setOnClickListener(this);
     }
 
     @Override
@@ -76,8 +83,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity(),"党员生日",Toast.LENGTH_LONG).show();
                 Log.i("TestNum","党员生日");
                 break;
-
+            case R.id.tvNews1:
+                intentTempNews();
+                break;
+            case R.id.tvNews2:
+                intentTempNews();
+                break;
         }
 
+    }
+    public void intentTempNews(){
+        Intent intent1=new Intent(getActivity(),TempNewsActivity.class);
+        startActivity(intent1);
     }
 }
