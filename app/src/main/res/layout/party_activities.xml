@@ -94,6 +94,30 @@
                 android:textColor="@color/colorblack"
 
                 android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="观点"
+                android:textColor="@color/colorblack"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:id="@+id/llPinglunItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.example.lucky.myapplication.PingLunItem
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </com.example.lucky.myapplication.PingLunItem>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="150dp" />
         </LinearLayout>
 
     </ScrollView>
