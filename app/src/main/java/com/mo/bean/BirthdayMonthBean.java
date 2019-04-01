@@ -8,6 +8,13 @@ import java.util.List;
  */
 
 public class BirthdayMonthBean {
+    @Override
+    public String toString() {
+        return "BirthdayMonthBean{" +
+                "msg='" + msg + '\'' +
+                ", userList=" + userList +
+                '}';
+    }
 
     /**
      * userList : [{"name":"陶国正"},{"name":"秦桂英"},{"name":"徐登"}]
@@ -34,6 +41,13 @@ public class BirthdayMonthBean {
     }
 
     public static class UserListBean {
+        @Override
+        public String toString() {
+            return "UserListBean{" +
+                    "name='" + name + '\'' +
+                    '}';
+        }
+
         /**
          * name : 陶国正
          */

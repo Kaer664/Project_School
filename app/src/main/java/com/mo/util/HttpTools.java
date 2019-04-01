@@ -77,7 +77,7 @@ public class HttpTools {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setReadTimeout(5 * 1000);
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
+
             if (map!=null){
                 StringBuffer sb2=new StringBuffer();
                 for (Map.Entry<String,String> entry:map.entrySet()){
@@ -85,10 +85,11 @@ public class HttpTools {
                     sb2.append(entry.getValue()+"&");
                 }
                 sb2.deleteCharAt(sb2.length()-1);
+                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
                 dos.write(sb2.toString().getBytes());
+                dos.flush();
+                dos.close();
             }
-            dos.flush();
-            dos.close();
             conn.connect();
             if (conn.getResponseCode() == 200) {
                 InputStream is = conn.getInputStream();
