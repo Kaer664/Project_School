@@ -23,7 +23,8 @@
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".PartActivity" />
-        <activity android:name=".TempNewsActivity"></activity>
+        <activity android:name=".TempNewsActivity" />
+        <activity android:name=".ParkDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -89,7 +90,13 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
                     convertView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Log.i("TestNUm", (String) data.get(position).get("id"));
+                            String id=(String) data.get(position).get("id");
+                            Log.i("TestNUm", id);
+                            Intent intent=new Intent(CommunistPartyActivity.this,ParkDetailsActivity.class);
+                            //Bundle bundle=new Bundle();
+                            //bundle.putString("id",id);
+                            intent.putExtra("id",id);
+                            startActivity(intent);
                         }
                     });
                 }else{
