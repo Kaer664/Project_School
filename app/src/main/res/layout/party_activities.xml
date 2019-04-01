@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbPartyActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorbtnblue">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="活动详情"
+            android:textColor="@color/colorred"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/svPartyActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tbPartyActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llActivityTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvActivityTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="省委召开领导干部会议传达学习全国教育大会精神"
+                    android:textColor="@color/colorblack"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llActivityWriter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llActivityTitle">
+
+                <TextView
+                    android:id="@+id/tvNewsWriter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="作者：孙华林"
+                    android:textColor="@color/colorblack"
+
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imgActivityPic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/llActivityWriter" />
+
+            <TextView
+                android:id="@+id/tvActivityContext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+"
+                android:textColor="@color/colorblack"
+
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorgray">
+
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="10"
+            android:background="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/btnSendComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="发送" />
+    </LinearLayout>
+
+
+</RelativeLayout>

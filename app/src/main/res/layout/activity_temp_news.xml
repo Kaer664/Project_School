@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="vertical"
+    tools:context="com.example.lucky.myapplication.TempNewsActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tblogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorbtnblue">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="党务要闻"
+            android:textColor="@color/colorred"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvNewsTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="省委召开领导干部会议传达学习全国教育大会精神"
+                    android:textColor="@color/colorblack"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvNewsWriter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="作者：孙华林"
+                    android:textColor="@color/colorblack"
+
+                    android:textSize="22sp" />
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/imgNewsPic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tvNewContext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
+"
+                android:textColor="@color/colorblack"
+
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
