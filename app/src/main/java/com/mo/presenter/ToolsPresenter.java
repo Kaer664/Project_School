@@ -1,6 +1,7 @@
 package com.mo.presenter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.model.ToolsDao;
@@ -8,6 +9,9 @@ import com.mo.model.impl.ToolsDaoImpl;
 import com.mo.view.IToolsView;
 
 import java.util.LinkedHashMap;
+
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by 风雨诺 on 2019/3/30.
  * 工具接口控制层
@@ -91,6 +95,29 @@ public class ToolsPresenter {
                 }
             });
         }
+    }
+    private SharedPreferences preferences=null;
+    public void saveUserInfo(String userName,String pwd,UserLoginBean bean){
+        if (preferences==null){
+            preferences= context.getSharedPreferences("userinfo", MODE_PRIVATE);
+        }
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username",userName);
+        editor.putString("pwd",pwd);
+        if (bean!=null){
+            editor.putString("userid",bean.getUserID());
+            editor.putString("userrealname",bean.getUserRealName());
+        }else{
+            editor.putString("userid","");
+            editor.putString("userrealname","");
+        }
+        editor.commit();
+    }
+    public SharedPreferences readUserInfo(){
+        if (preferences==null){
+            preferences= context.getSharedPreferences("userinfo", MODE_PRIVATE);
+        }
+        return preferences;
     }
 
 }
