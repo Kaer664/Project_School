@@ -70,6 +70,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.lineAdvanced:
                 Toast.makeText(getActivity(),"先进人物",Toast.LENGTH_LONG).show();
                 Log.i("TestNum","先进人物");
+                intent=new Intent(getActivity(),AdvancedfiguresActivity.class);
+                startActivity(intent);
                 break;
             case R.id.lineVoice:
                 Toast.makeText(getActivity(),"党员心生",Toast.LENGTH_LONG).show();
