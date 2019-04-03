@@ -25,6 +25,7 @@
         <activity android:name=".PartActivity" />
         <activity android:name=".TempNewsActivity" />
         <activity android:name=".ParkDetailsActivity"></activity>
+        <activity android:name=".AdvancedfiguresActivity"></activity>
     </application>
 
 </manifest>
