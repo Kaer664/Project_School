@@ -4,15 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorwhite"
     android:orientation="vertical"
-    tools:context="com.example.lucky.myapplication.StudyActivity">
+    android:background="@color/colorwhite"
+    android:id="@+id/studyLinearLayout"
+    tools:context="com.example.lucky.myapplication.StudydetailsActivity">
 
-    <ListView
-        android:id="@+id/lvStudy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </ListView>
+     <!--  这个界面控件需要动态添加-->
 
 </LinearLayout>

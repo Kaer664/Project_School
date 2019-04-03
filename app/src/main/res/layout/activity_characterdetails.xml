@@ -16,21 +16,21 @@
         <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"/>
+            android:layout_weight="2" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="5">
+            android:layout_weight="5"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvcharacterName"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                android:text="冯理达"
                 android:gravity="center_vertical"
+                android:text="冯理达"
                 android:textColor="@color/colorblack"
                 android:textStyle="bold" />
 
@@ -59,16 +59,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/honor"/>
+            android:src="@drawable/honor" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="荣誉/经历"
-            android:textColor="@color/colorblack"
-           android:layout_gravity="center_vertical"/>
+            android:textColor="@color/colorblack" />
     </LinearLayout>
 
     <LinearLayout

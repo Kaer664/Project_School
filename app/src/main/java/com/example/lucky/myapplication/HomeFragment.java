@@ -60,6 +60,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.lineAnswer:
                 Log.i("TestNum","答题有奖");
                 Toast.makeText(getActivity(),"答题有奖",Toast.LENGTH_LONG).show();
+                intent=new Intent(getActivity(),AnswerActivity.class);
+                startActivity(intent);
                 break;
             case R.id.linePart:
                 Toast.makeText(getActivity(),"党建活动",Toast.LENGTH_LONG).show();
@@ -76,6 +78,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.lineVoice:
                 Toast.makeText(getActivity(),"党员心声",Toast.LENGTH_LONG).show();
                 Log.i("TestNum","党员心声");
+                intent=new Intent(getActivity(),ThinkingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.lineStudy:
                 Toast.makeText(getActivity(),"学习园地",Toast.LENGTH_LONG).show();
@@ -86,6 +90,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.lineBirthday:
                 Toast.makeText(getActivity(),"党员生日",Toast.LENGTH_LONG).show();
                 Log.i("TestNum","党员生日");
+                intent=new Intent(getActivity(),BirthdayActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tvNews1:
                 intentTempNews();

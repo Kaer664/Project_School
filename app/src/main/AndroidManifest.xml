@@ -26,7 +26,12 @@
         <activity android:name=".TempNewsActivity" />
         <activity android:name=".AdvancedfiguresActivity" />
         <activity android:name=".StudyActivity" />
-        <activity android:name=".CharacterdetailsActivity"></activity>
+        <activity android:name=".CharacterdetailsActivity" />
+        <activity android:name=".StudydetailsActivity" />
+        <activity android:name=".ThinkingActivity" />
+        <activity android:name=".AnswerActivity" />
+        <activity android:name=".BirthdayActivity" />
+        <activity android:name=".BirthdaydetailsActivity"></activity>
     </application>
 
 </manifest>
