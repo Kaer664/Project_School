@@ -79,14 +79,14 @@ public class BirthDaoImpl implements BirthDao {
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_BRITH_ACTIVITY_BY_ID, "id", id);
                 try {
-                    BirthActivityBean.BirthActivitiesListBean bean = null;
+                    BirthActivityBean bean = null;
                     Bitmap bitmap = null;
                     JSONObject jsonObject = new JSONObject(json);
                     String msg = jsonObject.getString("msg");
                     if ("success".equals(msg)) {
                         Gson gson = new Gson();
-                        bean = gson.fromJson(json, BirthActivityBean.class).getBirthActivitiesList().get(0);
-                        bitmap=HttpTools.getBitmap(context, Address.PIC_URL, bean.getImgUrl());
+                        bean = gson.fromJson(json, BirthActivityBean.class);
+                        bitmap=HttpTools.getBitmap(context, Address.PIC_URL, bean.getBirthActivitiesList().get(0).getImgUrl());
                     }
                     listener.result(bean,bitmap);
                 } catch (JSONException e) {
