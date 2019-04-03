@@ -1,7 +1,9 @@
 package com.mo.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
+import com.mo.bean.AdvancePersonBean;
 import com.mo.model.AdvancePersonDao;
 import com.mo.model.impl.AdvancePersonDaoImpl;
 import com.mo.view.IAdvancePersonView;
@@ -15,10 +17,10 @@ import java.util.List;
 
 public class AdvancePersonPresenter {
     private Context context;
-    private AdvancePersonDao dao= (AdvancePersonDao) new AdvancePersonDaoImpl();
+    private AdvancePersonDao dao= new AdvancePersonDaoImpl();
     private IAdvancePersonView view;
 
-    public AdvancePersonPresenter(Context context, IAdvancePersonView view) {
+    public AdvancePersonPresenter(Context context, IAdvancePersonView view){
         this.context = context;
         this.view = view;
     }
@@ -30,10 +32,15 @@ public class AdvancePersonPresenter {
         if(context!=null&&dao!=null){
             dao.getAllAdvancePerson(context, new AdvancePersonDao.PersonListener() {
                 @Override
-                public void result(List list) {
+                public void result(List list, Bitmap[] bitmaps) {
                     if (view!=null){
-                        view.showAdvancePersonList(list);
+                        view.showAdvancePersonList(list,bitmaps);
                     }
+                }
+
+                @Override
+                public void result(AdvancePersonBean.AdvancedPersonListBean bean, Bitmap bitmap) {
+
                 }
             });
         }
@@ -47,9 +54,14 @@ public class AdvancePersonPresenter {
         if(context!=null&&dao!=null){
             dao.getAdvancePersonById(context,id, new AdvancePersonDao.PersonListener() {
                 @Override
-                public void result(List list) {
+                public void result(List list, Bitmap[] bitmaps) {
+
+                }
+
+                @Override
+                public void result(AdvancePersonBean.AdvancedPersonListBean bean, Bitmap bitmap) {
                     if (view!=null){
-                        view.showAdvancePersonInfo(list);
+                        view.showAdvancePersonInfo(bean,bitmap);
                     }
                 }
             });

@@ -3,4 +3,16 @@
     <dimen name="part_text_size">24sp</dimen>
     <dimen name="part_img_height">80dp</dimen>
     <color name="d_c">#0f0220</color>
+
+    <dimen name="details_text_size">25sp</dimen>
+    <dimen name="details_margin_top">26sp</dimen>
+    <dimen name="details_margin_left">16sp</dimen>
+    <dimen name="details_btn_size">20sp</dimen>
+    <dimen name="details_bold_size">23sp</dimen>
+
+    <dimen name="details_item_head_img_width">50dp</dimen>
+    <dimen name="details_item_head_img_margin">6dp</dimen>
+    <dimen name="details_item_name_text">20sp</dimen>
+    <dimen name="details_item_msg_text">23sp</dimen>
+    <dimen name="details_item_date_text">20sp</dimen>
 </resources>

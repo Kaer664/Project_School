@@ -1,6 +1,7 @@
 package com.mo.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.mo.bean.PartyActivityBean;
 import com.mo.model.PartyActivityDao;
@@ -31,9 +32,9 @@ public class PartyActivityPresenter {
             if(context!=null&&dao!=null){
             dao.getAllPartyActivity(context, new PartyActivityDao.ActivityListListener() {
                 @Override
-                public void result(List list) {
+                public void result(List list, Bitmap[] bitmaps) {
                     if (view != null) {
-                        view.showAllPartyActivity(list);
+                        view.showAllPartyActivity(list,bitmaps);
                     }
                 }
             });
@@ -48,9 +49,9 @@ public class PartyActivityPresenter {
         if(context!=null&&dao!=null){
             dao.getPartyActivityById(context, id, new PartyActivityDao.ActivityListener() {
                 @Override
-                public void result(PartyActivityBean bean) {
+                public void result(PartyActivityBean bean,Bitmap bitmap) {
                     if (view!=null){
-                        view.showPartyActivityInfo(bean);
+                        view.showPartyActivityInfo(bean,bitmap);
                     }
                 }
             });

@@ -1,9 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="com.example.lucky.myapplication.ParkDetailsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <!--顶部-->
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:orientation="vertical"
+           android:id="@+id/LineTop"
+           android:layout_height="wrap_content"
+           >
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_marginTop="@dimen/details_margin_top"
+               android:layout_marginLeft="@dimen/details_margin_left"
+               android:layout_marginRight="@dimen/details_margin_left"
+               android:text="这是测试文本你好啊啊啊啊啊啊啊啊啊"
+               android:textSize="@dimen/details_text_size"
+               android:textColor="@color/black"
+               android:id="@+id/details_top_title"/>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="@dimen/details_margin_left"
+               android:layout_marginRight="@dimen/details_margin_left"
+               android:orientation="horizontal"
+               android:gravity="center">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/black"
+                   android:textSize="@dimen/details_btn_size"
+                   android:text="作者："/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/black"
+                   android:text="蔡准"
+                   android:textSize="@dimen/details_btn_size"
+                   android:id="@+id/tvWriterName"/>
+           </LinearLayout>
+       </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/LineTop"
+        android:layout_above="@+id/line_bottom"
+        android:layout_marginLeft="@dimen/details_margin_left"
+        android:layout_marginRight="@dimen/details_margin_left"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/word"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="你好，这应该是第一行消息，
+                你好，这应该是第一行消息你好，这应该是第一行消息你好
+                ，这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好
+                这应该是第一行消息你好，这应该是第一行消息你好，
+                这应该是第一行消息你好，这应该是第一行消息你好
+                ，这应该是第一行消息你好，这应该是第一行消息"
+                android:textColor="@color/black"
+                android:textSize="@dimen/details_btn_size" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ccc"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="观点"
+                        android:gravity="center"
+                        android:layout_margin="@dimen/details_margin_left"
+                        android:textSize="@dimen/details_bold_size"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ccc"/>
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@color/black"
+                android:dividerHeight="1px"
+                android:id="@+id/details_list_view"></ListView>
+        </LinearLayout>
+    </ScrollView>
+
+    <!--底部-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/line_bottom"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/etBottom"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="10"
+
+            android:textColor="@color/black"
+            android:background="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/btnBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="发送" />
+    </LinearLayout>
+</RelativeLayout>

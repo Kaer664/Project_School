@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -103,7 +104,7 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
                     holder= (ViewHolder) ((Map) convertView.getTag()).get("holder");
                 }
                 Map<String,Object> map=data.get(position);
-                //holder.imageView.setImageResource((Integer) map.get("img"));
+                holder.imageView.setImageBitmap((Bitmap)map.get("img"));
                 holder.date.setText((String)map.get("date"));
                 holder.title.setText((String)map.get("title"));
                 return convertView;
@@ -119,10 +120,10 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
     }
 
     @Override
-    public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list) {
+    public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list, Bitmap[] bs) {
         for(int i=0;i<list.size();i++){
             Map<String,Object> map=new HashMap<>();
-            map.put("img",list.get(i).getImgUrl());
+            map.put("img",bs[i]);
             map.put("title",list.get(i).getTitle());
             map.put("date",list.get(i).getCreateDate());
             map.put("id",list.get(i).getId());
@@ -137,7 +138,7 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
     }
 
     @Override
-    public void showPartyActivityInfo(PartyActivityBean bean) {
+    public void showPartyActivityInfo(PartyActivityBean bean,Bitmap bitmap) {
 
     }
     private Handler handler=new Handler(){
