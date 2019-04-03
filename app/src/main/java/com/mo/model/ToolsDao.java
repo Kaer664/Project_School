@@ -1,6 +1,7 @@
 package com.mo.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import  com.mo.bean.UserLoginBean;
 
@@ -66,4 +67,6 @@ public interface ToolsDao {
     interface ChangePassListener{
         void result(boolean isChange);
     }
+    void saveUserInfo(Context context,String userName,String pwd,UserLoginBean bean);
+    SharedPreferences readUserInfo(Context context);
 }

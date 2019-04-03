@@ -24,7 +24,7 @@ public class PartyNewsPresenter {
         this.view = view;
     }
 
-    public void getAllPartyNews() {
+    synchronized public void getAllPartyNews() {
         if (dao != null && context != null) {
             dao.getAllPartyNews(context, new PartyNewsDao.LoginOkListener() {
                 @Override

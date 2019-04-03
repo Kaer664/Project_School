@@ -30,9 +30,9 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
         setContentView(R.layout.activity_login);
         initview();
         SharedPreferences preferences = toolsPresenter.readUserInfo();
-        String username = preferences.getString("username", null);
-        String pwd = preferences.getString("pwd",null);
-        if (username!=null&&pwd!=null){
+        String username = preferences.getString("username", "");
+        String pwd = preferences.getString("pwd","");
+        if (username!=""&&pwd!=""){
             cbautologin.setChecked(true);
             toolsPresenter.login(username,pwd);
         }

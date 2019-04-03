@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="省委召开领导干部会议传达学习全国教育大会精神"
+                    android:text="标题"
                     android:textColor="@color/colorblack"
                     android:textSize="24sp" />
             </LinearLayout>
@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="作者：孙华林"
+                    android:text="作者"
                     android:textColor="@color/colorblack"
 
                     android:textSize="22sp" />
@@ -72,26 +72,8 @@
                 android:id="@+id/tvNewContext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-党务活动发布测试1党务活动发布测试1党务活动发布测试1党务活动发布测试1
-"
+                android:text="党务活动"
                 android:textColor="@color/colorblack"
-
                 android:textSize="20sp" />
         </LinearLayout>
 

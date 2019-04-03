@@ -123,8 +123,10 @@ public class HttpTools {
             if (conn.getResponseCode() == 200) {
                 InputStream is = conn.getInputStream();
                 bitmap = BitmapFactory.decodeStream(is);
+                Log.i("Test", "getBitmap: 图片获取成功");
+            }else{
+                Log.i("Test", "getBitmap: 服务器无此图片");
             }
-            Log.i("Test", "getBitmap: 图片获取成功");
         } catch (IOException e) {
             e.printStackTrace();
         }
