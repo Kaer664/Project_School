@@ -58,32 +58,28 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         Intent intent=null;
         switch (v.getId()){
             case R.id.lineAnswer:
-                Log.i("TestNum","答题有奖");
-                Toast.makeText(getActivity(),"答题有奖",Toast.LENGTH_LONG).show();
+                intent=new Intent(getActivity(),AnswerActivity.class);
+                startActivity(intent);
                 break;
             case R.id.linePart:
-                Toast.makeText(getActivity(),"党建活动",Toast.LENGTH_LONG).show();
-                Log.i("TestNum","党建活动");
                 intent=new Intent(getActivity(),CommunistPartyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.lineAdvanced:
-                Toast.makeText(getActivity(),"先进人物",Toast.LENGTH_LONG).show();
-                Log.i("TestNum","先进人物");
                 intent=new Intent(getActivity(),AdvancedfiguresActivity.class);
                 startActivity(intent);
                 break;
             case R.id.lineVoice:
-                Toast.makeText(getActivity(),"党员心生",Toast.LENGTH_LONG).show();
-                Log.i("TestNum","党员心生");
+                intent=new Intent(getActivity(),ThinkingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.lineStudy:
-                Toast.makeText(getActivity(),"学习园地",Toast.LENGTH_LONG).show();
-                Log.i("TestNum","学习园地");
+                intent=new Intent(getActivity(),StudyActivity.class);
+                startActivity(intent);
                 break;
             case R.id.lineBirthday:
-                Toast.makeText(getActivity(),"党员生日",Toast.LENGTH_LONG).show();
-                Log.i("TestNum","党员生日");
+                intent=new Intent(getActivity(),BirthdayActivity.class);
+                startActivity(intent);
                 break;
             case R.id.tvNews1:
                 intentTempNews();
