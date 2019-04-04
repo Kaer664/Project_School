@@ -1,11 +1,15 @@
 package com.mo.presenter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.mo.bean.ScoreRankBean;
 import com.mo.bean.UserScoreBean;
 import com.mo.model.ScoreInfoDao;
+import com.mo.model.ToolsDao;
 import com.mo.model.impl.ScoreInfoDaoImpl;
+import com.mo.model.impl.ToolsDaoImpl;
 import com.mo.view.IScoreView;
 
 import java.util.List;
@@ -16,7 +20,8 @@ import java.util.List;
 
 public class ScorePresenter {
     private Context context;
-    private ScoreInfoDao dao= (ScoreInfoDao) new ScoreInfoDaoImpl();
+    private ScoreInfoDao dao= new ScoreInfoDaoImpl();
+    private ToolsDao toolsDao=new ToolsDaoImpl();
     private IScoreView view;
 
     public ScorePresenter(Context context, IScoreView view) {
@@ -26,10 +31,16 @@ public class ScorePresenter {
 
     /**
      *通过userId获取用户积分信息
-     * @param userId 用户id
+     * userId从文件获取
      */
-    public void getUserScoreInfo(String userId){
+    public void getUserScoreInfo(){
         if (context!=null&dao!=null){
+            SharedPreferences preferences = toolsDao.readUserInfo(context);
+            String userId = preferences.getString("userId", "");
+            if (userId==""){
+                Log.i("test", "文件中没有用户id或用户名称");
+                return;
+            }
             dao.getUserScoreInfo(context, userId, new ScoreInfoDao.ScoreListener() {
                 @Override
                 public void result(UserScoreBean bean) {

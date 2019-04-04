@@ -1,10 +1,12 @@
 package com.mo.model.impl;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.mo.bean.AnswerActivityListBean;
 import com.mo.bean.QuestionInfoBean;
 import com.mo.model.AnswerActivityDao;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.util.Address;
 import com.mo.util.HttpTools;
 import com.google.gson.Gson;
@@ -65,11 +67,11 @@ public class AnswerActivityDaoImpl implements AnswerActivityDao {
     }
 
     @Override
-    public void updateScore(final Context context, String answerId, String answerTitle, String score, final UpdateScoreListener listener) {
+    public void updateScore(final Context context,String userid,String username, String answerId, String answerTitle, String score, final UpdateScoreListener listener) {
         final LinkedHashMap<String, String> map = new LinkedHashMap<>();
         //这两个从文件获得
-        map.put("userID", "1");
-        map.put("userName", "孙华林");
+        map.put("userID", userid);
+        map.put("userName", username);
         map.put("answerActivityID", answerId);
         map.put("answerActivityTitle", answerTitle);
         map.put("score", score);

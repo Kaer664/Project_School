@@ -13,7 +13,7 @@ public interface AnswerActivityDao {
 
     void getQuestionInfo(Context context, String id, AnswerListener listener);
 
-    void updateScore(Context context, String answerId, String answerTitle, String score, UpdateScoreListener listener);
+    void updateScore(Context context, String userid,String username,String answerId, String answerTitle, String score, UpdateScoreListener listener);
 
     interface AnswerListener {
         void result(List list);

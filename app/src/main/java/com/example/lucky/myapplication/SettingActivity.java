@@ -12,14 +12,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.mo.presenter.ToolsPresenter;
+
 public class SettingActivity extends AppCompatActivity {
     private LinearLayout aboutUs, changePassword;
     private Button btnExitLogin;
-
+    private ToolsPresenter toolsPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        toolsPresenter=new ToolsPresenter(this,null);
         aboutUs = (LinearLayout) findViewById(R.id.aboutUs);
         changePassword = (LinearLayout) findViewById(R.id.changePassword);
         btnExitLogin = (Button) findViewById(R.id.btnExitLogin);
@@ -50,7 +53,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //跳转之前把sharedPreferences里保存的密码删掉
-
+                toolsPresenter.saveUserInfo(null,null,null);
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
                 Toast.makeText(SettingActivity.this, "您已退出登录！", Toast.LENGTH_SHORT).show();

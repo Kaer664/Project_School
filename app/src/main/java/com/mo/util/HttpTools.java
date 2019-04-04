@@ -79,15 +79,14 @@ public class HttpTools {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setReadTimeout(5 * 1000);
-
             if (map!=null){
+                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
                 StringBuffer sb2=new StringBuffer();
                 for (Map.Entry<String,String> entry:map.entrySet()){
                     sb2.append(entry.getKey()+"=");
                     sb2.append(entry.getValue()+"&");
                 }
                 sb2.deleteCharAt(sb2.length()-1);
-                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
                 dos.write(sb2.toString().getBytes());
                 dos.flush();
                 dos.close();
@@ -124,8 +123,10 @@ public class HttpTools {
             if (conn.getResponseCode() == 200) {
                 InputStream is = conn.getInputStream();
                 bitmap = BitmapFactory.decodeStream(is);
+                Log.i("Test", "getBitmap: 图片获取成功");
+            }else{
+                Log.i("Test", "getBitmap: 服务器无此图片");
             }
-            Log.i("Test", "getBitmap: 图片获取成功");
         } catch (IOException e) {
             e.printStackTrace();
         }
