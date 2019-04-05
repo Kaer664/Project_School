@@ -24,8 +24,8 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedfigures);
         init();
-        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
-        ap.getAllAdvancePerson();
+//        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
+//        ap.getAllAdvancePerson();
     }
 
 
@@ -36,8 +36,17 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
     private List<Map<String,Object>> data=new ArrayList<>();
 
     private void initView() {
+        for(int i=0;i<3;i++){
+            Map<String,Object> map=new HashMap<>();
+            map.put("img",R.drawable.zongshuji);
+            map.put("name","-"+"name"+i+"-");
+            map.put("introduction","introduction"+i);
+            map.put("createDate","createDate"+i);
+            data.add(map);
+        }
         SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.advanceditem
-                ,new String[]{},new int[]{});
+                ,new String[]{"img","name","introduction","createDate"}
+                ,new int[]{R.id.imgCharacter,R.id.tvCharacterName,R.id.tvCharacterAchievement,R.id.tvCreateDate});
         gridViewAdvanced.setAdapter(adapter);
     }
 

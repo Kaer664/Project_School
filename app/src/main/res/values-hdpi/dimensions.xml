@@ -25,4 +25,15 @@
     <dimen name="advance_item_msg_text">16sp</dimen>
     <dimen name="advance_item_date_text">20sp</dimen>
 
+
+    <dimen name="advance_item_text_size1">16sp</dimen>
+    <dimen name="advance_item_text_size">15sp</dimen>
+    <dimen name="advance_item_margin_size">5sp</dimen>
+    <dimen name="advance_item_img_height_size">200sp</dimen>
+    <dimen name="advance_item_img_weight_size">150sp</dimen>
+
+    <dimen name="think_title_text_size">20sp</dimen>
+    <dimen name="think_edit_size">18sp</dimen>
+    <dimen name="think_btn_text_size">22sp</dimen>
+
 </resources>

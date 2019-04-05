@@ -25,9 +25,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!etNewPassword.getText().toString().equals("") && !etSureNewPassword.getText().toString().equals("")) {
                     if (etNewPassword.getText().toString().equals(etSureNewPassword.getText().toString())) {
-
                         //密码一样发送新密码到服务器
-
                         Toast.makeText(ChangePasswordActivity.this, "密码修改成功，请重新登录", Toast.LENGTH_SHORT).show();
                         //跳转之前把sharedPreferences里保存的密码删掉
                         editor.putString("password", "");

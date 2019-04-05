@@ -11,4 +11,7 @@
 
      <!--  这个界面控件需要动态添加-->
 
+     <VideoView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
 </LinearLayout>
