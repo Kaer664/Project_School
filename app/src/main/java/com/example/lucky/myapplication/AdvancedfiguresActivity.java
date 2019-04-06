@@ -1,13 +1,12 @@
 package com.example.lucky.myapplication;
 
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
 import com.mo.bean.AdvancePersonBean;
-import com.mo.presenter.AdvancePersonPresenter;
 import com.mo.view.IAdvancePersonView;
 
 import java.util.ArrayList;

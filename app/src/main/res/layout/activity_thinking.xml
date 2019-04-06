@@ -25,14 +25,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="6.2"
-        android:background="@color/colorgray"
-        >
-<EditText
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="@color/colorblack"
-    android:textSize="@dimen/think_edit_size"
-    android:hint="在此处写下你的意见"/>
+        android:background="@color/colorgray">
+
+        <EditText
+            android:id="@+id/etMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="在此处写下你的意见"
+            android:textColor="@color/colorblack"
+            android:textSize="@dimen/think_edit_size" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,12 +44,13 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnCom"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.8"
         android:background="@color/colorred"
-        android:textSize="@dimen/think_btn_text_size"
-        android:text="提交">
+        android:text="提交"
+        android:textSize="@dimen/think_btn_text_size">
 
     </Button>
 </LinearLayout>
