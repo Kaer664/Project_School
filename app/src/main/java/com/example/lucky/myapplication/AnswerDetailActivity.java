@@ -1,37 +1,132 @@
 package com.example.lucky.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
-public class AnswerDetailActivity extends AppCompatActivity {
+import com.mo.bean.AnswerActivityListBean;
+import com.mo.bean.QuestionInfoBean;
+import com.mo.presenter.AnswerActivityPresenter;
+import com.mo.view.IAnswerActivityView;
 
-    private RadioButton rbAnswerA,rbAnswerB,rbAnswerC,rbAnswerD;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class AnswerDetailActivity extends AppCompatActivity implements IAnswerActivityView {
+
+    private TextView rbQuestionContext;
+    private RadioButton rbAnswerA, rbAnswerB, rbAnswerC, rbAnswerD;
     private Button btnNext;
+    private RadioGroup rgSelect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_detail);
+        AnswerActivityPresenter aap = new AnswerActivityPresenter(this, this);
+        aap.getQuestionInfo("1");
         init();
     }
 
+
     private void init() {
-        rbAnswerA= (RadioButton) findViewById(R.id.rbAnswerA);
-        rbAnswerB= (RadioButton) findViewById(R.id.rbAnswerB);
-        rbAnswerC= (RadioButton) findViewById(R.id.rbAnswerC);
-        rbAnswerD= (RadioButton) findViewById(R.id.rbAnswerD);
-        btnNext= (Button) findViewById(R.id.btnNext);
+        rbAnswerA = (RadioButton) findViewById(R.id.rbAnswerA);
+        rbAnswerB = (RadioButton) findViewById(R.id.rbAnswerB);
+        rbAnswerC = (RadioButton) findViewById(R.id.rbAnswerC);
+        rbAnswerD = (RadioButton) findViewById(R.id.rbAnswerD);
+        rgSelect = (RadioGroup) findViewById(R.id.rgSelect);
+        rbQuestionContext = (TextView) findViewById(R.id.rbQuestionContext);
+        btnNext = (Button) findViewById(R.id.btnNext);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("TestNum","A:"+String.valueOf(rbAnswerA.isChecked()));
-                Log.i("TestNum","B:"+String.valueOf(rbAnswerB.isChecked()));
-                Log.i("TestNum","C:"+String.valueOf(rbAnswerC.isChecked()));
-                Log.i("TestNum","D:"+String.valueOf(rbAnswerD.isChecked()));
+                if(btnNext.getText().toString().equals("提交")){
+
+                }
+                if (count < sign) {
+                    RadioButton rb = (RadioButton) findViewById(rgSelect.getCheckedRadioButtonId());
+                    String selectString=rb.getText().toString();
+                    String answerString=listAnswer.get(count);
+                    if(selectString.equals(answerString)){
+                        score++;
+                    }
+                    if(count==sign-1){
+                        btnNext.setText("提交");
+                    }else {
+                        setData();
+                    }
+                }
             }
         });
     }
+
+    private void setData() {
+        count=count+1;
+        String title = data.get(count).get("title");
+        String a = data.get(count).get("a");
+        String b = data.get(count).get("b");
+        String c = data.get(count).get("c");
+        String d = data.get(count).get("d");
+        rbQuestionContext.setText(title);
+        rbAnswerA.setText(a);
+        rbAnswerB.setText(b);
+        rbAnswerC.setText(c);
+        rbAnswerD.setText(d);
+    }
+
+
+    @Override
+    public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list) {
+
+    }
+
+    List<Map<String, String>> data = new ArrayList<>();
+    private int count = -1;
+    private int sign;
+    private int score = 0;
+
+    @Override
+    public void showQuestionInfo(List<QuestionInfoBean.ProblemListBean> list) {
+        sign = list.size();
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<>();
+            QuestionInfoBean.ProblemListBean bean = list.get(i);
+            map.put("title", bean.getTitle());
+            map.put("a", bean.getSelectA());
+            map.put("b", bean.getSelectB());
+            map.put("c", bean.getSelectC());
+            map.put("d", bean.getSelectD());
+            Log.i("TestNum",bean.getAnswer());
+            listAnswer.add(bean.getAnswer()); //答案
+            data.add(map);
+        }
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                setData();
+            }
+        });
+    }
+
+    private List<String> listAnswer = new ArrayList<>();
+
+    @Override
+    public void isSave(boolean b) {
+
+    }
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+        }
+    };
 }

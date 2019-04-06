@@ -32,4 +32,14 @@
     <dimen name="think_title_text_size">22sp</dimen>
     <dimen name="think_edit_size">20sp</dimen>
     <dimen name="think_btn_text_size">24sp</dimen>
+
+    <dimen name="answer_detail_title_size">25sp</dimen>
+    <dimen name="answer_detail_context_size">24sp</dimen>
+    <dimen name="answer_detail_a_b_c_d_size">22sp</dimen>
+    <dimen name="answer_detail_margin">7sp</dimen>
+
+    <dimen name="student_title_text_size">20sp</dimen>
+    <dimen name="student_date_text_size">16sp</dimen>
+    <dimen name="student_img_weight">106sp</dimen>
+    <dimen name="student_img_height">80sp</dimen>
 </resources>
