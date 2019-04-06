@@ -18,5 +18,5 @@ public interface IBirthView {
     //显示所有生日活动列表
     void showBirthActivityList(List<BirthActivityBean.BirthActivitiesListBean> list, Bitmap[] bitmaps);
     //根据id显示具体生日活动列表
-    void showBirthActivityInfo(BirthActivityBean.BirthActivitiesListBean bean, Bitmap bitmap);
+    void showBirthActivityInfo(BirthActivityBean bean, Bitmap bitmap);
 }

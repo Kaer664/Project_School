@@ -18,6 +18,6 @@ public interface BirthDao {
     interface BirthListener{
         void result(List list);
         void result(List list, Bitmap[] bitmaps);
-        void result(BirthActivityBean.BirthActivitiesListBean bean,Bitmap bitmap);
+        void result(BirthActivityBean bean,Bitmap bitmap);
     }
 }

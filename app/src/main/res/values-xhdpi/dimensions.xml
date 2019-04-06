@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="main_bottom_size">12sp</dimen>
+
     <dimen name="part_text_size">22sp</dimen>
     <dimen name="part_img_height">100dp</dimen>
     <color name="d_c">#ae0ff7</color>
@@ -19,4 +22,14 @@
     <dimen name="advance_item_name_text">22sp</dimen>
     <dimen name="advance_item_msg_text">18sp</dimen>
     <dimen name="advance_item_date_text">22sp</dimen>
+
+    <dimen name="advance_item_text_size1">18sp</dimen>
+    <dimen name="advance_item_text_size">17sp</dimen>
+    <dimen name="advance_item_margin_size">6sp</dimen>
+    <dimen name="advance_item_img_height_size">218sp</dimen>
+    <dimen name="advance_item_img_weight_size">163.5sp</dimen>
+
+    <dimen name="think_title_text_size">22sp</dimen>
+    <dimen name="think_edit_size">20sp</dimen>
+    <dimen name="think_btn_text_size">24sp</dimen>
 </resources>

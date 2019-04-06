@@ -10,16 +10,8 @@
     tools:context="com.example.lucky.myapplication.StudydetailsActivity">
 
      <!--  这个界面控件需要动态添加-->
+
      <VideoView
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
-         android:layout_gravity="center_horizontal"
-         android:visibility="gone"/>
-     <TextView
          android:layout_width="match_parent"
          android:layout_height="wrap_content" />
-     <ImageView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:visibility="gone"/>
 </LinearLayout>

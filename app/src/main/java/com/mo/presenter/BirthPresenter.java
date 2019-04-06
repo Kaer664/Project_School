@@ -40,7 +40,7 @@ public class BirthPresenter {
                 }
 
                 @Override
-                public void result(BirthActivityBean.BirthActivitiesListBean bean, Bitmap bitmap) {
+                public void result(BirthActivityBean bean, Bitmap bitmap) {
 
                 }
             });
@@ -63,7 +63,7 @@ public class BirthPresenter {
                 }
 
                 @Override
-                public void result(BirthActivityBean.BirthActivitiesListBean bean, Bitmap bitmap) {
+                public void result(BirthActivityBean bean, Bitmap bitmap) {
 
                 }
             });
@@ -84,7 +84,7 @@ public class BirthPresenter {
                 }
 
                 @Override
-                public void result(BirthActivityBean.BirthActivitiesListBean bean, Bitmap bitmap) {
+                public void result(BirthActivityBean bean, Bitmap bitmap) {
                     if (view != null) {
                         view.showBirthActivityInfo(bean,bitmap);
                     }

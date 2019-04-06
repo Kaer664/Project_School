@@ -13,8 +13,18 @@ import java.util.List;
  */
 
 public interface ILearningGardenView {
-    //显示学习园地列表
+
+    /**
+     * 显示学习园地列表
+     * @param list
+     * @param bitmaps
+     */
     void showLearningGardenList(List<LearningGardenListBean.LearningGardensListBean> list,Bitmap[] bitmaps);
-    //显示学习园地具体信息
+
+    /**
+     * 显示学习园地具体信息
+     * @param bean
+     * @param bitmap
+     */
     void showLearningGardenInfo(LearningGardenInfoBean bean, Bitmap bitmap);
 }

@@ -17,38 +17,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="问题反馈"
-            android:textSize="20sp"
+            android:textSize="@dimen/think_title_text_size"
             android:textColor="@color/colorwhite" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:background="@color/colorgray"
-        >
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="@color/colorblack"
-    android:textSize="18sp"
-    android:hint="在此处写下你的意见"/>
+        android:layout_weight="6.2"
+        android:background="@color/colorgray">
+
+        <EditText
+            android:id="@+id/etMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="在此处写下你的意见"
+            android:textColor="@color/colorblack"
+            android:textSize="@dimen/think_edit_size" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5">
+        android:layout_weight="3">
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnCom"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.8"
         android:background="@color/colorred"
-        android:textSize="24sp"
-        android:text="提交">
+        android:text="提交"
+        android:textSize="@dimen/think_btn_text_size">
 
     </Button>
 </LinearLayout>
