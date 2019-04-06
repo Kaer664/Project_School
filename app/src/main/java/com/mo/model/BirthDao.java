@@ -1,6 +1,9 @@
 package com.mo.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.mo.bean.BirthActivityBean;
 
 import java.util.List;
 
@@ -14,5 +17,7 @@ public interface BirthDao {
     void getBirthActivityById(Context context, String id, BirthListener listener);
     interface BirthListener{
         void result(List list);
+        void result(List list, Bitmap[] bitmaps);
+        void result(BirthActivityBean.BirthActivitiesListBean bean,Bitmap bitmap);
     }
 }

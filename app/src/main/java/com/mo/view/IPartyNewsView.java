@@ -1,5 +1,7 @@
 package com.mo.view;
 
+import android.graphics.Bitmap;
+
 import com.mo.bean.PartyNewsBean;
 import com.mo.bean.PartyNewsListBean;
 
@@ -12,6 +14,10 @@ import java.util.List;
 public interface IPartyNewsView {
     //显示所有党务要闻
     void showAllPartyNews(List<PartyNewsListBean.PartyAffairsNewsListBean> list);
-    //显示党务要闻具体
-    void showPartyNewsInfo(List<PartyNewsBean.PartyAffairsNewsBean> list);
+    /**
+     * 显示党务要闻具体
+     * @param bean 党务要闻具体信息
+     * @param bitmap 党务要闻图片
+     */
+    void showPartyNewsInfo(PartyNewsBean.PartyAffairsNewsBean bean, Bitmap bitmap);
 }

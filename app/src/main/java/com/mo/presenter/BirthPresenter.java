@@ -1,7 +1,9 @@
 package com.mo.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
+import com.mo.bean.BirthActivityBean;
 import com.mo.model.BirthDao;
 import com.mo.model.impl.BirthDaoImpl;
 import com.mo.view.IBirthView;
@@ -31,6 +33,16 @@ public class BirthPresenter {
                         view.showBirthMonth(list);
                     }
                 }
+
+                @Override
+                public void result(List list, Bitmap[] bitmaps) {
+
+                }
+
+                @Override
+                public void result(BirthActivityBean.BirthActivitiesListBean bean, Bitmap bitmap) {
+
+                }
             });
         }
     }
@@ -40,9 +52,19 @@ public class BirthPresenter {
             dao.getAllBirthActivity(context, new BirthDao.BirthListener() {
                 @Override
                 public void result(List list) {
+
+                }
+
+                @Override
+                public void result(List list, Bitmap[] bitmaps) {
                     if (view != null) {
-                        view.showBirthActivityList(list);
+                        view.showBirthActivityList(list,bitmaps);
                     }
+                }
+
+                @Override
+                public void result(BirthActivityBean.BirthActivitiesListBean bean, Bitmap bitmap) {
+
                 }
             });
         }
@@ -53,8 +75,18 @@ public class BirthPresenter {
             dao.getBirthActivityById(context, id, new BirthDao.BirthListener() {
                 @Override
                 public void result(List list) {
+
+                }
+
+                @Override
+                public void result(List list, Bitmap[] bitmaps) {
+
+                }
+
+                @Override
+                public void result(BirthActivityBean.BirthActivitiesListBean bean, Bitmap bitmap) {
                     if (view != null) {
-                        view.showBirthActivityList(list);
+                        view.showBirthActivityInfo(bean,bitmap);
                     }
                 }
             });

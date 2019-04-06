@@ -24,6 +24,8 @@
         <activity android:name=".SettingActivity" />
         <activity android:name=".PartActivity" />
         <activity android:name=".TempNewsActivity" />
+        <activity android:name=".ParkDetailsActivity"></activity>
+        <activity android:name=".AdvancedfiguresActivity"></activity>
         <activity android:name=".AdvancedfiguresActivity" />
         <activity android:name=".StudyActivity" />
         <activity android:name=".CharacterdetailsActivity" />

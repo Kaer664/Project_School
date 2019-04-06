@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorwhite">
 
         <ImageView
-            android:id="@+id/imgcharacter"
+            android:id="@+id/imgCharacter"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:src="@drawable/study"
             android:layout_weight="18" />
 
         <TextView
@@ -16,17 +18,17 @@
             android:layout_weight="2" />
 
         <TextView
-            android:id="@+id/tvcharacterName"
+            android:id="@+id/tvCharacterName"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:gravity="center_horizontal|center_vertical"
             android:text="冯理达"
             android:textColor="@color/colorblack"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvcharacterAchievement"
+            android:id="@+id/tvCharacterAchievement"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
@@ -35,7 +37,7 @@
             android:textColor="@color/colorblack" />
 
         <TextView
-            android:id="@+id/tvcreateDate"
+            android:id="@+id/tvCreateDate"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"

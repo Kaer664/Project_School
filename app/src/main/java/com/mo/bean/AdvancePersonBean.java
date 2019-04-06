@@ -133,6 +133,22 @@ public class AdvancePersonBean {
             return workTask;
         }
 
+        @Override
+        public String toString() {
+            return "AdvancedPersonListBean{" +
+                    "imgUrl='" + imgUrl + '\'' +
+                    ", typeName='" + typeName + '\'' +
+                    ", id='" + id + '\'' +
+                    ", title='" + title + '\'' +
+                    ", writerPersonName='" + writerPersonName + '\'' +
+                    ", yxx='" + yxx + '\'' +
+                    ", createDate='" + createDate + '\'' +
+                    ", writerID='" + writerID + '\'' +
+                    ", typeID='" + typeID + '\'' +
+                    ", workTask='" + workTask + '\'' +
+                    '}';
+        }
+
         public void setWorkTask(String workTask) {
             this.workTask = workTask;
         }

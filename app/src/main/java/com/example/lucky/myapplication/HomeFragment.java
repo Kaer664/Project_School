@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             case R.id.lineStudy:
                 Toast.makeText(getActivity(),"学习园地",Toast.LENGTH_LONG).show();
                 Log.i("TestNum","学习园地");
-                intent=new Intent(getActivity(),AdvancedfiguresActivity.class);
+                intent=new Intent(getActivity(),StudyActivity.class);
                 startActivity(intent);
                 break;
             case R.id.lineBirthday:

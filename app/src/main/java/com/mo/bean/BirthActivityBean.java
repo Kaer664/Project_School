@@ -35,6 +35,22 @@ public class BirthActivityBean {
     }
 
     public static class BirthActivitiesListBean {
+        @Override
+        public String toString() {
+            return "BirthActivitiesListBean{" +
+                    "imgUrl='" + imgUrl + '\'' +
+                    ", typeName='" + typeName + '\'' +
+                    ", id='" + id + '\'' +
+                    ", title='" + title + '\'' +
+                    ", writerPersonName='" + writerPersonName + '\'' +
+                    ", yxx='" + yxx + '\'' +
+                    ", createDate='" + createDate + '\'' +
+                    ", writerID='" + writerID + '\'' +
+                    ", typeID='" + typeID + '\'' +
+                    ", workTask='" + workTask + '\'' +
+                    '}';
+        }
+
         /**
          * imgUrl : IMG_20160220_111759.jpg
          * typeName : 党员生日活动

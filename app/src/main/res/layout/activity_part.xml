@@ -7,8 +7,8 @@
     tools:context="com.example.lucky.myapplication.PartActivity">
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="1000dp"
+        android:layout_height="@dimen/part_img_height"
         android:background="@color/d_c"/>
 
 </RelativeLayout>
