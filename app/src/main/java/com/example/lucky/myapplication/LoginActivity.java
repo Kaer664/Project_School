@@ -22,21 +22,22 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private CheckBox cbautologin;
-    private ToolsPresenter toolsPresenter;
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this,this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        initview();
+
         SharedPreferences preferences = toolsPresenter.readUserInfo();
         String username = preferences.getString("username", "");
         String pwd = preferences.getString("pwd","");
         if (username!=""&&pwd!=""){
-            cbautologin.setChecked(true);
+//            cbautologin.setChecked(true);
             toolsPresenter.login(username,pwd);
         }
 
+        setContentView(R.layout.activity_login);
+        initview();
         /*测试数据*/
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
         sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         cbautologin = (CheckBox) findViewById(R.id.cbautologin);
-        toolsPresenter=new ToolsPresenter(this,this);
+//        toolsPresenter=new ToolsPresenter(this,this);
     }
 
     @Override
