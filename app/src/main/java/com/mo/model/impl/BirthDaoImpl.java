@@ -50,12 +50,9 @@ public class BirthDaoImpl implements BirthDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_BRITH_ACTIVITY_BY_ID, "id", "all");
-                try {
+
                     List<BirthActivityBean.BirthActivitiesListBean> list = null;
                     Bitmap[] bitmaps = null;
-                    JSONObject jsonObject = new JSONObject(json);
-                    String msg = jsonObject.getString("msg");
-                    if ("success".equals(msg)) {
                         Gson gson = new Gson();
                         list = gson.fromJson(json, BirthActivityBean.class).getBirthActivitiesList();
                         bitmaps = new Bitmap[list.size()];
@@ -63,11 +60,8 @@ public class BirthDaoImpl implements BirthDao {
                             Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
                             bitmaps[i] = bitmap;
                         }
-                    }
+
                     listener.result(list, bitmaps);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
             }
         }.start();
     }

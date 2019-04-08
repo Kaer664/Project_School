@@ -2,6 +2,7 @@ package com.example.lucky.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
@@ -22,6 +23,7 @@ public class RankingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+        toolBar();
         listViewRank= (ListView) findViewById(R.id.listViewRank);
         for(int i=0;i<3;i++){
             Map<String,Object> map=new HashMap<>();
@@ -35,5 +37,20 @@ public class RankingActivity extends AppCompatActivity {
                 ,new String[]{"ranking","img","name","score"}
                 ,new int[]{R.id.tvItemRanking,R.id.imgItem,R.id.tvItemName,R.id.tvItemScore});
         listViewRank.setAdapter(adapter);
+    }
+
+    private Toolbar toolbar;
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbRanking);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

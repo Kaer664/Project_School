@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,14 +22,29 @@ import java.util.List;
 import java.util.Map;
 
 public class StudyActivity extends AppCompatActivity implements ILearningGardenView,AdapterView.OnItemClickListener{
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
+        toolBar();
         init();
-//        LearningGardenPresenter lgp=new LearningGardenPresenter(this,this);
-//        lgp.getAllLearningGarden();
+       LearningGardenPresenter lgp=new LearningGardenPresenter(this,this);
+       lgp.getAllLearningGarden();
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbstudy);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private ListView lvStudy;
@@ -61,6 +77,7 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
 
     @Override
     public void showLearningGardenInfo(LearningGardenInfoBean bean, Bitmap bitmap) {
+        Log.i("","");
     }
 
     @Override

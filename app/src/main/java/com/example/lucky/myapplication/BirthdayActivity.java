@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BirthdayActivity extends AppCompatActivity implements IBirthView{
-
+    private Toolbar toolbar;
     private ListView lvBirthdayActivity;
     private TextView tvBirthdayName;
 
@@ -37,11 +38,26 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday);
+        toolBar();
         init();
         BirthPresenter bp=new BirthPresenter(this,this);
         bp.getAllBirthActivity();
         bp.getBirthActivityById("9");
         bp.getBirthMonth();
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbbirthday);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -60,9 +76,6 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
             map.put("msg","生日活动，生日活动，生日活动，生日活动");
             data.add(map);
         }
-        SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.bitth_item
-                , new String[]{"name","msg","img"}
-                , new int[]{R.id.birthTvName,R.id.birthTvMsg,R.id.item_img});
         BaseAdapter adapter1=new BaseAdapter() {
             @Override
             public int getCount() {
@@ -94,6 +107,7 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
                         public void onClick(View v) {
                             Intent intent=new Intent(BirthdayActivity.this,BirthdaydetailsActivity.class);
                             intent.putExtra("id","");
+                            startActivity(intent);
                         }
                     });
                     convertView.setTag(holder);

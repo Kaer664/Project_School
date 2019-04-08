@@ -6,16 +6,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorwhite"
-    tools:context="">
-<android.support.v7.widget.Toolbar
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
+    tools:context=".SettingActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbSetting"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="设置"
-        android:textColor="@color/colorblack"/>
-</android.support.v7.widget.Toolbar>
+        android:background="@color/colorred"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="排行榜"/>
+
+        <TextView
+            android:id="@+id/tvtbAnswerUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="孙华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

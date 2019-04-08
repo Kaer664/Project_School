@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,15 +33,30 @@ import java.util.Map;
  * 党务活动
  */
 public class CommunistPartyActivity extends AppCompatActivity implements IPartyActivityView{
-
+    private Toolbar toolbar;
     private ListView partListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communist_party);
+        toolBar();
         init();
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
         partyActivityPresenter.getAllPartyActivity();
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbCommunistparty);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void init() {

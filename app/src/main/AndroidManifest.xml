@@ -36,7 +36,8 @@
         <activity android:name=".ProposalActivity2" />
         <activity android:name=".AnswerDetailActivity" />
         <activity android:name=".RankingActivity" />
-        <activity android:name=".IntegralActivity"></activity>
+        <activity android:name=".IntegralActivity" />
+        <activity android:name=".AdvancedDetailActivity"></activity>
     </application>
 
 </manifest>

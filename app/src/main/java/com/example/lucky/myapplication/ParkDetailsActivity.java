@@ -13,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
+import com.mo.presenter.AnswerActivityPresenter;
 import com.mo.presenter.PartyActivityPresenter;
 import com.mo.view.IPartyActivityView;
 
@@ -34,12 +36,16 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String id = getIntent().getStringExtra("id");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_park_details);
-        init();
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
-        partyActivityPresenter.getPartyActivityById(id);
+        String id = getIntent().getStringExtra("id");
+        if(id==null){
+            Toast.makeText(this,"数据可能有错，请稍后再试",Toast.LENGTH_LONG).show();
+        }else {
+            partyActivityPresenter.getPartyActivityById(id);
+            init();
+        }
     }
 
     /**

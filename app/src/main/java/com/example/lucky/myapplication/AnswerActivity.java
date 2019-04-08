@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,14 +27,29 @@ import java.util.List;
 import java.util.Map;
 
 public class AnswerActivity extends AppCompatActivity implements IAnswerActivityView{
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
+        toolBar();
         init();
         AnswerActivityPresenter ap=new AnswerActivityPresenter(this,this);
         ap.getActivityList();
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbAnswer);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private ListView listViewAnswer;

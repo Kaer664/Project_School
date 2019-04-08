@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AnswerDetailActivity extends AppCompatActivity implements IAnswerActivityView {
-
+    private Toolbar toolbar;
     private TextView rbQuestionContext;
     private RadioButton rbAnswerA, rbAnswerB, rbAnswerC, rbAnswerD;
     private Button btnNext;
@@ -33,6 +34,7 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_detail);
+        toolBar();
         String id = getIntent().getStringExtra("id");
         AnswerActivityPresenter aap = new AnswerActivityPresenter(this, this);
         if(id==null){
@@ -41,6 +43,20 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
             aap.getQuestionInfo(id);
             init();
         }
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbAnswerdetail);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

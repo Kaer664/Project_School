@@ -4,7 +4,8 @@
 
     <dimen name="main_bottom_size">14sp</dimen>
 
-    <dimen name="part_text_size">20sp</dimen>
+    <dimen name="part_text_size">19sp</dimen>
+    <dimen name="part_line_padding">3dp</dimen>
     <dimen name="part_img_height">90dp</dimen>
     <color name="d_c">#b6afb1</color>
 
