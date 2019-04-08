@@ -29,19 +29,21 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initview();
+        tblogin.setTitle("");
+        setSupportActionBar(tblogin);
         SharedPreferences preferences = toolsPresenter.readUserInfo();
         String username = preferences.getString("username", "");
-        String pwd = preferences.getString("pwd","");
-        if (username!=""&&pwd!=""){
+        String pwd = preferences.getString("pwd", "");
+        if (username != "" && pwd != "") {
             cbautologin.setChecked(true);
-            toolsPresenter.login(username,pwd);
+            toolsPresenter.login(username, pwd);
         }
 
         /*测试数据*/
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolsPresenter.login(etUsername.getText().toString(),etPassword.getText().toString());
+                toolsPresenter.login(etUsername.getText().toString(), etPassword.getText().toString());
             }
         });
     }
@@ -54,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
         sharedPreferences = getSharedPreferences("UserInfo", MODE_PRIVATE);
         editor = sharedPreferences.edit();
         cbautologin = (CheckBox) findViewById(R.id.cbautologin);
-        toolsPresenter=new ToolsPresenter(this,this);
+        toolsPresenter = new ToolsPresenter(this, this);
     }
 
     @Override
@@ -68,10 +70,10 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
             @Override
             public void run() {
                 if (bean != null) {
-                    if(cbautologin.isChecked()){
-                        toolsPresenter.saveUserInfo(etUsername.getText().toString(),etPassword.getText().toString(),bean);
+                    if (cbautologin.isChecked()) {
+                        toolsPresenter.saveUserInfo(etUsername.getText().toString(), etPassword.getText().toString(), bean);
                     }
-                    Toast.makeText(LoginActivity.this, "欢迎你"+bean.getUserRealName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "欢迎你" + bean.getUserRealName(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();

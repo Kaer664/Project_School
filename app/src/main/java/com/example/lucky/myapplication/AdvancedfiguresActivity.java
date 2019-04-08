@@ -3,6 +3,8 @@ package com.example.lucky.myapplication;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
@@ -15,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvancePersonView {
-
+    private Toolbar toolbar;
     private GridView gridViewAdvanced;
     //gridViewAdvanced
     @Override
@@ -23,6 +25,17 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedfigures);
         init();
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 //        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
 //        ap.getAllAdvancePerson();
     }
@@ -30,6 +43,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
 
     private void init() {
         gridViewAdvanced= (GridView) findViewById(R.id.gridViewAdvanced);
+        toolbar = (Toolbar) findViewById(R.id.tbAdvancedfigures);
         initView();
     }
     private List<Map<String,Object>> data=new ArrayList<>();

@@ -6,13 +6,42 @@
     android:background="@color/white"
     android:layout_height="match_parent"
     tools:context="com.example.lucky.myapplication.ParkDetailsActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbParkdetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="活动详情"/>
 
+        <TextView
+            android:id="@+id/tvtbParkdetailsUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="孙华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
     <!--顶部-->
        <LinearLayout
            android:layout_width="match_parent"
            android:orientation="vertical"
            android:id="@+id/LineTop"
            android:layout_height="wrap_content"
+           android:layout_below="@id/tbParkdetails"
            >
            <TextView
                android:layout_width="match_parent"

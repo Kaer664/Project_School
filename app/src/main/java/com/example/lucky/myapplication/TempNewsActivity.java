@@ -3,6 +3,8 @@ package com.example.lucky.myapplication;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +22,7 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
     private ImageView mImgNewsPic;
     private TextView mTvNewContext;
     private PartyNewsPresenter partyNewsPresenter;
-
+    private Toolbar toolbar;
 
 
     @Override
@@ -30,6 +32,17 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
         init();
         int id = getIntent().getIntExtra("id", 1);
         partyNewsPresenter.getPartyNewsById(String.valueOf(id));
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void init() {
@@ -38,6 +51,7 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
         mImgNewsPic = (ImageView) findViewById(R.id.imgNewsPic);
         mTvNewContext = (TextView) findViewById(R.id.tvNewContext);
         partyNewsPresenter=new PartyNewsPresenter(this,this);
+        toolbar= (Toolbar) findViewById(R.id.tbTempnews);
     }
 
     @Override

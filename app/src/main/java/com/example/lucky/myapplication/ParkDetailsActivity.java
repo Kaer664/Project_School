@@ -3,7 +3,9 @@ package com.example.lucky.myapplication;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -20,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView {
-
+    private Toolbar toolbar;
     private ListView details_list_view;
     private EditText etBottom;
     private Button btnBottom;
@@ -32,6 +34,17 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
         partyActivityPresenter.getPartyActivityById(id);
         init();
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+//设置返回事件
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     /**
@@ -43,6 +56,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         btnBottom= (Button) findViewById(R.id.btnBottom);
        SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.details_item,new String[]{},new int[]{});
         details_list_view.setAdapter(adapter);
+        toolbar= (Toolbar) findViewById(R.id.tbParkdetails);
     }
 
     @Override

@@ -7,21 +7,34 @@
     android:background="@color/colorwhite"
     android:orientation="vertical"
     tools:context="com.example.lucky.myapplication.TempNewsActivity">
-
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tblogin"
+        android:id="@+id/tbTempnews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorbtnblue">
+        android:background="@color/colorred">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="党务要闻"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvtbTempnewsUserName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="党务要闻"
-            android:textColor="@color/colorred"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="孙华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
     </android.support.v7.widget.Toolbar>
 
     <ScrollView

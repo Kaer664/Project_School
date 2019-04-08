@@ -9,16 +9,33 @@
     tools:context="com.example.lucky.myapplication.ThinkingActivity">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tbthinking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorbtnblue">
+        android:background="@color/colorred">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="学习园地详情"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvtbthinking"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="问题反馈"
-            android:textSize="@dimen/think_title_text_size"
-            android:textColor="@color/colorwhite" />
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="孙华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
@@ -33,6 +50,7 @@
             android:layout_height="wrap_content"
             android:hint="在此处写下你的意见"
             android:textColor="@color/colorblack"
+            android:theme="@style/MyEditText"
             android:textSize="@dimen/think_edit_size" />
     </LinearLayout>
 

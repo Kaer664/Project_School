@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,11 +22,24 @@ import java.util.List;
 import java.util.Map;
 
 public class StudyActivity extends AppCompatActivity implements ILearningGardenView,AdapterView.OnItemClickListener{
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
+
+        toolbar = (Toolbar) findViewById(R.id.tbstudy);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         init();
 //        LearningGardenPresenter lgp=new LearningGardenPresenter(this,this);
 //        lgp.getAllLearningGarden();
@@ -69,14 +83,17 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         switch (position){
             case 0:
                 intent=new Intent(this,StudydetailsActivity.class);
+                intent.putExtra("StudyDetailsId",position);
                 startActivity(intent);
                 break;
             case 1:
                 intent=new Intent(this,StudydetailsActivity.class);
+                intent.putExtra("StudyDetailsId",position);
                 startActivity(intent);
                 break;
             case 2:
                 intent=new Intent(this,StudydetailsActivity.class);
+                intent.putExtra("StudyDetailsId",position);
                 startActivity(intent);
                 break;
         }

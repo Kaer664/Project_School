@@ -31,7 +31,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("关于我们")
-                        .setMessage("Powered by Software Studio （软件工作室技术支持）" + "风雨喏、Lucky、把闪现给我交了")
+                        .setMessage("Powered by Software Studio （软件工作室技术支持）")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

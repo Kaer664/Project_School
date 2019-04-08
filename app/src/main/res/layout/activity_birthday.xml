@@ -8,15 +8,34 @@
     android:orientation="vertical"
     tools:context="com.example.lucky.myapplication.BirthdayActivity">
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tbbirthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorbtnblue">
+        android:background="@color/colorred"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="党员生日"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvtbbirthdayUsername"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="党员生日"
-            android:textColor="@color/colorwhite" />
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="孙华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
     </android.support.v7.widget.Toolbar>
     <TextView
         android:id="@+id/tvbirthdayName"
