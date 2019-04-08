@@ -33,5 +33,21 @@ public class PersonalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        final LinearLayout lineRaking= (LinearLayout) getActivity().findViewById(R.id.lineRaking);
+        lineRaking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),RankingActivity.class);
+                startActivity(intent);
+            }
+        });
+        final LinearLayout lineIntegral= (LinearLayout) getActivity().findViewById(R.id.lineIntegral);
+        lineIntegral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),IntegralActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

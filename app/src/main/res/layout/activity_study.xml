@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     android:background="@color/colorwhite"
     android:orientation="vertical"
+    android:padding="5dp"
     tools:context="com.example.lucky.myapplication.StudyActivity">
 
     <ListView
         android:id="@+id/lvStudy"
+        android:divider="@color/black"
+        android:dividerHeight="2px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </ListView>
 
 </LinearLayout>

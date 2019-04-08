@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * 党务活动
  */
-public class CommunistPartyActivity extends AppCompatActivity implements IPartyActivityView,AdapterView.OnItemClickListener{
+public class CommunistPartyActivity extends AppCompatActivity implements IPartyActivityView{
 
     private ListView partListView;
     @Override
@@ -116,7 +116,6 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
             }
         };
         partListView.setAdapter(adapter);
-        partListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -150,22 +149,4 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
         }
     };
 
-    /**
-     * ListViewItem 的监听事件
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String s= (String) ((Map)view.getTag()).get("id");
-        switch (s){
-            case "1":
-                Log.i("TestNum","1");
-                break;
-            case "":
-                break;
-        }
-    }
 }

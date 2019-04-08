@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.AnswerActivityListBean;
 import com.mo.bean.QuestionInfoBean;
@@ -32,9 +33,14 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_detail);
+        String id = getIntent().getStringExtra("id");
         AnswerActivityPresenter aap = new AnswerActivityPresenter(this, this);
-        aap.getQuestionInfo("1");
-        init();
+        if(id==null){
+            Toast.makeText(this,"数据可能有错，请稍后再试",Toast.LENGTH_LONG).show();
+        }else {
+            aap.getQuestionInfo(id);
+            init();
+        }
     }
 
 
@@ -49,19 +55,20 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(btnNext.getText().toString().equals("提交")){
-
-                }
-                if (count < sign) {
+                if (data.size() == 0) {
+                    Toast.makeText(AnswerDetailActivity.this, "请检查网络，或者题目无效，未请求到数据。", Toast.LENGTH_LONG).show();
+                } else if (btnNext.getText().toString().equals("提交")) {
+                    Log.i("TestNum", "这个时候变成提交了");
+                } else if (count < sign) {
                     RadioButton rb = (RadioButton) findViewById(rgSelect.getCheckedRadioButtonId());
-                    String selectString=rb.getText().toString();
-                    String answerString=listAnswer.get(count);
-                    if(selectString.equals(answerString)){
+                    String selectString = rb.getText().toString();
+                    String answerString = listAnswer.get(count);
+                    if (selectString.equals(answerString)) {
                         score++;
                     }
-                    if(count==sign-1){
+                    if (count == sign - 1) {
                         btnNext.setText("提交");
-                    }else {
+                    } else {
                         setData();
                     }
                 }
@@ -70,7 +77,7 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
     }
 
     private void setData() {
-        count=count+1;
+        count = count + 1;
         String title = data.get(count).get("title");
         String a = data.get(count).get("a");
         String b = data.get(count).get("b");
@@ -105,8 +112,21 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
             map.put("b", bean.getSelectB());
             map.put("c", bean.getSelectC());
             map.put("d", bean.getSelectD());
-            Log.i("TestNum",bean.getAnswer());
-            listAnswer.add(bean.getAnswer()); //答案
+            Log.i("TestNum", bean.getAnswer());
+            switch (bean.getAnswer()){
+                case "A":
+                    listAnswer.add(bean.getSelectA());
+                    break;
+                case "B":
+                    listAnswer.add(bean.getSelectB());
+                    break;
+                case "C":
+                    listAnswer.add(bean.getSelectC());
+                    break;
+                case "D":
+                    listAnswer.add(bean.getSelectD());
+                    break;
+            }
             data.add(map);
         }
         handler.post(new Runnable() {

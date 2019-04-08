@@ -34,7 +34,9 @@
         <activity android:name=".BirthdayActivity" />
         <activity android:name=".BirthdaydetailsActivity" />
         <activity android:name=".ProposalActivity2" />
-        <activity android:name=".AnswerDetailActivity"></activity>
+        <activity android:name=".AnswerDetailActivity" />
+        <activity android:name=".RankingActivity" />
+        <activity android:name=".IntegralActivity"></activity>
     </application>
 
 </manifest>

@@ -4,23 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorwhite"
-    android:padding="5dp"
-    android:orientation="vertical"
-    tools:context="com.example.lucky.myapplication.AnswerActivity">
+    android:background="#CCC"
+    tools:context="com.example.lucky.myapplication.RankingActivity">
+
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/black"
-        android:id="@+id/listViewAnswer"
-        android:dividerHeight="2px"></ListView>
-
-
-
-
-
-
-
-
+        android:id="@+id/listViewRank"
+        android:background="@color/colorwhite"
+        android:dividerHeight="1dp"
+        android:divider="#CCC"
+        ></ListView>
 </LinearLayout>

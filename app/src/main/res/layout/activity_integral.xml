@@ -5,22 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorwhite"
-    android:padding="5dp"
-    android:orientation="vertical"
-    tools:context="com.example.lucky.myapplication.AnswerActivity">
+    tools:context="com.example.lucky.myapplication.IntegralActivity">
 
-    <ListView
+
+    <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/black"
-        android:id="@+id/listViewAnswer"
-        android:dividerHeight="2px"></ListView>
-
-
-
-
-
-
-
-
+        android:id="@+id/exListView"></ExpandableListView>
 </LinearLayout>
