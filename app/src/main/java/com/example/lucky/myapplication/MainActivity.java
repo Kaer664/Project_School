@@ -3,21 +3,23 @@ package com.example.lucky.myapplication;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-public class MainActivity extends FragmentActivity  {
+public class MainActivity extends AppCompatActivity {
     private Toolbar tbHomeActivity;
-    private Button btnhome;
-    private Button btnperson;
+    private LinearLayout btnhome;
+    private LinearLayout btnperson;
     private HomeFragment homeFragment;
+    private ImageView imgMainHome,imgMainPersonal;
     private PersonalFragment personalFragment;
     FragmentManager fm;
     @Override
@@ -25,8 +27,12 @@ public class MainActivity extends FragmentActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tbHomeActivity = (Toolbar) findViewById(R.id.tbHomeActivity);
-        btnhome= (Button) findViewById(R.id.btnHomepage);
-        btnperson= (Button) findViewById(R.id.btnPersonal);
+        tbHomeActivity.setTitle("");
+        setSupportActionBar(tbHomeActivity);
+        btnhome= (LinearLayout) findViewById(R.id.btnHomepage);
+        btnperson= (LinearLayout) findViewById(R.id.btnPersonal);
+//        imgMainHome= (ImageView) findViewById(R.id.imgMainHome);
+//        imgMainPersonal= (ImageView) findViewById(R.id.imgMainPersonal);
         fm = getSupportFragmentManager();
         setTabSelection(0);
         btnhome.setOnClickListener(new OnClickListener() {
@@ -69,6 +75,8 @@ public class MainActivity extends FragmentActivity  {
                 }else{
                     ft.show(homeFragment);
                 }
+                imgMainHome.setImageDrawable(getResources().getDrawable(R.drawable.index1));
+                imgMainPersonal.setImageDrawable(getResources().getDrawable(R.drawable.tech));
                 break;
 
             case 1:
@@ -77,6 +85,8 @@ public class MainActivity extends FragmentActivity  {
                     ft.add(R.id.flmain, personalFragment);
                 }
                 ft.show(personalFragment);
+                imgMainHome.setImageDrawable(getResources().getDrawable(R.drawable.index));
+                imgMainPersonal.setImageDrawable(getResources().getDrawable(R.drawable.tech1));
                 break;
         }
         ft.commit();
