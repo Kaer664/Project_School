@@ -150,12 +150,12 @@ public class ToolsDaoImpl implements ToolsDao {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("username",userName);
         editor.putString("pwd",pwd);
-        if (bean!=null){
+            if (bean!=null){
             editor.putString("userId",bean.getUserID());
             editor.putString("userRealName",bean.getUserRealName());
         }else{
-            editor.putString("userId","");
-            editor.putString("userRealName","");
+            editor.putString("userId",null);
+            editor.putString("userRealName",null);
         }
         editor.commit();
     }

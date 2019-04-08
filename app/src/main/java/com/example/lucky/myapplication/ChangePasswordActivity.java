@@ -31,7 +31,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements IToolsV
                 if (!etNewPassword.getText().toString().equals("") && !etSureNewPassword.getText().toString().equals("")) {
                     if (etNewPassword.getText().toString().equals(etSureNewPassword.getText().toString())) {
                         String pwd = sharedPreferences.getString("pwd", "");
-                        if (pwd!=""&&pwd.equals(mEtOldPassword.getText().toString())) {
+                        if (pwd==""||pwd.equals(mEtOldPassword.getText().toString())) {
                             toolsPresenter.changePass(mEtOldPassword.getText().toString(),etNewPassword.getText().toString());
                         } else {
                             Toast.makeText(ChangePasswordActivity.this, "本地密码错误！", Toast.LENGTH_SHORT).show();
@@ -85,8 +85,9 @@ public class ChangePasswordActivity extends AppCompatActivity implements IToolsV
             public void run() {
                 if (b){
                     Toast.makeText(ChangePasswordActivity.this, "密码修改成功，请重新登录", Toast.LENGTH_SHORT).show();
-                    //跳转之前把sharedPreferences里保存的密码删掉
-                    toolsPresenter.saveUserInfo(null,null,null);
+                    //跳转之前不需要把sharedPreferences里保存的密码删掉
+                    // 在修改密码接口内，只要修改成功，自动删除数据
+//                    toolsPresenter.saveUserInfo(null,null,null);
                     Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
