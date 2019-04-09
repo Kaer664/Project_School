@@ -17,7 +17,7 @@
         android:textSize="25sp"
         android:text="1"/>
 
-    <ImageView
+    <com.example.lucky.myapplication.view.CircleImageView
         android:id="@+id/imgItem"
         android:layout_width="@dimen/part_img_height"
         android:layout_height="@dimen/part_img_height"
