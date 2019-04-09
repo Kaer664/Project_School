@@ -11,8 +11,6 @@ import com.mo.view.IToolsView;
 
 import java.util.LinkedHashMap;
 
-import static android.content.Context.MODE_PRIVATE;
-
 /**
  * Created by 风雨诺 on 2019/3/30.
  * 工具接口控制层

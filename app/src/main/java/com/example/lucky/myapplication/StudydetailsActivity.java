@@ -26,7 +26,6 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     private ImageView imgStudyDetails;
     private String replyId;
     private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

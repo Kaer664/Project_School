@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
 import com.mo.bean.AdvancePersonBean;
+import com.mo.presenter.AdvancePersonPresenter;
 import com.mo.view.IAdvancePersonView;
 
 import java.util.ArrayList;
@@ -30,8 +32,9 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         setContentView(R.layout.activity_advancedfigures);
         toolBar();
         init();
-//        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
-//        ap.getAllAdvancePerson();
+        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
+        ap.getAllAdvancePerson();
+        ap.getAdvancePersonById("9");
     }
 
     private void toolBar() {
@@ -101,7 +104,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      */
     @Override
     public void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list, Bitmap[] bitmaps) {
-        for(int i=0;i>list.size();i++){
+        for(int i=0;i<list.size();i++){
             AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
             Map<String,Object> map=new HashMap<>();
             map.put("img",bitmaps[i]);
@@ -119,6 +122,6 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      */
     @Override
     public void showAdvancePersonInfo(AdvancePersonBean.AdvancedPersonListBean bean, Bitmap bitmap) {
-
+        Log.i("","");
     }
 }

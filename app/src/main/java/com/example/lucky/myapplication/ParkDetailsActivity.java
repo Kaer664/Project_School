@@ -21,21 +21,28 @@ import android.widget.Toast;
 import com.example.lucky.myapplication.view.CommentView;
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.PartyActivityPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IPartyActivityView;
+import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView, View.OnClickListener {
+public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView, View.OnClickListener, IToolsView {
     private Toolbar toolbar;
     private EditText etBottom;
     private Button btnBottom;
     private TextView textView, tvWriterName, details_top_title;
     private ImageView imgView;
     private LinearLayout lineAdd;
+    private ToolsPresenter toolsPresenter;
+    private String activityId;
+    private PartyActivityPresenter partyActivityPresenter;
+    private String id;
 
     private int width;
     private int height;
@@ -48,8 +55,8 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         DisplayMetrics dm = resources.getDisplayMetrics();
         width = dm.widthPixels;
         height = dm.heightPixels;
-        PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
-        String id = getIntent().getStringExtra("id");
+        partyActivityPresenter = new PartyActivityPresenter(this, this);
+        id= getIntent().getStringExtra("id");
         if (id == null) {
             Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
         } else {
@@ -84,6 +91,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         imgView = (ImageView) findViewById(R.id.imgView);
         lineAdd= (LinearLayout) findViewById(R.id.lineAdd);
         btnBottom.setOnClickListener(this);
+        toolsPresenter=new ToolsPresenter(this,this);
     }
 
     private void initView() {
@@ -122,6 +130,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             map.put("title", javaBean.getTitle());
             map.put("writer", javaBean.getWriterPersonName());
             map.put("content", javaBean.getWorkTask());
+            activityId= javaBean.getId();
             map.put("img",bitmap);
             data.add(map);
         }
@@ -156,8 +165,42 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnBottom:
-                etBottom.getText().toString();
+                toolsPresenter.addReply(activityId,"党务活动评论",etBottom.getText().toString());
+                etBottom.setText("");
                 break;
         }
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(final boolean b) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (b){
+                    Toast.makeText(ParkDetailsActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                    partyActivityPresenter.getPartyActivityById(id);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
     }
 }
