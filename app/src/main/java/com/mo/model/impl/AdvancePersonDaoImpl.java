@@ -26,19 +26,24 @@ public class AdvancePersonDaoImpl implements AdvancePersonDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_ADVANCED_PERSRON_BY_ID, "id", "all");
-
+                try {
                     List<AdvancePersonBean.AdvancedPersonListBean> list = null;
                     Bitmap[] bitmaps = null;
+                    JSONObject jsonObject = new JSONObject(json);
+                    String msg = jsonObject.getString("msg");
+                    if ("success".equals(msg)) {
                         Gson gson = new Gson();
                         list = gson.fromJson(json, AdvancePersonBean.class).getAdvancedPersonList();
                         bitmaps = new Bitmap[list.size()];
                         for (int i = 0; i < list.size(); i++) {
                             Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
                             bitmaps[i] = bitmap;
-                        }
-
+                    }
+                    }
                     listener.result(list, bitmaps);
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
     }

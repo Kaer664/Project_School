@@ -34,7 +34,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         init();
         AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
         ap.getAllAdvancePerson();
-        ap.getAdvancePersonById("9");
+        ap.getAdvancePersonById("5");
     }
 
     private void toolBar() {
