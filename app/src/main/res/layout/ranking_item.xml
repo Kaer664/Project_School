@@ -18,9 +18,11 @@
         android:text="1"/>
 
     <ImageView
+        android:id="@+id/imgItem"
         android:layout_width="@dimen/part_img_height"
         android:layout_height="@dimen/part_img_height"
-        android:id="@+id/imgItem"/>
+        android:padding="@dimen/ranking_padding" />
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="3"
@@ -35,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="@dimen/part_text_size"
+                android:textSize="@dimen/details_item_name_text"
                 android:textColor="@color/black"
                 android:text="姓名："/>
             <TextView
@@ -44,7 +46,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="center"
                 android:id="@+id/tvItemName"
-                android:textSize="@dimen/part_text_size"
+                android:textSize="@dimen/details_item_name_text"
                 android:text="蔡准"/>
         </LinearLayout>
         <LinearLayout
@@ -57,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/black"
-                android:textSize="@dimen/part_text_size"
+                android:textSize="@dimen/details_item_name_text"
                 android:text="分数："/>
             <TextView
                 android:layout_width="wrap_content"
@@ -65,7 +67,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="center"
                 android:id="@+id/tvItemScore"
-                android:textSize="@dimen/part_text_size"
+                android:textSize="@dimen/details_item_name_text"
                 android:text="20"/>
         </LinearLayout>
     </LinearLayout>

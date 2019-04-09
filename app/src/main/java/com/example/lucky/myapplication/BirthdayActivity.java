@@ -134,6 +134,7 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
     @Override
     public void showBirthMonth(List<BirthdayMonthBean.UserListBean> list) {
         StringBuffer sb=new StringBuffer();
+        sb.append("本月过生日的党员：");
         for (int i=0;i<list.size();i++){
             BirthdayMonthBean.UserListBean userListBean = list.get(i);
             Log.i("TestNum","这是显示出生月份方法里面的数值："+userListBean.getName());

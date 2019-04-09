@@ -9,17 +9,19 @@
     <color name="d_c">#ff00</color>
     <color name="black">#4a4a4a</color>
 
+    <!--党务活动-->
     <dimen name="details_text_size">22sp</dimen>
     <dimen name="details_margin_top">20sp</dimen>
     <dimen name="details_margin_left">10sp</dimen>
     <dimen name="details_btn_size">16sp</dimen>
     <dimen name="details_bold_size">20sp</dimen>
 
+    <!--党务活动评论区的-->
     <dimen name="details_item_head_img_width">35dp</dimen>
     <dimen name="details_item_head_img_margin">3dp</dimen>
-    <dimen name="details_item_name_text">16sp</dimen>
-    <dimen name="details_item_msg_text">20sp</dimen>
-    <dimen name="details_item_date_text">16sp</dimen>
+    <dimen name="details_item_name_text">14sp</dimen>
+    <dimen name="details_item_msg_text">16sp</dimen>
+    <dimen name="details_item_date_text">14sp</dimen>
 
 
     <dimen name="advance_item_name_text">20sp</dimen>
@@ -49,4 +51,16 @@
     <dimen name="student_date_text_size">15sp</dimen>
     <dimen name="student_img_weight">93sp</dimen>
     <dimen name="student_img_height">70sp</dimen>
+
+    <!--排行榜-->
+    <dimen name="ranking_padding">3dp</dimen>
+    <dimen name="ranking_text_size">23dp</dimen>
+
+
+    <!--圆角 margin-->
+    <dimen name="round_margin">10dp</dimen>
+    <dimen name="round_width">25dp</dimen>
+    <dimen name="round_textsize">9sp</dimen>
+
+
 </resources>

@@ -8,12 +8,13 @@ import android.widget.Toast;
 
 public class StudydetailsActivity extends AppCompatActivity {
     private Toolbar toolbar;
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studydetails);
         toolBar();
-        String id = getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
         if (id == null) {
             Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
         } else {

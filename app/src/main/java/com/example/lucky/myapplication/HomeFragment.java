@@ -43,7 +43,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     private TextView tvRollMessage;
     private ToolsPresenter toolsPresenter;
     private PartyNewsPresenter partyNewsPresenter;
-    private ListView mListView1;
 
     private Handler handler = new Handler() {
         @Override
@@ -96,8 +95,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         lineVoice.setOnClickListener(this);
         lineStudy.setOnClickListener(this);
         lineBirthday.setOnClickListener(this);
-
-        mListView1 = (ListView) getActivity().findViewById(R.id.listView1);
     }
 
     @Override

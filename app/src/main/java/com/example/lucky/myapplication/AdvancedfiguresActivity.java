@@ -4,11 +4,15 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
 import com.mo.bean.AdvancePersonBean;
+import com.mo.presenter.AdvancePersonPresenter;
 import com.mo.view.IAdvancePersonView;
 
 import java.util.ArrayList;
@@ -27,8 +31,8 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         setContentView(R.layout.activity_advancedfigures);
         toolBar();
         init();
-//        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
-//        ap.getAllAdvancePerson();
+        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
+        ap.getAllAdvancePerson();
     }
 
     private void toolBar() {
@@ -65,6 +69,30 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
                 ,new String[]{"img","name","introduction","createDate"}
                 ,new int[]{R.id.imgCharacter,R.id.tvCharacterName,R.id.tvCharacterAchievement,R.id.tvCreateDate});
         gridViewAdvanced.setAdapter(adapter);
+
+        BaseAdapter baseAdapter=new BaseAdapter() {
+            @Override
+            public int getCount() {
+                return data.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return data.get(position);
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return position;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+               View advancedItem= LayoutInflater.from(AdvancedfiguresActivity.this).inflate(R.layout.advanceditem,null);
+
+                return null;
+            }
+        };
     }
 
     /**
@@ -74,7 +102,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      */
     @Override
     public void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list, Bitmap[] bitmaps) {
-        for(int i=0;i>list.size();i++){
+        for(int i=0;i<list.size();i++){
             AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
             Map<String,Object> map=new HashMap<>();
             map.put("img",bitmaps[i]);
