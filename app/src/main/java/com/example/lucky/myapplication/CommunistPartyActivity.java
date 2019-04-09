@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,16 +32,31 @@ import java.util.Map;
 /**
  * 党务活动
  */
-public class CommunistPartyActivity extends AppCompatActivity implements IPartyActivityView,AdapterView.OnItemClickListener{
-
+public class CommunistPartyActivity extends AppCompatActivity implements IPartyActivityView{
+    private Toolbar toolbar;
     private ListView partListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communist_party);
+        toolBar();
         init();
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
         partyActivityPresenter.getAllPartyActivity();
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbCommunistparty);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void init() {
@@ -116,7 +132,6 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
             }
         };
         partListView.setAdapter(adapter);
-        partListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -150,22 +165,4 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
         }
     };
 
-    /**
-     * ListViewItem 的监听事件
-     * @param parent
-     * @param view
-     * @param position
-     * @param id
-     */
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String s= (String) ((Map)view.getTag()).get("id");
-        switch (s){
-            case "1":
-                Log.i("TestNum","1");
-                break;
-            case "":
-                break;
-        }
-    }
 }

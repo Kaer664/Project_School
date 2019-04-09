@@ -11,7 +11,7 @@
         android:label="信息党建"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".CommunistPartyActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".SettingActivity" />
         <activity android:name=".PartActivity" />
         <activity android:name=".TempNewsActivity" />
-        <activity android:name=".ParkDetailsActivity"></activity>
+        <activity android:name=".ParkDetailsActivity" />
         <activity android:name=".AdvancedfiguresActivity" />
         <activity android:name=".StudyActivity" />
         <activity android:name=".CharacterdetailsActivity" />
@@ -32,7 +32,12 @@
         <activity android:name=".ThinkingActivity" />
         <activity android:name=".AnswerActivity" />
         <activity android:name=".BirthdayActivity" />
-        <activity android:name=".BirthdaydetailsActivity"></activity>
+        <activity android:name=".BirthdaydetailsActivity" />
+        <activity android:name=".ProposalActivity2" />
+        <activity android:name=".AnswerDetailActivity" />
+        <activity android:name=".RankingActivity" />
+        <activity android:name=".IntegralActivity" />
+        <activity android:name=".AdvancedDetailActivity"></activity>
     </application>
 
 </manifest>

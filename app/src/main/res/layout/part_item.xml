@@ -6,15 +6,16 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/anniu"
         android:id="@+id/park_img"
-        android:layout_height="@dimen/part_img_height" />
+        android:layout_width="0dp"
+        android:layout_height="@dimen/part_img_height"
+        android:layout_weight="1"
+        android:src="@drawable/anniu" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="2"
+        android:padding="@dimen/part_line_padding"
         android:orientation="vertical"
         android:layout_height="@dimen/part_img_height">
 

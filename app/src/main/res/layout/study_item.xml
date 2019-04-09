@@ -7,35 +7,33 @@
 
     <ImageView
         android:id="@+id/imgStudyPic"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
+        android:layout_width="@dimen/student_img_weight"
+        android:layout_height="@dimen/student_img_height"
         android:src="@drawable/xxdj" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvStudyTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:text="学习园地"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:scrollbars="vertical"
+            android:text="这是标题"
             android:textColor="@color/colorblack"
-            android:textSize="24sp" />
+            android:textSize="@dimen/student_title_text_size" />
 
         <TextView
             android:id="@+id/tvStudyinfoCreatetime"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="2019-3-24发布"
-            android:textColor="@color/colorblack"
-            android:textSize="24sp" />
+            android:layout_weight="1"
+            android:textColor="#CCC"
+            android:textSize="@dimen/student_date_text_size" />
     </LinearLayout>
 </LinearLayout>

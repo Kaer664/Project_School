@@ -8,7 +8,39 @@
     android:background="@color/colorwhite"
     android:id="@+id/studyLinearLayout"
     tools:context="com.example.lucky.myapplication.StudydetailsActivity">
+     <android.support.v7.widget.Toolbar
+         android:id="@+id/tbStudyDetails"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="@color/colorred">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorwhite"
+              android:textStyle="bold"
+              android:textSize="20sp"
+              android:text="学习园地详情"/>
+
+          <TextView
+              android:id="@+id/tvtbstudydetails"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorwhite"
+              android:textStyle="bold"
+              android:textSize="18sp"
+              android:text="孙华林"
+              android:layout_gravity="right" />
+
+          <ImageView
+              android:layout_width="25dp"
+              android:layout_height="25dp"
+              android:layout_gravity="right"
+              android:src="@drawable/icon_ident" />
+     </android.support.v7.widget.Toolbar>
 
      <!--  这个界面控件需要动态添加-->
 
+     <VideoView
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content" />
 </LinearLayout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="vertical"
+    tools:context="com.example.lucky.myapplication.AnswerDetailActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbAnswerdetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="考题"/>
+
+        <TextView
+            android:id="@+id/tvtbAnswerdetailUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="孙华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/tvquestionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="选择题"
+        android:layout_margin="@dimen/answer_detail_margin"
+        style="@style/Animation.AppCompat.Dialog"
+        android:textColor="@color/colorblack"
+        android:textSize="@dimen/answer_detail_title_size" />
+
+    <TextView
+        android:id="@+id/rbQuestionContext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_margin="@dimen/answer_detail_margin"
+        android:text="请选择题目"
+        android:textColor="@color/colorblack"
+        android:textSize="@dimen/answer_detail_context_size" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:id="@+id/rgSelect"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/rbAnswerA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:checked="true"
+            android:textSize="@dimen/answer_detail_a_b_c_d_size"
+            android:textColor="@color/colorblack" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+
+        <RadioButton
+            android:id="@+id/rbAnswerB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/answer_detail_a_b_c_d_size"
+            android:textColor="@color/colorblack" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+        <RadioButton
+            android:id="@+id/rbAnswerC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/answer_detail_a_b_c_d_size"
+            android:textColor="@color/colorblack" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+        <RadioButton
+            android:id="@+id/rbAnswerD"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="@dimen/answer_detail_a_b_c_d_size"
+            android:textColor="@color/colorblack" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#ccc"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:textSize="@dimen/answer_detail_a_b_c_d_size"
+        android:text="下一题"
+         />
+</LinearLayout>

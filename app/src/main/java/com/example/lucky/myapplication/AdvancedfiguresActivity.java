@@ -1,13 +1,14 @@
 package com.example.lucky.myapplication;
 
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
 
 import com.mo.bean.AdvancePersonBean;
-import com.mo.presenter.AdvancePersonPresenter;
 import com.mo.view.IAdvancePersonView;
 
 import java.util.ArrayList;
@@ -18,14 +19,30 @@ import java.util.Map;
 public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvancePersonView {
 
     private GridView gridViewAdvanced;
+    private Toolbar toolbar;
     //gridViewAdvanced
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advancedfigures);
+        toolBar();
         init();
-        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
-        ap.getAllAdvancePerson();
+//        AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
+//        ap.getAllAdvancePerson();
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbAdvancedfigures);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -36,8 +53,17 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
     private List<Map<String,Object>> data=new ArrayList<>();
 
     private void initView() {
+        for(int i=0;i<3;i++){
+            Map<String,Object> map=new HashMap<>();
+            map.put("img",R.drawable.zongshuji);
+            map.put("name","-"+"name"+i+"-");
+            map.put("introduction","introduction"+i);
+            map.put("createDate","createDate"+i);
+            data.add(map);
+        }
         SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.advanceditem
-                ,new String[]{},new int[]{});
+                ,new String[]{"img","name","introduction","createDate"}
+                ,new int[]{R.id.imgCharacter,R.id.tvCharacterName,R.id.tvCharacterAchievement,R.id.tvCreateDate});
         gridViewAdvanced.setAdapter(adapter);
     }
 

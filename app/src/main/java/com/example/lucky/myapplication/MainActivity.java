@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(tbHomeActivity);
         btnhome= (LinearLayout) findViewById(R.id.btnHomepage);
         btnperson= (LinearLayout) findViewById(R.id.btnPersonal);
-//        imgMainHome= (ImageView) findViewById(R.id.imgMainHome);
-//        imgMainPersonal= (ImageView) findViewById(R.id.imgMainPersonal);
+        imgMainHome= (ImageView) findViewById(R.id.imgMainHome);
+        imgMainPersonal= (ImageView) findViewById(R.id.imgMainPersonal);
         fm = getSupportFragmentManager();
         setTabSelection(0);
         btnhome.setOnClickListener(new OnClickListener() {

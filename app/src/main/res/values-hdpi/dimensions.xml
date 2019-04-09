@@ -5,8 +5,9 @@
 
     <dimen name="part_text_size">18sp</dimen>
     <dimen name="part_img_height">70dp</dimen>
+    <dimen name="part_line_padding">3dp</dimen>
     <color name="d_c">#ff00</color>
-    <color name="black">#000</color>
+    <color name="black">#4a4a4a</color>
 
     <dimen name="details_text_size">22sp</dimen>
     <dimen name="details_margin_top">20sp</dimen>
@@ -25,4 +26,27 @@
     <dimen name="advance_item_msg_text">16sp</dimen>
     <dimen name="advance_item_date_text">20sp</dimen>
 
+
+    <dimen name="advance_item_text_size1">16sp</dimen>
+    <dimen name="advance_item_text_size">15sp</dimen>
+    <dimen name="advance_item_margin_size">5sp</dimen>
+    <dimen name="advance_item_img_height_size">200sp</dimen>
+    <dimen name="advance_item_img_weight_size">150sp</dimen>
+
+    <dimen name="think_title_text_size">20sp</dimen>
+    <dimen name="think_edit_size">18sp</dimen>
+    <dimen name="think_btn_text_size">22sp</dimen>
+
+
+
+    <dimen name="answer_detail_title_size">23sp</dimen>
+    <dimen name="answer_detail_context_size">22sp</dimen>
+    <dimen name="answer_detail_a_b_c_d_size">20sp</dimen>
+    <dimen name="answer_detail_margin">5sp</dimen>
+
+
+    <dimen name="student_title_text_size">18sp</dimen>
+    <dimen name="student_date_text_size">15sp</dimen>
+    <dimen name="student_img_weight">93sp</dimen>
+    <dimen name="student_img_height">70sp</dimen>
 </resources>
