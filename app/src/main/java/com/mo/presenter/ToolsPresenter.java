@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.lucky.myapplication.ThinkingActivity;
 import com.mo.bean.UserLoginBean;
 import com.mo.model.ToolsDao;
 import com.mo.model.impl.ToolsDaoImpl;
@@ -26,6 +27,8 @@ public class ToolsPresenter {
         this.context = context;
         this.view = view;
     }
+
+
 
     public void login(String username, String password){
         if(dao!=null&&context!=null&&view!=null){
