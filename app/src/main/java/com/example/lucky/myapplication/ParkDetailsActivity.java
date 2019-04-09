@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +29,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView,View.OnClickListener {
-
+public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView, View.OnClickListener {
+    private Toolbar toolbar;
     private EditText etBottom;
     private Button btnBottom;
     private TextView textView, tvWriterName, details_top_title;
@@ -40,14 +41,29 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_park_details);
+        toolBar();
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
         String id = getIntent().getStringExtra("id");
-        if(id==null){
-            Toast.makeText(this,"数据可能有错，请稍后再试",Toast.LENGTH_LONG).show();
-        }else {
+        if (id == null) {
+            Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
+        } else {
             partyActivityPresenter.getPartyActivityById(id);
             init();
         }
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbCommunistparty);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     /**
@@ -60,19 +76,19 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         tvWriterName = (TextView) findViewById(R.id.tvWriterName);
         details_top_title = (TextView) findViewById(R.id.details_top_title);
         imgView = (ImageView) findViewById(R.id.imgView);
-        lineAdd= (LinearLayout) findViewById(R.id.lineAdd);
+        lineAdd = (LinearLayout) findViewById(R.id.lineAdd);
         btnBottom.setOnClickListener(this);
     }
 
     private void initView() {
-       Log.i("TestNum",String.valueOf(data.size()));
-        Map<String,Object> tMap=data.get(0);
+        Log.i("TestNum", String.valueOf(data.size()));
+        Map<String, Object> tMap = data.get(0);
         details_top_title.setText((String) tMap.get("title"));
         tvWriterName.setText((String) tMap.get("writer"));
         textView.setText((String) tMap.get("content"));
         imgView.setImageBitmap((Bitmap) tMap.get("img"));
-        for(int i=0;i<reply_data.size();i++){
-            lineAdd.addView(new CommentView(this,reply_data.get(i)));
+        for (int i = 0; i < reply_data.size(); i++) {
+            lineAdd.addView(new CommentView(this, reply_data.get(i)));
         }
     }
 
@@ -95,7 +111,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             map.put("title", javaBean.getTitle());
             map.put("writer", javaBean.getWriterPersonName());
             map.put("content", javaBean.getWorkTask());
-            map.put("img",bitmap);
+            map.put("img", bitmap);
             data.add(map);
         }
         //用户评论内容,主要加载到本地中
@@ -104,11 +120,11 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             PartyActivityBean.ReplyListBean javaBean = userReply.get(i);
             Map<String, Object> map = new HashMap<>();
             map.put("name", javaBean.getUserName());
-            map.put("date", "date"+i);
-            map.put("headImg",R.drawable.icon2);
+            map.put("date", "date" + i);
+            map.put("headImg", R.drawable.icon2);
             map.put("content", javaBean.getReplyContent());
-            Log.i("TestNum",javaBean.getUserName());
-            Log.i("TestNum",javaBean.getReplyContent());
+            Log.i("TestNum", javaBean.getUserName());
+            Log.i("TestNum", javaBean.getReplyContent());
             reply_data.add(map);
         }
         handler.post(new Runnable() {
@@ -127,7 +143,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnBottom:
                 etBottom.getText().toString();
                 break;

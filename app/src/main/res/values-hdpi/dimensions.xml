@@ -9,6 +9,7 @@
     <color name="d_c">#ff00</color>
     <color name="black">#4a4a4a</color>
 
+    <!--党务活动-->
     <dimen name="details_text_size">22sp</dimen>
     <dimen name="details_margin_top">20sp</dimen>
     <dimen name="details_margin_left">10sp</dimen>
@@ -54,4 +55,6 @@
     <!--排行榜-->
     <dimen name="ranking_padding">3dp</dimen>
     <dimen name="ranking_text_size">23dp</dimen>
+
+
 </resources>
