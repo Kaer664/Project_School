@@ -1,12 +1,16 @@
 package com.example.lucky.myapplication;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,10 +40,16 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     private ImageView imgView;
     private LinearLayout lineAdd;
 
+    private int width;
+    private int height;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_park_details);
+        Resources resources = this.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        width = dm.widthPixels;
+        height = dm.heightPixels;
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
         String id = getIntent().getStringExtra("id");
         if(id==null){
@@ -73,6 +83,11 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         imgView.setImageBitmap((Bitmap) tMap.get("img"));
         for(int i=0;i<reply_data.size();i++){
             lineAdd.addView(new CommentView(this,reply_data.get(i)));
+            TextView t=new TextView(this);
+            t.setWidth(width);
+            t.setHeight(1);
+            t.setBackgroundColor(Color.BLACK);
+            lineAdd.addView(t);
         }
     }
 

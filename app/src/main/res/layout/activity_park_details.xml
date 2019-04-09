@@ -61,12 +61,7 @@
                android:layout_marginRight="@dimen/details_margin_left"
                android:orientation="horizontal"
                android:gravity="center">
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:textColor="@color/black"
-                   android:textSize="@dimen/details_btn_size"
-                   android:text="作者："/>
+
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
@@ -74,6 +69,14 @@
                    android:text=""
                    android:textSize="@dimen/details_btn_size"
                    android:id="@+id/tvWriterName"/>
+
+               <TextView
+                   android:id="@+id/textView2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="作者："
+                   android:textColor="@color/black"
+                   android:textSize="@dimen/details_btn_size" />
            </LinearLayout>
        </LinearLayout>
     <ScrollView
