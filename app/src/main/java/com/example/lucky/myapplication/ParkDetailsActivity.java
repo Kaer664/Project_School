@@ -3,10 +3,10 @@ package com.example.lucky.myapplication;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -15,15 +15,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lucky.myapplication.view.CommentView;
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
-import com.mo.presenter.AnswerActivityPresenter;
 import com.mo.presenter.PartyActivityPresenter;
 import com.mo.view.IPartyActivityView;
 
@@ -62,7 +59,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     }
 
     private void toolBar() {
-        toolbar = (Toolbar) findViewById(R.id.tbCommunistparty);
+        toolbar = (Toolbar) findViewById(R.id.tbParkdetails);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
