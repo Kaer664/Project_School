@@ -1,6 +1,9 @@
 package com.mo.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.mo.bean.PartyNewsBean;
 
 import java.util.List;
 
@@ -14,5 +17,6 @@ public interface PartyNewsDao {
     void getPartyNewsById(Context context, String value, LoginOkListener listener);
     interface LoginOkListener{
         void result(List list);
+        void result(PartyNewsBean.PartyAffairsNewsBean bean, Bitmap bitmap);
     }
 }

@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="part_text_size">20sp</dimen>
-    <dimen name="part_img_height">100dp</dimen>
+
+    <dimen name="main_bottom_size">13sp</dimen>
+
+    <dimen name="part_text_size">18sp</dimen>
+    <dimen name="part_line_padding">5dp</dimen>
+    <dimen name="part_img_height">80dp</dimen>
     <color name="d_c">#0f0220</color>
+
+    <!--党务活动界面-->
+    <dimen name="details_text_size">25sp</dimen>
+    <dimen name="details_margin_top">26sp</dimen>
+    <dimen name="details_margin_left">13dp</dimen>
+    <dimen name="details_btn_size">19sp</dimen>
+
+    <!--党务活动评论区的-->
+    <dimen name="details_item_head_img_width">50dp</dimen>
+    <dimen name="details_item_head_img_margin">6dp</dimen>
+    <dimen name="details_item_name_text">16sp</dimen>
+    <dimen name="details_item_msg_text">18sp</dimen>
+    <dimen name="details_item_date_text">16sp</dimen>
+    <dimen name="details_item_margin_text">3dp</dimen>
+
+
+
+    <dimen name="advance_item_name_text">23sp</dimen>
+    <dimen name="advance_item_msg_text">19sp</dimen>
+    <dimen name="advance_item_date_text">23sp</dimen>
+
+    <dimen name="advance_item_text_size1">19sp</dimen>
+    <dimen name="advance_item_text_size">18sp</dimen>
+    <dimen name="advance_item_margin_size">7sp</dimen>
+    <dimen name="advance_item_img_height_size">227sp</dimen>
+    <dimen name="advance_item_img_weight_size">171sp</dimen>
+
+    <dimen name="think_title_text_size">23sp</dimen>
+    <dimen name="think_edit_size">21sp</dimen>
+    <dimen name="think_btn_text_size">25sp</dimen>
+
+    <dimen name="answer_detail_title_size">26sp</dimen>
+    <dimen name="answer_detail_context_size">25sp</dimen>
+    <dimen name="answer_detail_a_b_c_d_size">23sp</dimen>
+    <dimen name="answer_detail_margin">8sp</dimen>
+
+
+    <dimen name="student_title_text_size">21sp</dimen>
+    <dimen name="student_date_text_size">16sp</dimen>
+    <dimen name="student_img_weight">113sp</dimen>
+    <dimen name="student_img_height">85sp</dimen>
+
+    <!--排行榜-->
+    <dimen name="ranking_padding">3dp</dimen>
+    <dimen name="ranking_text_size">22dp</dimen>
 </resources>

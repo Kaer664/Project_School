@@ -1,6 +1,9 @@
 package com.mo.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.mo.bean.AdvancePersonBean;
 
 import java.util.List;
 
@@ -25,6 +28,7 @@ public interface AdvancePersonDao {
      */
     void getAdvancePersonById(Context context, String id, PersonListener listener);
     interface PersonListener{
-        void result(List list);
+        void result(List list, Bitmap[] bitmaps);
+        void result(AdvancePersonBean.AdvancedPersonListBean bean, Bitmap bitmap);
     }
 }

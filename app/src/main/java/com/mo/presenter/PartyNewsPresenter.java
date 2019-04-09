@@ -1,7 +1,9 @@
 package com.mo.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
+import com.mo.bean.PartyNewsBean;
 import com.mo.model.PartyNewsDao;
 import com.mo.model.impl.PartyNewsDaoImpl;
 import com.mo.view.IPartyNewsView;
@@ -22,7 +24,7 @@ public class PartyNewsPresenter {
         this.view = view;
     }
 
-    public void getAllPartyNews() {
+    synchronized public void getAllPartyNews() {
         if (dao != null && context != null) {
             dao.getAllPartyNews(context, new PartyNewsDao.LoginOkListener() {
                 @Override
@@ -30,6 +32,11 @@ public class PartyNewsPresenter {
                     if (view != null) {
                         view.showAllPartyNews(list);
                     }
+                }
+
+                @Override
+                public void result(PartyNewsBean.PartyAffairsNewsBean bean, Bitmap bitmap) {
+
                 }
             });
         }
@@ -39,9 +46,14 @@ public class PartyNewsPresenter {
         if (dao != null && context != null) {
             dao.getPartyNewsById(context, value, new PartyNewsDao.LoginOkListener() {
                 @Override
-                public void result(List list) {
+                public void result(List list){
+
+                }
+
+                @Override
+                public void result(PartyNewsBean.PartyAffairsNewsBean bean, Bitmap bitmap) {
                     if (view != null) {
-                        view.showPartyNewsInfo(list);
+                        view.showPartyNewsInfo(bean,bitmap);
                     }
                 }
             });

@@ -1,6 +1,8 @@
 package com.mo.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -77,8 +79,8 @@ public class HttpTools {
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setReadTimeout(5 * 1000);
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
             if (map!=null){
+                DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
                 StringBuffer sb2=new StringBuffer();
                 for (Map.Entry<String,String> entry:map.entrySet()){
                     sb2.append(entry.getKey()+"=");
@@ -86,9 +88,9 @@ public class HttpTools {
                 }
                 sb2.deleteCharAt(sb2.length()-1);
                 dos.write(sb2.toString().getBytes());
+                dos.flush();
+                dos.close();
             }
-            dos.flush();
-            dos.close();
             conn.connect();
             if (conn.getResponseCode() == 200) {
                 InputStream is = conn.getInputStream();
@@ -107,7 +109,27 @@ public class HttpTools {
         return sb.toString();
     }
 
-    public static String postJsonByOKHTTP(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value) {
-        return "";
+    public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName){
+        if (!checkNetWorkAction(context)) {
+            return null;
+        }
+        Bitmap bitmap=null;
+        try {
+            URL u = new URL(url+picName);
+            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
+            conn.setConnectTimeout(5 * 1000);
+            conn.setDoInput(true);
+            conn.connect();
+            if (conn.getResponseCode() == 200) {
+                InputStream is = conn.getInputStream();
+                bitmap = BitmapFactory.decodeStream(is);
+                Log.i("Test", "getBitmap: 图片获取成功");
+            }else{
+                Log.i("Test", "getBitmap: 服务器无此图片");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
     }
 }

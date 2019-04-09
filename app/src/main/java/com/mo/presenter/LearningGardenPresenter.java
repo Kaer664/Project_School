@@ -1,6 +1,7 @@
 package com.mo.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.mo.bean.LearningGardenInfoBean;
 import com.mo.model.LearningGardenDao;
@@ -27,14 +28,14 @@ public class LearningGardenPresenter {
         if(context!=null&&dao!=null){
             dao.getAllLearningGarden(context, new LearningGardenDao.LearningGardenListener() {
                 @Override
-                public void result(List list) {
+                public void result(List list, Bitmap[] bitmaps) {
                     if (view != null) {
-                        view.showLearningGardenList(list);
+                        view.showLearningGardenList(list,bitmaps);
                     }
                 }
 
                 @Override
-                public void result(LearningGardenInfoBean infoBean) {
+                public void result(LearningGardenInfoBean infoBean, Bitmap bitmap) {
 
                 }
             });
@@ -44,14 +45,14 @@ public class LearningGardenPresenter {
         if(context!=null&&dao!=null){
             dao.getLearningGardenById(context, id, new LearningGardenDao.LearningGardenListener() {
                 @Override
-                public void result(List list) {
+                public void result(List list, Bitmap[] bitmaps) {
 
                 }
 
                 @Override
-                public void result(LearningGardenInfoBean infoBean) {
+                public void result(LearningGardenInfoBean infoBean, Bitmap bitmap) {
                     if (view!=null){
-                        view.showLearningGardenInfo(infoBean);
+                        view.showLearningGardenInfo(infoBean,bitmap);
                     }
                 }
             });

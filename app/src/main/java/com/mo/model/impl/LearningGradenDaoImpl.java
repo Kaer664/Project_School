@@ -1,6 +1,7 @@
 package com.mo.model.impl;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.mo.bean.LearningGardenInfoBean;
 import com.mo.bean.LearningGardenListBean;
@@ -27,16 +28,19 @@ public class LearningGradenDaoImpl implements LearningGardenDao {
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_LEARNING_GARDEN_BY_ID, "id", "all");
                 try {
+                    List<LearningGardenListBean.LearningGardensListBean> list = null;
+                    Bitmap[] bitmaps=null;
                     JSONObject jsonObject = new JSONObject(json);
-                    List list=null;
                     if ("success".equals(jsonObject.get("msg"))) {
                         Gson gson = new Gson();
-                        LearningGardenListBean bean = gson.fromJson(json, LearningGardenListBean.class);
-                        list=bean.getLearningGardenList();
-                        listener.result(list);
-                    }else{
-                        listener.result(list);
+                        list = gson.fromJson(json, LearningGardenListBean.class).getLearningGardenList();
+                        bitmaps=new Bitmap[list.size()];
+                        for (int i = 0; i < list.size(); i++) {
+                            Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
+                            bitmaps[i]=bitmap;
+                        }
                     }
+                    listener.result(list,bitmaps);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -52,7 +56,8 @@ public class LearningGradenDaoImpl implements LearningGardenDao {
                 String json = HttpTools.postJson(context, Address.GET_LEARNING_GARDEN_BY_ID, "id", id);
                 Gson gson = new Gson();
                 LearningGardenInfoBean bean = gson.fromJson(json, LearningGardenInfoBean.class);
-                listener.result(bean);
+                Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, bean.getLearningGardenList().get(0).getImgUrl());
+                listener.result(bean,bitmap);
             }
         }.start();
     }
