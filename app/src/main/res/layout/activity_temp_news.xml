@@ -30,7 +30,7 @@
             android:textSize="@dimen/round_textsize"
             android:textColor="@color/colorwhite"
             android:textStyle="bold"
-            android:text="孙华林"
+            android:text="华林"
             android:layout_gravity="right" />
 
         <ImageView

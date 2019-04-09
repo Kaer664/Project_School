@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/studyLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorwhite"
-    android:id="@+id/studyLinearLayout"
     tools:context="com.example.lucky.myapplication.StudydetailsActivity">
      <android.support.v7.widget.Toolbar
          android:id="@+id/tbStudyDetails"
@@ -28,8 +27,9 @@
               android:layout_margin="@dimen/round_margin"
               android:background="@drawable/round"
               android:gravity="center"
-              android:textSize="@dimen/round_textsize"
               android:textColor="@color/colorwhite"
+              android:textStyle="bold"
+              android:textSize="@dimen/round_textsize"
               android:text="华林"
               android:layout_gravity="right" />
 
@@ -40,12 +40,98 @@
               android:src="@drawable/icon_ident" />
      </android.support.v7.widget.Toolbar>
 
-     <!--  这个界面控件需要动态添加-->
-
-     <VideoView
+     <LinearLayout
+         android:layout_below="@id/tbStudyDetails"
          android:layout_width="match_parent"
-         android:layout_height="wrap_content" />
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+          <VideoView
+              android:id="@+id/vvStudyDetailsVideo"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:visibility="gone" />
+
+          <TextView
+              android:id="@+id/tvStudyDetailsTitle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textColor="@color/black"
+              android:gravity="center_horizontal"/>
+
+          <TextView
+              android:id="@+id/tvStudyDetailsWriter"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textColor="@color/black"
+              android:gravity="center_horizontal"/>
+
+          <TextView
+              android:id="@+id/tvStudyDetailsContent"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textColor="@color/black"
+              android:gravity="center_horizontal"/>
+
+          <ImageView
+              android:id="@+id/imgStudyDetails"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:visibility="gone"/>
+
+          <TextView
+              android:id="@+id/tvStudyDetailsDownload"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:visibility="gone">
+
+          </TextView>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="评论："
+              android:textSize="20sp"
+              android:textColor="@color/black"/>
+          <TextView
+              android:id="@+id/tvStudyReplyContent"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textColor="@color/black"
+              android:textSize="16sp"
+              android:text="好好敲代码"
+              />
+          <TextView
+              android:id="@+id/tvStudyReplyName"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textColor="@color/black"
+              android:text="——孙华林"
+              android:gravity="right"/>
+     </LinearLayout>
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentBottom="true"
+         android:background="@color/colorgray">
+
+          <EditText
+              android:id="@+id/etStudyDetailsComment"
+              android:layout_width="0dp"
+              android:layout_height="35dp"
+              android:layout_gravity="center_vertical"
+              android:layout_weight="10"
+              android:background="@color/colorwhite" />
+
+          <Button
+              android:id="@+id/btnStudyDetailsSendComment"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="center_vertical"
+              android:layout_weight="1"
+              android:text="发送" />
+     </LinearLayout>
 
 
-
-</LinearLayout>
+</RelativeLayout>

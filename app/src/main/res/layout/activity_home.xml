@@ -13,9 +13,10 @@
         android:gravity="center_vertical"
         android:marqueeRepeatLimit="marquee_forever"
         android:layout_width="match_parent"
+        android:focusable="true"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="从左向右滚动的通知                                                                                                      "
+        android:text="1                                                                                                            "
         android:textColor="@color/colorblack" />
 
     <LinearLayout
