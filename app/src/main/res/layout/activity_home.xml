@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorwhite"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:descendantFocusability = "blocksDescendants" >
 
     <TextView
         android:id="@+id/tvRollMessage"
         android:singleLine="true"
         android:ellipsize="marquee"
+        android:gravity="center_vertical"
         android:marqueeRepeatLimit="marquee_forever"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -31,26 +33,68 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvNews1"
+            android:layout_weight="6">
+            <ViewFlipper
+                android:id="@+id/view_flipper"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="党务要闻"
-                android:textColor="@color/colorblack" />
+                android:layout_height="match_parent"
+                android:autoStart="true"
+                android:flipInterval="3000"
+                android:inAnimation="@anim/slide_in_bottom"
+                android:outAnimation="@anim/slide_out_top">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvNews1"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:gravity="center_vertical"
+                        android:text="党务要闻"
+                        android:textColor="@color/colorblack" />
 
-            <TextView
-                android:id="@+id/tvNews2"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="党务要闻"
-                android:textColor="@color/colorblack" />
+                    <TextView
+                        android:id="@+id/tvNews2"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="党务要闻党务要闻党务要闻党务要闻党务要闻党务要闻"
+                        android:textColor="@color/colorblack" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvNews3"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:gravity="center_vertical"
+                        android:text="党务要闻3"
+                        android:textColor="@color/colorblack" />
+
+                    <TextView
+                        android:id="@+id/tvNews4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="党务要闻4"
+                        android:textColor="@color/colorblack" />
+                </LinearLayout>
+            </ViewFlipper>
         </LinearLayout>
 
     </LinearLayout>

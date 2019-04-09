@@ -7,10 +7,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,8 +32,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView,View.OnClickListener {
-
+public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView, View.OnClickListener {
+    private Toolbar toolbar;
     private EditText etBottom;
     private Button btnBottom;
     private TextView textView, tvWriterName, details_top_title;
@@ -46,18 +46,33 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_park_details);
+        toolBar();
         Resources resources = this.getResources();
         DisplayMetrics dm = resources.getDisplayMetrics();
         width = dm.widthPixels;
         height = dm.heightPixels;
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
         String id = getIntent().getStringExtra("id");
-        if(id==null){
-            Toast.makeText(this,"数据可能有错，请稍后再试",Toast.LENGTH_LONG).show();
-        }else {
+        if (id == null) {
+            Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
+        } else {
             partyActivityPresenter.getPartyActivityById(id);
             init();
         }
+    }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbCommunistparty);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     /**

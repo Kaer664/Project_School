@@ -24,13 +24,15 @@
 
         <TextView
             android:id="@+id/tvtbMainUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/round_width"
+            android:layout_height="@dimen/round_width"
+            android:layout_margin="@dimen/round_margin"
+            android:background="@drawable/round"
+            android:gravity="center"
+            android:textSize="@dimen/round_textsize"
             android:layout_gravity="right"
-            android:text="孙华林"
-            android:textColor="@color/colorwhite"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="华林"
+            android:textColor="@color/colorwhite" />
 
         <ImageView
             android:layout_width="25dp"

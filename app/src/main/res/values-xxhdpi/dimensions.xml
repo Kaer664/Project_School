@@ -52,4 +52,12 @@
     <!--排行榜-->
     <dimen name="ranking_padding">3dp</dimen>
     <dimen name="ranking_text_size">22dp</dimen>
+
+    <!--圆角 margin-->
+     <dimen name="round_margin">11dp</dimen>
+     <dimen name="round_width">25dp</dimen>
+     <dimen name="round_textsize">10sp</dimen>
+
+
+
 </resources>

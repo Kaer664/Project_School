@@ -49,4 +49,10 @@
     <!--排行榜-->
     <dimen name="ranking_padding">2dp</dimen>
     <dimen name="ranking_text_size">21dp</dimen>
+
+
+    <!--圆角 margin-->
+    <dimen name="round_margin">10dp</dimen>
+    <dimen name="round_width">25dp</dimen>
+    <dimen name="round_textsize">9sp</dimen>
 </resources>

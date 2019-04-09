@@ -54,4 +54,10 @@
     <dimen name="ranking_padding">5dp</dimen>
     <dimen name="ranking_text_size">25dp</dimen>
 
+    <!--圆角 margin-->
+    <dimen name="round_margin">11dp</dimen>
+    <dimen name="round_width">25dp</dimen>
+    <dimen name="round_textsize">11sp</dimen>
+
+
 </resources>
