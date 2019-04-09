@@ -7,17 +7,19 @@
     <dimen name="part_img_height">60dp</dimen>
     <color name="d_c">#dcd918</color>
 
+    <!--党务活动界面-->
     <dimen name="details_text_size">23sp</dimen>
     <dimen name="details_margin_top">22sp</dimen>
-    <dimen name="details_margin_left">12sp</dimen>
-    <dimen name="details_btn_size">18sp</dimen>
-    <dimen name="details_bold_size">21sp</dimen>
+    <dimen name="details_margin_left">11dp</dimen>
+    <dimen name="details_btn_size">17sp</dimen>
 
+    <!--党务活动评论区的-->
     <dimen name="details_item_head_img_width">40dp</dimen>
     <dimen name="details_item_head_img_margin">4dp</dimen>
-    <dimen name="details_item_name_text">18sp</dimen>
-    <dimen name="details_item_msg_text">21sp</dimen>
-    <dimen name="details_item_date_text">18sp</dimen>
+    <dimen name="details_item_name_text">14sp</dimen>
+    <dimen name="details_item_msg_text">16sp</dimen>
+    <dimen name="details_item_date_text">14sp</dimen>
+    <dimen name="details_item_margin_text">1sp</dimen>
 
     <dimen name="advance_item_name_text">21sp</dimen>
     <dimen name="advance_item_msg_text">17sp</dimen>
@@ -43,4 +45,8 @@
     <dimen name="student_date_text_size">16sp</dimen>
     <dimen name="student_img_weight">100sp</dimen>
     <dimen name="student_img_height">75sp</dimen>
+
+    <!--排行榜-->
+    <dimen name="ranking_padding">2dp</dimen>
+    <dimen name="ranking_text_size">21dp</dimen>
 </resources>

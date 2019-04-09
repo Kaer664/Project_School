@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lucky.myapplication.view.CommentView;
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
 import com.mo.presenter.AnswerActivityPresenter;
@@ -28,11 +30,11 @@ import java.util.Map;
 
 public class ParkDetailsActivity extends AppCompatActivity implements IPartyActivityView,View.OnClickListener {
 
-    private ListView details_list_view;
     private EditText etBottom;
     private Button btnBottom;
     private TextView textView, tvWriterName, details_top_title;
     private ImageView imgView;
+    private LinearLayout lineAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +54,13 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
      * 方法用于绑定控件
      */
     private void init() {
-        details_list_view = (ListView) findViewById(R.id.details_list_view);
         etBottom = (EditText) findViewById(R.id.etBottom);
         btnBottom = (Button) findViewById(R.id.btnBottom);
         textView = (TextView) findViewById(R.id.textView);
         tvWriterName = (TextView) findViewById(R.id.tvWriterName);
         details_top_title = (TextView) findViewById(R.id.details_top_title);
         imgView = (ImageView) findViewById(R.id.imgView);
+        lineAdd= (LinearLayout) findViewById(R.id.lineAdd);
         btnBottom.setOnClickListener(this);
     }
 
@@ -69,10 +71,9 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         tvWriterName.setText((String) tMap.get("writer"));
         textView.setText((String) tMap.get("content"));
         imgView.setImageBitmap((Bitmap) tMap.get("img"));
-        SimpleAdapter adapter=new SimpleAdapter(this,reply_data,R.layout.details_item
-                ,new String[]{"headImg","name","content","date"}
-                ,new int[]{R.id.itemHeadImg,R.id.itemName,R.id.itemMessage,R.id.itemDate});
-        details_list_view.setAdapter(adapter);
+        for(int i=0;i<reply_data.size();i++){
+            lineAdd.addView(new CommentView(this,reply_data.get(i)));
+        }
     }
 
     @Override
