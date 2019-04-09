@@ -2,11 +2,9 @@ package com.example.lucky.myapplication;
 
 import android.app.DownloadManager;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -16,16 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.mo.bean.LearningGardenInfoBean;
-import com.mo.bean.LearningGardenListBean;
-import com.mo.bean.UserLoginBean;
 import com.mo.presenter.LearningGardenPresenter;
-import com.mo.presenter.ToolsPresenter;
 import com.mo.util.Address;
-import com.mo.view.ILearningGardenView;
-import com.mo.view.IToolsView;
-
-import java.util.List;
 
 public class StudydetailsActivity extends AppCompatActivity implements View.OnClickListener{
     private VideoView vvStudyDetailsVideo;
@@ -42,7 +32,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studydetails);
         toolBar();
-        String id = getIntent().getStringExtra("id").toString();
+        String id = getIntent().getStringExtra("id");
         if (id == null) {
             Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
         } else {
@@ -51,7 +41,6 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
 
         }
     }
-   private ToolsPresenter toolsPresenter;
     private void init() {
         vvStudyDetailsVideo = (VideoView) findViewById(R.id.vvStudyDetailsVideo);
         tvStudyDetailsTitle = (TextView) findViewById(R.id.tvStudyDetailsTitle);
@@ -84,7 +73,6 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {   //点击发送按钮发送
         switch (v.getId()) {
             case R.id.btnStudyDetailsSendComment:
-                toolsPresenter.addReply(replyId, null, etStudyDetailsComment.getText().toString());
                 break;
             case R.id.tvStudyDetailsDownload:
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Address.GET_LEARNING_GARDEN_BY_ID+tvStudyDetailsDownload.getText().toString()));

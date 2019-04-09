@@ -132,7 +132,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             Map<String, Object> map = new HashMap<>();
             map.put("name", javaBean.getUserName());
             map.put("date", "date"+i);
-            map.put("headImg",R.drawable.qq_head2);
+            map.put("headImg",R.drawable.img);
             map.put("content", javaBean.getReplyContent());
             Log.i("TestNum",javaBean.getUserName());
             Log.i("TestNum",javaBean.getReplyContent());

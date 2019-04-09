@@ -86,17 +86,17 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         switch (position){
             case 0:
                 intent=new Intent(this,StudydetailsActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id","");
                 startActivity(intent);
                 break;
             case 1:
                 intent=new Intent(this,StudydetailsActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id","");
                 startActivity(intent);
                 break;
             case 2:
                 intent=new Intent(this,StudydetailsActivity.class);
-                intent.putExtra("id",id);
+                intent.putExtra("id","");
                 startActivity(intent);
                 break;
         }
