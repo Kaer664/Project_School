@@ -51,17 +51,17 @@ public class BirthDaoImpl implements BirthDao {
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_BRITH_ACTIVITY_BY_ID, "id", "all");
 
-                    List<BirthActivityBean.BirthActivitiesListBean> list = null;
-                    Bitmap[] bitmaps = null;
-                        Gson gson = new Gson();
-                        list = gson.fromJson(json, BirthActivityBean.class).getBirthActivitiesList();
-                        bitmaps = new Bitmap[list.size()];
-                        for (int i = 0; i < list.size(); i++) {
-                            Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
-                            bitmaps[i] = bitmap;
-                        }
+                List<BirthActivityBean.BirthActivitiesListBean> list = null;
+                Bitmap[] bitmaps = null;
+                Gson gson = new Gson();
+                list = gson.fromJson(json, BirthActivityBean.class).getBirthActivitiesList();
+                bitmaps = new Bitmap[list.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
+                    bitmaps[i] = bitmap;
+                }
 
-                    listener.result(list, bitmaps);
+                listener.result(list, bitmaps);
             }
         }.start();
     }
@@ -72,20 +72,12 @@ public class BirthDaoImpl implements BirthDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_BRITH_ACTIVITY_BY_ID, "id", id);
-                try {
-                    BirthActivityBean bean = null;
-                    Bitmap bitmap = null;
-                    JSONObject jsonObject = new JSONObject(json);
-                    String msg = jsonObject.getString("msg");
-                    if ("success".equals(msg)) {
-                        Gson gson = new Gson();
-                        bean = gson.fromJson(json, BirthActivityBean.class);
-                        bitmap=HttpTools.getBitmap(context, Address.PIC_URL, bean.getBirthActivitiesList().get(0).getImgUrl());
-                    }
-                    listener.result(bean,bitmap);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                BirthActivityBean bean = null;
+                Bitmap bitmap = null;
+                Gson gson = new Gson();
+                bean = gson.fromJson(json, BirthActivityBean.class);
+                bitmap = HttpTools.getBitmap(context, Address.PIC_URL, bean.getBirthActivitiesList().get(0).getImgUrl());
+                listener.result(bean, bitmap);
             }
         }.start();
     }

@@ -81,8 +81,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         tvRollMessage = (TextView) getActivity().findViewById(R.id.tvRollMessage);
         tvRollMessage.setSelected(true);
 
-        toolsPresenter = new ToolsPresenter(getContext(), this);
-        partyNewsPresenter = new PartyNewsPresenter(getContext(), this);
+        toolsPresenter=new ToolsPresenter(getContext(),this);
+        partyNewsPresenter=new PartyNewsPresenter(getContext(),this);
         toolsPresenter.getRollingNotify();
         partyNewsPresenter.getAllPartyNews();
 
