@@ -141,7 +141,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             Map<String, Object> map = new HashMap<>();
             map.put("name", javaBean.getUserName());
             map.put("date", "date"+i);
-            map.put("headImg",R.drawable.icon2);
+            map.put("headImg",R.drawable.img);
             map.put("content", javaBean.getReplyContent());
             Log.i("TestNum",javaBean.getUserName());
             Log.i("TestNum",javaBean.getReplyContent());
@@ -165,8 +165,8 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnBottom:
-                etBottom.setText("");
                 toolsPresenter.addReply(activityId,"党务活动评论",etBottom.getText().toString());
+                etBottom.setText("");
                 break;
         }
     }

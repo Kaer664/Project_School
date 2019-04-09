@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         init();
         AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
         ap.getAllAdvancePerson();
+        ap.getAdvancePersonById("5");
     }
 
     private void toolBar() {
@@ -120,6 +122,6 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      */
     @Override
     public void showAdvancePersonInfo(AdvancePersonBean.AdvancedPersonListBean bean, Bitmap bitmap) {
-
+        Log.i("","");
     }
 }

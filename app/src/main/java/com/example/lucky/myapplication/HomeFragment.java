@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.AndroidException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +27,7 @@ import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IPartyNewsView;
 import com.mo.view.IToolsView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by 15632 on 2019/3/26.
@@ -41,20 +37,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     private static final int SHOW_NITIFY = 0X0001;
     private static final int SHOW_PARTY_NEWS = 0X0002;
     private TextView tvRollMessage;
+    private TextView tvNews1;
+    private TextView tvNews2;
     private ToolsPresenter toolsPresenter;
     private PartyNewsPresenter partyNewsPresenter;
-
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SHOW_NITIFY:
-                    tvRollMessage.setText((String) msg.obj);
+                    String s="                                                                                                            ";
+                    tvRollMessage.setText( msg.obj.toString()+s);
                     break;
                 case SHOW_PARTY_NEWS:
-//                    String[] ss= {"dsfsahdifhasdifa","sadfasdfasfdasf","dsfsahdifhasdifa","sadfasdfasfdasf"};
-//                    ArrayAdapter<String> adapter=new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,ss);
-//                    mListView1.setAdapter(adapter);
+                    String[] ss = (String[]) msg.obj;
+                    tvNews1.setText(ss[0]);
+                    tvNews2.setText(ss[1]);
                     break;
             }
         }
@@ -63,7 +61,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = View.inflate(getActivity(), R.layout.activity_home, null);
-
         return view;
     }
 
@@ -79,13 +76,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         lineVoice = (LinearLayout) getActivity().findViewById(R.id.lineVoice);
         lineStudy = (LinearLayout) getActivity().findViewById(R.id.lineStudy);
         lineBirthday = (LinearLayout) getActivity().findViewById(R.id.lineBirthday);
-
-
+        tvNews1 = (TextView) getActivity().findViewById(R.id.tvNews1);
+        tvNews2 = (TextView) getActivity().findViewById(R.id.tvNews2);
         tvRollMessage = (TextView) getActivity().findViewById(R.id.tvRollMessage);
         tvRollMessage.setSelected(true);
 
-        toolsPresenter = new ToolsPresenter(getContext(), this);
-        partyNewsPresenter = new PartyNewsPresenter(getContext(), this);
+        toolsPresenter=new ToolsPresenter(getContext(),this);
+        partyNewsPresenter=new PartyNewsPresenter(getContext(),this);
         toolsPresenter.getRollingNotify();
         partyNewsPresenter.getAllPartyNews();
 
@@ -95,6 +92,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         lineVoice.setOnClickListener(this);
         lineStudy.setOnClickListener(this);
         lineBirthday.setOnClickListener(this);
+        tvNews1.setOnClickListener(this);
+        tvNews2.setOnClickListener(this);
     }
 
     @Override
@@ -125,12 +124,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                 intent = new Intent(getActivity(), BirthdayActivity.class);
                 startActivity(intent);
                 break;
-//            case R.id.tvNews1:
-//                intentTempNews(1);
-//                break;
-//            case R.id.tvNews2:
-//                intentTempNews(2);
-//                break;
+            case R.id.tvNews1:
+                intentTempNews(1);
+                break;
+            case R.id.tvNews2:
+                intentTempNews(2);
+                break;
         }
     }
 

@@ -38,7 +38,7 @@ public class AdvancePersonDaoImpl implements AdvancePersonDao {
                         for (int i = 0; i < list.size(); i++) {
                             Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
                             bitmaps[i] = bitmap;
-                        }
+                    }
                     }
                     listener.result(list, bitmaps);
                 } catch (JSONException e) {

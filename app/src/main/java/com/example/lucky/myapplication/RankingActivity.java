@@ -28,7 +28,7 @@ public class RankingActivity extends AppCompatActivity {
         for(int i=0;i<3;i++){
             Map<String,Object> map=new HashMap<>();
             map.put("ranking",i);
-            map.put("img",R.drawable.qq_head2);
+            map.put("img",R.drawable.img);
             map.put("name","name"+i);
             map.put("score","score"+i);
             data.add(map);
