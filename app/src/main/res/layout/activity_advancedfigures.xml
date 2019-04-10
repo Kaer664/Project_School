@@ -72,11 +72,6 @@
         android:orientation="vertical"
         android:layout_weight="12">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/img"/>
-
         <!--添加listview -->
         <GridView
             android:layout_width="match_parent"
