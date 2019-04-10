@@ -19,6 +19,7 @@ import com.mo.bean.AdvancePersonBean;
 import com.mo.presenter.AdvancePersonPresenter;
 import com.mo.view.IAdvancePersonView;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -57,6 +58,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
                     //得到响应代码
                     int responseCode = con.getResponseCode();
                     if (responseCode == 200) {
+
                         //判断响应代码是不是200  200表示成功连接上了
                         Log.i("TEST", "OK");
                         InputStream is = con.getInputStream();    //可以连接了那么就开始读取数据
