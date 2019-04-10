@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,22 +14,27 @@ import android.widget.TextView;
 
 import com.example.lucky.myapplication.bean.ChildBean;
 import com.example.lucky.myapplication.bean.GroupBean;
+import com.mo.bean.UserLoginBean;
+import com.mo.presenter.ToolsPresenter;
+import com.mo.view.IToolsView;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntegralActivity extends AppCompatActivity {
+public class IntegralActivity extends AppCompatActivity implements IToolsView {
 
     private ExpandableListView exListView;
     private TextView tvSumScore;
     private List<GroupBean> groupList=new ArrayList<>();
     private List<List<ChildBean>> childBean=new ArrayList<>();
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_integral);
         toolBar();
+        settoolbarName();
         for(int i=0;i<5;i++){
             GroupBean g=new GroupBean("测试内容","20");
             groupList.add(g);
@@ -129,5 +135,37 @@ public class IntegralActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void showRollingNotify(String content) {
 
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbintegralname);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
 }

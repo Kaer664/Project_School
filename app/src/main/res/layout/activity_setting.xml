@@ -22,7 +22,7 @@
             android:text="排行榜"/>
 
         <TextView
-            android:id="@+id/tvtbAnswerUserName"
+            android:id="@+id/tvtbSettingName"
             android:layout_width="@dimen/round_width"
             android:layout_height="@dimen/round_width"
             android:layout_margin="@dimen/round_margin"

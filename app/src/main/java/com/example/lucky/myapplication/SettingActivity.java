@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 
 import android.content.DialogInterface;
@@ -11,20 +12,26 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.ToolsPresenter;
+import com.mo.view.IToolsView;
 
-public class SettingActivity extends AppCompatActivity {
+public class SettingActivity extends AppCompatActivity implements IToolsView {
     private LinearLayout aboutUs, changePassword;
     private Button btnExitLogin;
     private ToolsPresenter toolsPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
         toolBar();
-        toolsPresenter=new ToolsPresenter(this,null);
+        toolsPresenter = new ToolsPresenter(this, this);
+        settoolbarName();
+
         aboutUs = (LinearLayout) findViewById(R.id.aboutUs);
         changePassword = (LinearLayout) findViewById(R.id.changePassword);
         btnExitLogin = (Button) findViewById(R.id.btnExitLogin);
@@ -33,7 +40,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("关于我们")
-                        .setMessage("Powered by Software Studio （软件工作室技术支持）" + "风雨喏、Lucky、把闪现给我交了")
+                        .setMessage("Powered by Software Studio （软件工作室技术支持）")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -77,5 +84,38 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbSettingName);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
     }
 }
