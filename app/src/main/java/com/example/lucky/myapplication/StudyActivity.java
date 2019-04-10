@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,27 +11,34 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.mo.bean.LearningGardenInfoBean;
 import com.mo.bean.LearningGardenListBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.LearningGardenPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.ILearningGardenView;
+import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudyActivity extends AppCompatActivity implements ILearningGardenView,AdapterView.OnItemClickListener{
+public class StudyActivity extends AppCompatActivity implements ILearningGardenView, AdapterView.OnItemClickListener, IToolsView {
     private Toolbar toolbar;
+    private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_study);
         toolBar();
         init();
-       LearningGardenPresenter lgp=new LearningGardenPresenter(this,this);
-       lgp.getAllLearningGarden();
+        settoolbarName();
+        LearningGardenPresenter lgp = new LearningGardenPresenter(this, this);
+        lgp.getAllLearningGarden();
     }
 
     private void toolBar() {
@@ -48,58 +56,94 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
     }
 
     private ListView lvStudy;
-    private List<Map<String,Object>> data=new ArrayList<>();
+    private List<Map<String, Object>> data = new ArrayList<>();
+
     private void init() {
-        lvStudy= (ListView) findViewById(R.id.lvStudy);
+        lvStudy = (ListView) findViewById(R.id.lvStudy);
         initView();
     }
 
     private void initView() {
-        for(int i=0;i<3;i++){
-            Map<String,Object> map=new HashMap<>();
-            map.put("img",R.drawable.study);
-            map.put("title","title"+i);
-            map.put("date","发布日期"+i);
+        for (int i = 0; i < 3; i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("img", R.drawable.study);
+            map.put("title", "title" + i);
+            map.put("date", "发布日期" + i);
             data.add(map);
         }
-        SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.study_item
-                ,new String[]{"img","title","date"}
-                ,new int[]{R.id.imgStudyPic,R.id.tvStudyTitle,R.id.tvStudyinfoCreatetime});
+        SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.study_item
+                , new String[]{"img", "title", "date"}
+                , new int[]{R.id.imgStudyPic, R.id.tvStudyTitle, R.id.tvStudyinfoCreatetime});
         lvStudy.setAdapter(adapter);
         lvStudy.setOnItemClickListener(this);
     }
 
     @Override
     public void showLearningGardenList(List<LearningGardenListBean.LearningGardensListBean> list, Bitmap[] bitmaps) {
-        for (int i=0;i<list.size();i++){
+        for (int i = 0; i < list.size(); i++) {
 
         }
     }
 
     @Override
     public void showLearningGardenInfo(LearningGardenInfoBean bean, Bitmap bitmap) {
-        Log.i("","");
+        Log.i("", "");
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent=null;
-        switch (position){
+        Intent intent = null;
+        switch (position) {
             case 0:
-                intent=new Intent(this,StudydetailsActivity.class);
-                intent.putExtra("id","");
+                intent = new Intent(this, StudydetailsActivity.class);
+                intent.putExtra("id", "");
                 startActivity(intent);
                 break;
             case 1:
-                intent=new Intent(this,StudydetailsActivity.class);
-                intent.putExtra("id","");
+                intent = new Intent(this, StudydetailsActivity.class);
+                intent.putExtra("id", "");
                 startActivity(intent);
                 break;
             case 2:
-                intent=new Intent(this,StudydetailsActivity.class);
-                intent.putExtra("id","");
+                intent = new Intent(this, StudydetailsActivity.class);
+                intent.putExtra("id", "");
                 startActivity(intent);
                 break;
         }
     }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbstudy);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,7 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthdaydetails);
         toolBar();
+        settoolbarName();
         id = getIntent().getStringExtra("id");
         if (id == null) {
             Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
@@ -122,5 +124,13 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
     @Override
     public void isChangePass(boolean b) {
 
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbbirthdayDetailsUsername);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
     }
 }

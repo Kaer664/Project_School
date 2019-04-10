@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,26 +16,30 @@ import android.widget.Toast;
 
 import com.mo.bean.AnswerActivityListBean;
 import com.mo.bean.QuestionInfoBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.AnswerActivityPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IAnswerActivityView;
+import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AnswerDetailActivity extends AppCompatActivity implements IAnswerActivityView {
+public class AnswerDetailActivity extends AppCompatActivity implements IAnswerActivityView, IToolsView {
     private Toolbar toolbar;
     private TextView rbQuestionContext;
     private RadioButton rbAnswerA, rbAnswerB, rbAnswerC, rbAnswerD;
     private Button btnNext;
     private RadioGroup rgSelect;
-
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_detail);
         toolBar();
+        settoolbarName();
         String id = getIntent().getStringExtra("id");
         AnswerActivityPresenter aap = new AnswerActivityPresenter(this, this);
         if(id==null){
@@ -165,4 +170,37 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         public void handleMessage(Message msg) {
         }
     };
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbAnswerdetailUsername);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
 }

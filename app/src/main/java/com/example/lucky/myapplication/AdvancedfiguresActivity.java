@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,11 +14,15 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.lucky.myapplication.util.PatchInputStream;
 import com.mo.bean.AdvancePersonBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.AdvancePersonPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IAdvancePersonView;
+import com.mo.view.IToolsView;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -28,8 +33,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvancePersonView {
-
+public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvancePersonView, IToolsView {
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
     private GridView gridViewAdvanced;
     private Toolbar toolbar;
     //gridViewAdvanced
@@ -39,6 +44,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         setContentView(R.layout.activity_advancedfigures);
         toolBar();
         init();
+        settoolbarName();
         AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
 //        ap.getAllAdvancePerson();
 //        ap.getAdvancePersonById("5");
@@ -166,5 +172,38 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
     @Override
     public void showAdvancePersonInfo(AdvancePersonBean.AdvancedPersonListBean bean, Bitmap bitmap) {
         Log.i("","");
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbAdvancedfigures);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
     }
 }

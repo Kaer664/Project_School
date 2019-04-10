@@ -2,6 +2,7 @@ package com.example.lucky.myapplication;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.LearningGardenPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.util.Address;
+import com.mo.view.IToolsView;
 
-public class StudydetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class StudydetailsActivity extends AppCompatActivity implements View.OnClickListener, IToolsView {
     private VideoView vvStudyDetailsVideo;
     private TextView tvStudyDetailsTitle, tvStudyDetailsWriter, tvStudyDetailsContent, tvStudyReplyContent, tvStudyReplyName,tvStudyDetailsDownload;
     private EditText etStudyDetailsComment;
@@ -26,11 +30,13 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     private ImageView imgStudyDetails;
     private String replyId;
     private Toolbar toolbar;
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_studydetails);
         toolBar();
+        settoolbarName();
         String id = getIntent().getStringExtra("id");
         if (id == null) {
             Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
@@ -83,5 +89,36 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
 
+    @Override
+    public void showRollingNotify(String content) {
 
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbstudydetails);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
 }

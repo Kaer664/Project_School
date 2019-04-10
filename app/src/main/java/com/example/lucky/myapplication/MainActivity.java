@@ -2,6 +2,7 @@ package com.example.lucky.myapplication;
 
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,8 +14,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.mo.bean.UserLoginBean;
+import com.mo.presenter.ToolsPresenter;
+import com.mo.view.IToolsView;
+
+public class MainActivity extends AppCompatActivity implements IToolsView {
     private Toolbar tbHomeActivity;
     private LinearLayout btnhome;
     private LinearLayout btnperson;
@@ -22,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imgMainHome,imgMainPersonal;
     private PersonalFragment personalFragment;
     FragmentManager fm;
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         tbHomeActivity = (Toolbar) findViewById(R.id.tbHomeActivity);
         tbHomeActivity.setTitle("");
         setSupportActionBar(tbHomeActivity);
+        settoolbarName();
         btnhome= (LinearLayout) findViewById(R.id.btnHomepage);
         btnperson= (LinearLayout) findViewById(R.id.btnPersonal);
         imgMainHome= (ImageView) findViewById(R.id.imgMainHome);
@@ -124,4 +132,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbMainUserName);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
 }

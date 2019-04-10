@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -20,26 +21,30 @@ import android.widget.TextView;
 
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.model.BirthDao;
 import com.mo.presenter.BirthPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IBirthView;
+import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BirthdayActivity extends AppCompatActivity implements IBirthView{
+public class BirthdayActivity extends AppCompatActivity implements IBirthView, IToolsView {
     private Toolbar toolbar;
     private ListView lvBirthdayActivity;
     private TextView tvBirthdayName;
-
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_birthday);
         toolBar();
         init();
+        settoolbarName();
         BirthPresenter bp=new BirthPresenter(this,this);
         bp.getAllBirthActivity();
         bp.getBirthActivityById("9");
@@ -169,4 +174,37 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
         public void handleMessage(Message msg) {
         }
     };
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbbirthdayUsername);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
 }
