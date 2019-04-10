@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,6 +34,8 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
     private Toolbar toolbar;
     private ListView lvBirthdayActivity;
     private TextView tvBirthdayName;
+    private BirthPresenter bp;
+    private List<Map<String, Object>> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +43,7 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
         setContentView(R.layout.activity_birthday);
         toolBar();
         init();
-        BirthPresenter bp=new BirthPresenter(this,this);
         bp.getAllBirthActivity();
-        bp.getBirthActivityById("9");
-        bp.getBirthMonth();
     }
 
     private void toolBar() {
@@ -61,21 +61,22 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
     }
 
 
-    private void init() {
+    private void init(){
         lvBirthdayActivity = (ListView) findViewById(R.id.lvBirthdayActivity);
         tvBirthdayName= (TextView) findViewById(R.id.tvBirthdayName);
-        initView();
+        bp=new BirthPresenter(this,this);
+        bp.getBirthMonth();
+        lvBirthdayActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String id1 = (String) data.get(position).get("id");
+                Intent intent=new Intent(BirthdayActivity.this,BirthdaydetailsActivity.class);
+                intent.putExtra("id",id1);
+                startActivity(intent);
+            }
+        });
     }
-
-    private List<Map<String, Object>> data = new ArrayList<>();
     private void initView() {
-        for(int i=0;i<3;i++){
-            Map<String,Object> map=new HashMap<>();
-            map.put("name","name"+i);
-            map.put("img",R.drawable.zongshuji);
-            map.put("msg","生日活动，生日活动，生日活动，生日活动");
-            data.add(map);
-        }
         BaseAdapter adapter1=new BaseAdapter() {
             @Override
             public int getCount() {
@@ -102,23 +103,15 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
                     holder.imgView= (ImageView) convertView.findViewById(R.id.item_img);
                     holder.birthTvName= (TextView) convertView.findViewById(R.id.birthTvName);
                     holder.birthTvMsg= (TextView) convertView.findViewById(R.id.birthTvMsg);
-                    convertView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent=new Intent(BirthdayActivity.this,BirthdaydetailsActivity.class);
-                            intent.putExtra("id","");
-                            startActivity(intent);
-                        }
-                    });
                     convertView.setTag(holder);
                 }else{
                     holder= (ViewHolder) convertView.getTag();
                 }
                 Map<String,Object> map=data.get(position);
-                holder.birthTvMsg.setText((String) map.get("msg"));
-                holder.birthTvName.setText((String) map.get("name"));
-                //holder.imgView.setImageBitmap((Bitmap) map.get("img"));
-                holder.imgView.setImageResource((Integer) map.get("img"));
+                holder.birthTvMsg.setText((String) map.get("date"));
+                holder.birthTvName.setText((String) map.get("title"));
+                holder.imgView.setImageBitmap((Bitmap) map.get("bitmap"));
+//                holder.imgView.setImageResource((Integer) map.get("img"));
                 return convertView;
             }
             class ViewHolder {
@@ -141,7 +134,7 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
             sb.append(userListBean.getName()).append("，");
         }
         name=sb.substring(0,sb.length()-1).toString();
-        handler.post(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 tvBirthdayName.setText(name);
@@ -151,9 +144,22 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
 
     @Override
     public void showBirthActivityList(List<BirthActivityBean.BirthActivitiesListBean> list, Bitmap[] bitmaps) {
-        for (int i=0;i<list.size();i++){
-            BirthActivityBean.BirthActivitiesListBean birthActivitiesListBean = list.get(i);
+        data.clear();
+        for (int i = 0; i < list.size(); i++) {
+            BirthActivityBean.BirthActivitiesListBean bean=list.get(i);
+            Map<String,Object> map=new HashMap<>();
+            map.put("title",bean.getTitle());
+            map.put("bitmap",bitmaps[i]);
+            map.put("date",bean.getCreateDate());
+            map.put("id",bean.getId());
+            data.add(map);
         }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                initView();
+            }
+        });
     }
 
     @Override
@@ -163,10 +169,4 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
             BirthActivityBean.BirthActivitiesListBean bean1 = bean.getBirthActivitiesList().get(i);
         }
     }
-
-    private Handler handler=new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-        }
-    };
 }
