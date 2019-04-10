@@ -4,14 +4,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.lucky.myapplication.ThinkingActivity;
 import com.mo.bean.UserLoginBean;
 import com.mo.model.ToolsDao;
 import com.mo.model.impl.ToolsDaoImpl;
 import com.mo.view.IToolsView;
 
 import java.util.LinkedHashMap;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by 风雨诺 on 2019/3/30.
@@ -28,6 +27,8 @@ public class ToolsPresenter {
         this.context = context;
         this.view = view;
     }
+
+
 
     public void login(String username, String password){
         if(dao!=null&&context!=null&&view!=null){

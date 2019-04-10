@@ -24,7 +24,7 @@ public class LearningGardenPresenter {
         this.context = context;
         this.view = view;
     }
-    public void getAllLearningGarden(){
+    public synchronized void getAllLearningGarden(){
         if(context!=null&&dao!=null){
             dao.getAllLearningGarden(context, new LearningGardenDao.LearningGardenListener() {
                 @Override
@@ -41,7 +41,7 @@ public class LearningGardenPresenter {
             });
         }
     }
-    public void getLearningGardenById(String id){
+    public synchronized void getLearningGardenById(String id){
         if(context!=null&&dao!=null){
             dao.getLearningGardenById(context, id, new LearningGardenDao.LearningGardenListener() {
                 @Override

@@ -45,6 +45,8 @@ public class Address {
     public static final String CHANGE_PWD="http://172.18.1.168:8080/redplat/servlet/ChangePassServletApp";
     //图片url
     public static final String PIC_URL="http://172.18.1.168:8080/redplat//UpLoad/workPic/";
-    //获取视频
-    public static final String VIDAO_URL="http://172.18.1.168:8080/redplat//UpLoad/learningFile/";
+    //获取文件
+    public static final String FILE_URL="http://172.18.1.168:8080/redplat//UpLoad/learningFile/";
+    //视频url
+    public static final String VIDAO_URL="http://172.18.1.168:8080/redplat//UpLoad/learningVideo/";
 }
