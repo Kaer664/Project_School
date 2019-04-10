@@ -114,6 +114,10 @@
             android:orientation="horizontal"
             android:gravity="center">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/honor"/>
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -121,13 +125,6 @@
                 android:text="荣誉经历"
                 android:textColor="@color/black"
                 android:textSize="@dimen/details_btn_size" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text=""
-                android:textSize="@dimen/details_btn_size"
-                android:id="@+id/tvWriterName"/>
         </LinearLayout>
     </LinearLayout>
     <ScrollView

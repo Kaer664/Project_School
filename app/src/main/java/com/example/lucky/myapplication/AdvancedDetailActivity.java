@@ -2,10 +2,15 @@ package com.example.lucky.myapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class AdvancedDetailActivity extends AppCompatActivity {
-
+    private TextView tvName;
+    private TextView tvMsg;
+    private TextView tvDate;
+    private ImageView imgPeople;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +23,11 @@ public class AdvancedDetailActivity extends AppCompatActivity {
         }
     }
 
+
     private void init() {
+        tvName= (TextView) findViewById(R.id.tvName);
+        tvMsg= (TextView) findViewById(R.id.tvMsg);
+        tvDate= (TextView) findViewById(R.id.tvDate);
+        imgPeople= (ImageView) findViewById(R.id.imgPeople);
     }
 }
