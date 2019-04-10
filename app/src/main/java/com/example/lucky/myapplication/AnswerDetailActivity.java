@@ -34,13 +34,16 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
     private Button btnNext;
     private RadioGroup rgSelect;
     private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
+    private AnswerActivityPresenter answerActivityPresenter=new AnswerActivityPresenter(this,this);
+    private String id,title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer_detail);
         toolBar();
         settoolbarName();
-        String id = getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
+        title = getIntent().getStringExtra("title");
         AnswerActivityPresenter aap = new AnswerActivityPresenter(this, this);
         if(id==null){
             Toast.makeText(this,"数据可能有错，请稍后再试",Toast.LENGTH_LONG).show();
@@ -80,6 +83,8 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
                     Toast.makeText(AnswerDetailActivity.this, "请检查网络，或者题目无效，未请求到数据。", Toast.LENGTH_LONG).show();
                 } else if (btnNext.getText().toString().equals("提交")) {
                     Log.i("TestNum", "这个时候变成提交了");
+                    //调用
+                    answerActivityPresenter.saveScore(id,title, String.valueOf(score));
                 } else if (count < sign) {
                     RadioButton rb = (RadioButton) findViewById(rgSelect.getCheckedRadioButtonId());
                     String selectString = rb.getText().toString();
@@ -161,8 +166,17 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
     private List<String> listAnswer = new ArrayList<>();
 
     @Override
-    public void isSave(boolean b) {
-
+    public void isSave(final boolean b) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (b){
+                    Toast.makeText(AnswerDetailActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(AnswerDetailActivity.this,"上传失败",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private Handler handler = new Handler() {

@@ -27,7 +27,7 @@ public class AnswerActivityDaoImpl implements AnswerActivityDao {
         new Thread() {
             @Override
             public void run() {
-                String json = HttpTools.postJson(context, Address.GET_ALL_ANSWER_ACTIVITY, "userId", userId);
+                String json = HttpTools.postJson(context, Address.GET_ALL_ANSWER_ACTIVITY, "userID", userId);
                 try {
                     List<AnswerActivityListBean.UserAnswerActivityListBean> bean = null;
                     JSONObject jsonObject = new JSONObject(json);

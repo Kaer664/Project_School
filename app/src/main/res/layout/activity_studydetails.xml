@@ -40,6 +40,8 @@
               android:src="@drawable/icon_ident" />
      </android.support.v7.widget.Toolbar>
 
+
+
      <LinearLayout
          android:layout_below="@id/tbStudyDetails"
          android:layout_width="match_parent"

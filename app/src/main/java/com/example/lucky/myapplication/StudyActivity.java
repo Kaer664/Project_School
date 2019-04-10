@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudyActivity extends AppCompatActivity implements ILearningGardenView, AdapterView.OnItemClickListener, IToolsView {
+public class StudyActivity extends AppCompatActivity implements ILearningGardenView, IToolsView {
     private Toolbar toolbar;
     private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
 
@@ -75,7 +75,6 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
                 , new String[]{"img", "title", "date"}
                 , new int[]{R.id.imgStudyPic, R.id.tvStudyTitle, R.id.tvStudyinfoCreatetime});
         lvStudy.setAdapter(adapter);
-        lvStudy.setOnItemClickListener(this);
     }
 
     @Override
@@ -90,27 +89,7 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         Log.i("", "");
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = null;
-        switch (position) {
-            case 0:
-                intent = new Intent(this, StudydetailsActivity.class);
-                intent.putExtra("id", "");
-                startActivity(intent);
-                break;
-            case 1:
-                intent = new Intent(this, StudydetailsActivity.class);
-                intent.putExtra("id", "");
-                startActivity(intent);
-                break;
-            case 2:
-                intent = new Intent(this, StudydetailsActivity.class);
-                intent.putExtra("id", "");
-                startActivity(intent);
-                break;
-        }
-    }
+
 
     @Override
     public void showRollingNotify(String content) {

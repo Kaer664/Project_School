@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AnswerActivityPresenter {
     private Context context;
-    private AnswerActivityDao dao = (AnswerActivityDao) new AnswerActivityDaoImpl();
+    private AnswerActivityDao dao = new AnswerActivityDaoImpl();
     private ToolsDao toolsDao = new ToolsDaoImpl();
     private IAnswerActivityView view;
 
