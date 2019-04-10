@@ -8,9 +8,12 @@ import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.lucky.myapplication.util.PatchInputStream;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PipedInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.LinkedHashMap;
@@ -103,8 +106,8 @@ public class HttpTools {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            byte[] bytes = response.body().bytes();
-            s = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+            InputStream is = response.body().byteStream();
+            s = BitmapFactory.decodeStream(new PatchInputStream(is));
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
