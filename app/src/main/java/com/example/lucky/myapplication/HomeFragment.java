@@ -3,12 +3,14 @@ package com.example.lucky.myapplication;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.mo.bean.PartyNewsBean;
 import com.mo.bean.PartyNewsListBean;
@@ -41,18 +44,90 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     private TextView tvNews2;
     private ToolsPresenter toolsPresenter;
     private PartyNewsPresenter partyNewsPresenter;
+    int count = 0;
+    ViewFlipper viewFlipper;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SHOW_NITIFY:
-                    String s="                                                                                                            ";
-                    tvRollMessage.setText( msg.obj.toString()+s);
+                    String s = "                                                                                                            ";
+                    tvRollMessage.setText(msg.obj.toString() + s);
                     break;
                 case SHOW_PARTY_NEWS:
                     String[] ss = (String[]) msg.obj;
-                    tvNews1.setText(ss[0]);
-                    tvNews2.setText(ss[1]);
+                    count = 0;
+                    int num = ss.length;
+                    if (num % 2 != 0) {
+                        num += 1;
+                        for (int i = 0; i < num / 2; i++) {
+                            LinearLayout linearLayout = new LinearLayout(getActivity());
+                            linearLayout.setOrientation(LinearLayout.VERTICAL);
+                            linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+                            tvNews1 = new TextView(getActivity());
+                            tvNews2 = new TextView(getActivity());
+                            tvNews1.setText(ss[count]);
+                            count++;
+                            tvNews1.setGravity(Gravity.CENTER_VERTICAL);
+                            tvNews1.setTextColor(Color.BLACK);
+                            tvNews1.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    intentTempNews(count);
+                                }
+                            });
+                            if (count == num - 1) {
+                                linearLayout.addView(tvNews1);
+                                viewFlipper.addView(linearLayout);
+                            } else {
+
+                                tvNews2.setText(ss[count]);
+                                count++;
+                                tvNews2.setGravity(Gravity.CENTER_VERTICAL);
+                                tvNews2.setTextColor(Color.BLACK);
+                                tvNews2.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        intentTempNews(count);
+                                    }
+                                });
+                                linearLayout.addView(tvNews1);
+                                linearLayout.addView(tvNews2);
+                                viewFlipper.addView(linearLayout);
+                            }
+                        }
+                    } else {
+                        for (int i = 0; i < num / 2; i++) {
+                            LinearLayout linearLayout = new LinearLayout(getActivity());
+                            linearLayout.setOrientation(LinearLayout.VERTICAL);
+                            linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+                            tvNews1 = new TextView(getActivity());
+                            tvNews2 = new TextView(getActivity());
+                            tvNews1.setText(ss[count]);
+                            count++;
+                            tvNews1.setGravity(Gravity.CENTER_VERTICAL);
+                            tvNews1.setTextColor(Color.BLACK);
+                            tvNews1.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    intentTempNews(count);
+                                }
+                            });
+                            tvNews2.setText(ss[count]);
+                            count++;
+                            tvNews2.setGravity(Gravity.CENTER_VERTICAL);
+                            tvNews2.setTextColor(Color.BLACK);
+                            tvNews2.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    intentTempNews(count);
+                                }
+                            });
+                            linearLayout.addView(tvNews1);
+                            linearLayout.addView(tvNews2);
+                            viewFlipper.addView(linearLayout);
+                        }
+                    }
                     break;
             }
         }
@@ -76,13 +151,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         lineVoice = (LinearLayout) getActivity().findViewById(R.id.lineVoice);
         lineStudy = (LinearLayout) getActivity().findViewById(R.id.lineStudy);
         lineBirthday = (LinearLayout) getActivity().findViewById(R.id.lineBirthday);
-        tvNews1 = (TextView) getActivity().findViewById(R.id.tvNews1);
-        tvNews2 = (TextView) getActivity().findViewById(R.id.tvNews2);
         tvRollMessage = (TextView) getActivity().findViewById(R.id.tvRollMessage);
         tvRollMessage.setSelected(true);
+        viewFlipper = (ViewFlipper) getActivity().findViewById(R.id.view_flipper);
 
-        toolsPresenter=new ToolsPresenter(getContext(),this);
-        partyNewsPresenter=new PartyNewsPresenter(getContext(),this);
+        toolsPresenter = new ToolsPresenter(getContext(), this);
+        partyNewsPresenter = new PartyNewsPresenter(getContext(), this);
         toolsPresenter.getRollingNotify();
         partyNewsPresenter.getAllPartyNews();
 
@@ -92,8 +166,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         lineVoice.setOnClickListener(this);
         lineStudy.setOnClickListener(this);
         lineBirthday.setOnClickListener(this);
-        tvNews1.setOnClickListener(this);
-        tvNews2.setOnClickListener(this);
     }
 
     @Override
@@ -123,12 +195,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
             case R.id.lineBirthday:
                 intent = new Intent(getActivity(), BirthdayActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.tvNews1:
-                intentTempNews(1);
-                break;
-            case R.id.tvNews2:
-                intentTempNews(2);
                 break;
         }
     }

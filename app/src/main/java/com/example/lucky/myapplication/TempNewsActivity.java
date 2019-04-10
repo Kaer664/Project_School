@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.PartyNewsBean;
 import com.mo.bean.PartyNewsListBean;
@@ -37,8 +38,13 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
         init();
         toolBar();
         settoolbarName();
-        int id = getIntent().getIntExtra("id", 1);
-        partyNewsPresenter.getPartyNewsById(String.valueOf(id));
+        int id = getIntent().getIntExtra("id",-1);
+        if (id==-1){
+            Toast.makeText(this,"获取服务器数据失败，请尝试重新打开界面",Toast.LENGTH_SHORT).show();
+        }else {
+            partyNewsPresenter.getPartyNewsById(String.valueOf(id));
+        }
+
     }
 
     private void init() {
@@ -61,9 +67,9 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
             @Override
             public void run() {
                 if (bean != null) {
-                    mTvNewsTitle.setText(bean.getTitle());
-                    mTvNewsWriter.setText(bean.getWriterPersonName());
-                    mTvNewContext.setText(bean.getWorkTask());
+                    mTvNewsTitle.setText(bean.getTitle().toString());
+                    mTvNewsWriter.setText(bean.getWriterPersonName().toString());
+                    mTvNewContext.setText(bean.getWorkTask().toString());
                     if (bitmap != null) {
                         mImgNewsPic.setImageBitmap(bitmap);
                     }
