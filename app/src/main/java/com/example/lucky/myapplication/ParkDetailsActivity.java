@@ -140,11 +140,9 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             PartyActivityBean.ReplyListBean javaBean = userReply.get(i);
             Map<String, Object> map = new HashMap<>();
             map.put("name", javaBean.getUserName());
-            map.put("date", "date"+i);
+            map.put("date", "");
             map.put("headImg",R.drawable.img);
             map.put("content", javaBean.getReplyContent());
-            Log.i("TestNum",javaBean.getUserName());
-            Log.i("TestNum",javaBean.getReplyContent());
             reply_data.add(map);
         }
         handler.post(new Runnable() {

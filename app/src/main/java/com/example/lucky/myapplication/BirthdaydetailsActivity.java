@@ -1,18 +1,23 @@
 package com.example.lucky.myapplication;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lucky.myapplication.view.CommentView;
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
 import com.mo.bean.UserLoginBean;
@@ -28,7 +33,6 @@ import java.util.Map;
 
 public class BirthdaydetailsActivity extends AppCompatActivity implements View.OnClickListener, IToolsView, IBirthView {
     private Toolbar toolbar;
-    private ListView listViewBirth;
     private EditText etComment;
     private Button btnSendComment;
     private TextView textView, tvBirthdayTitle;
@@ -36,6 +40,10 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
     private ToolsPresenter toolsPresenter;
     private BirthPresenter birthPresenter;
     private String id;
+    private LinearLayout line;
+
+    private int width;
+    private int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,15 +73,19 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
     }
 
     private void init() {
-        listViewBirth = (ListView) findViewById(R.id.listViewBirth);
         etComment = (EditText) findViewById(R.id.etComment);
         btnSendComment = (Button) findViewById(R.id.btnSendComment);
         textView = (TextView) findViewById(R.id.textView);
         tvBirthdayTitle = (TextView) findViewById(R.id.tvBirthdayTitle);
         imgView = (ImageView) findViewById(R.id.imgView);
+        line= (LinearLayout) findViewById(R.id.line);
         toolsPresenter = new ToolsPresenter(this, this);
         birthPresenter = new BirthPresenter(this, this);
         birthPresenter.getBirthActivityById(id);
+        Resources resources = this.getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        width = dm.widthPixels;
+        height = dm.heightPixels;
 //        initView();
         btnSendComment.setOnClickListener(this);
     }
@@ -147,19 +159,24 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
                         imgView.setImageBitmap(bitmap);
                     }
                     List<BirthActivityBean.ReplyListBean> replyList = bean.getReplyList();
-                    List<Map<String, String>> replyData = new ArrayList<>();
+                    List<Map<String, Object>> replyData = new ArrayList<>();
                     for (BirthActivityBean.ReplyListBean replyListBean:replyList){
-                        Map<String,String> map=new HashMap();
-                        map.put("userName",replyListBean.getUserName());
-                        map.put("content",replyListBean.getReplyContent());
+                        Map<String,Object> map=new HashMap();
+                        map.put("name", replyListBean.getUserName());
+                        map.put("date", "");
+                        map.put("headImg",R.drawable.img);
+                        map.put("content", replyListBean.getReplyContent());
                         replyData.add(map);
                     }
-                    SimpleAdapter adapter = new SimpleAdapter(BirthdaydetailsActivity.this,
-                            replyData,
-                            R.layout.details_item
-                            , new String[]{ "userName", "content"}
-                            , new int[]{ R.id.itemName, R.id.itemMessage});
-                    listViewBirth.setAdapter(adapter);
+
+                    for(int i=0;i<replyData.size();i++){
+                        line.addView(new CommentView(BirthdaydetailsActivity.this,replyData.get(i)));
+                        TextView t=new TextView(BirthdaydetailsActivity.this);
+                        t.setWidth(width);
+                        t.setHeight(1);
+                        t.setBackgroundColor(Color.BLACK);
+                        line.addView(t);
+                    }
                 }
             }
         });

@@ -70,7 +70,7 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String id1 = (String) data.get(position).get("id");
-                Intent intent=new Intent(BirthdayActivity.this,BirthdaydetailsActivity.class);
+                Intent intent = new Intent(BirthdayActivity.this, BirthdaydetailsActivity.class);
                 intent.putExtra("id",id1);
                 startActivity(intent);
             }

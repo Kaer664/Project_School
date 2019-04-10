@@ -21,7 +21,9 @@
         android:id="@+id/imgItem"
         android:layout_width="@dimen/part_img_height"
         android:layout_height="@dimen/part_img_height"
-        android:padding="@dimen/ranking_padding" />
+        android:padding="@dimen/ranking_padding"
+        android:src="@drawable/img"
+        />
 
     <LinearLayout
         android:layout_width="0dp"

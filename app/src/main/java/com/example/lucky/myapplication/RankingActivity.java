@@ -9,37 +9,33 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.mo.bean.ScoreRankBean;
+import com.mo.bean.UserScoreBean;
+import com.mo.presenter.ScorePresenter;
+import com.mo.view.IScoreView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RankingActivity extends AppCompatActivity {
+public class RankingActivity extends AppCompatActivity implements IScoreView {
 
     private ListView listViewRank;
-    private List<Map<String,Object>> data=new ArrayList<>();
+    private ScorePresenter scorePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
         toolBar();
-        listViewRank= (ListView) findViewById(R.id.listViewRank);
-        for(int i=0;i<3;i++){
-            Map<String,Object> map=new HashMap<>();
-            map.put("ranking",i);
-            map.put("img",R.drawable.img);
-            map.put("name","name"+i);
-            map.put("score","score"+i);
-            data.add(map);
-        }
-        SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.ranking_item
-                ,new String[]{"ranking","img","name","score"}
-                ,new int[]{R.id.tvItemRanking,R.id.imgItem,R.id.tvItemName,R.id.tvItemScore});
-        listViewRank.setAdapter(adapter);
+        listViewRank = (ListView) findViewById(R.id.listViewRank);
+        scorePresenter = new ScorePresenter(this, this);
+        scorePresenter.getScoreRank();
     }
 
     private Toolbar toolbar;
+
     private void toolBar() {
         toolbar = (Toolbar) findViewById(R.id.tbRanking);
         toolbar.setTitle("");
@@ -50,6 +46,35 @@ public class RankingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+    }
+
+    @Override
+    public void showUserScoreInfo(UserScoreBean bean) {
+
+    }
+
+    @Override
+    public void showScoreRank(final List<ScoreRankBean.AllUserScoreListBean> list) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (list != null) {
+                    List<Map<String, String>> data = new ArrayList<>();
+                    for (int i=0;i<list.size();i++) {
+                        ScoreRankBean.AllUserScoreListBean bean=list.get(i);
+                        Map<String, String> map = new HashMap<>();
+                        map.put("ranking", String.valueOf(i+1));
+                        map.put("userName", bean.getUserName());
+                        map.put("score", bean.getScore());
+                        data.add(map);
+                        SimpleAdapter adapter = new SimpleAdapter(RankingActivity.this, data, R.layout.ranking_item
+                                , new String[]{"ranking","userName", "score"}
+                                , new int[]{R.id.tvItemRanking, R.id.tvItemName, R.id.tvItemScore});
+                        listViewRank.setAdapter(adapter);
+                    }
+                }
             }
         });
     }
