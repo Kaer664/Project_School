@@ -107,7 +107,7 @@ public class HttpTools {
         try {
             Response response = client.newCall(request).execute();
             InputStream is = response.body().byteStream();
-            s = BitmapFactory.decodeStream(new PatchInputStream(is));
+            s = BitmapFactory.decodeStream(is);
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();

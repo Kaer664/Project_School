@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.lucky.myapplication.util.PatchInputStream;
 import com.mo.bean.AdvancePersonBean;
@@ -40,9 +43,6 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         toolBar();
         init();
         AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
-//        ap.getAllAdvancePerson();
-//        ap.getAdvancePersonById("5");
-        getConBitmap("http://172.18.1.168:8080/redplat//UpLoad/workPic/IMG_20160220_111800.jpg");
     }
     private void getConBitmap(final String path){
         new Thread(new Runnable() {
@@ -112,7 +112,6 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.advanceditem
                 ,new String[]{"img","name","introduction","createDate"}
                 ,new int[]{R.id.imgCharacter,R.id.tvCharacterName,R.id.tvCharacterAchievement,R.id.tvCreateDate});
-        gridViewAdvanced.setAdapter(adapter);
 
         BaseAdapter baseAdapter=new BaseAdapter() {
             @Override
@@ -131,12 +130,42 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
             }
 
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-               View advancedItem= LayoutInflater.from(AdvancedfiguresActivity.this).inflate(R.layout.advanceditem,null);
-
-                return null;
+            public View getView(final int position, View convertView, ViewGroup parent) {
+                ViewHolder holder=null;
+                LayoutInflater inflater=LayoutInflater.from(AdvancedfiguresActivity.this);
+                if(convertView==null){
+                    holder=new ViewHolder();
+                    convertView=inflater.inflate(R.layout.advanceditem,null);
+                    holder.date= (TextView) convertView.findViewById(R.id.tvCreateDate);
+                    holder.name= (TextView) convertView.findViewById(R.id.tvCharacterName);
+                    holder.Message= (TextView) convertView.findViewById(R.id.tvCharacterAchievement);
+                    holder.imgView= (ImageView) convertView.findViewById(R.id.imgCharacter);
+                    convertView.setTag(holder);
+                    convertView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent=new Intent(AdvancedfiguresActivity.this,AdvancedDetailActivity.class);
+                            intent.putExtra("id",(String) data.get(position).get("id"));
+                            startActivity(intent);
+                        }
+                    });
+                }else{
+                    holder= (ViewHolder) convertView.getTag();
+                }
+                holder.imgView.setImageBitmap((Bitmap) data.get(position).get("img"));
+                holder.name.setText((String) data.get(position).get("name"));
+                holder.date.setText((String) data.get(position).get("createDate"));
+                holder.Message.setText((String) data.get(position).get("introduction"));
+                return convertView;
+            }
+            class ViewHolder{
+                public ImageView imgView;
+                public TextView name;
+                public TextView date;
+                public TextView Message;
             }
         };
+        gridViewAdvanced.setAdapter(baseAdapter);
 
     }
 
@@ -151,6 +180,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
             AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
             Map<String,Object> map=new HashMap<>();
             map.put("img",bitmaps[i]);
+            map.put("id",apb.getId());
             map.put("name","-"+apb.getTitle()+"-");
             map.put("introduction",apb.getWorkTask());
             map.put("createDate",apb.getCreateDate());

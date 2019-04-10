@@ -29,8 +29,8 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         setContentView(R.layout.activity_study);
         toolBar();
         init();
-       LearningGardenPresenter lgp=new LearningGardenPresenter(this,this);
-       lgp.getAllLearningGarden();
+        LearningGardenPresenter lgp=new LearningGardenPresenter(this,this);
+        lgp.getAllLearningGarden();
     }
 
     private void toolBar() {

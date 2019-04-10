@@ -45,17 +45,6 @@
            android:layout_below="@id/tbParkdetails"
            android:layout_height="wrap_content"
            >
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:gravity="center"
-               android:layout_marginTop="@dimen/details_margin_top"
-               android:layout_marginLeft="@dimen/details_margin_left"
-               android:layout_marginRight="@dimen/details_margin_left"
-               android:text=""
-               android:textSize="@dimen/details_text_size"
-               android:textColor="@color/black"
-               android:id="@+id/details_top_title"/>
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -68,7 +57,7 @@
                    android:id="@+id/textView2"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="作者："
+                   android:text="荣誉/经历"
                    android:textColor="@color/black"
                    android:textSize="@dimen/details_btn_size" />
                <TextView
@@ -99,65 +88,8 @@
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/details_btn_size" />
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:id="@+id/imgView"
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/details_margin_top"
-                android:layout_height="1dp"
-                android:background="#ccc"/>
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="观点"
-                        android:gravity="center"
-                        android:layout_margin="@dimen/details_margin_left"
-                        android:textSize="@dimen/details_text_size"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"/>
-                </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#ccc"/>
-
         </LinearLayout>
     </ScrollView>
 
-    <!--底部-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/line_bottom"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/etBottom"
-            android:layout_width="0dp"
-            android:layout_margin="1dp"
-            android:hint="欢迎发表你的观点"
-            android:textColorHint="#919090"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="10"
-            android:textColor="@color/black" />
 
-        <Button
-            android:id="@+id/btnBottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="评论" />
-    </LinearLayout>
 </RelativeLayout>

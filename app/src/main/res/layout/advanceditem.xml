@@ -13,14 +13,15 @@
             android:layout_height="@dimen/advance_item_img_height_size"
             android:src="@drawable/study"
             />
+
         <TextView
             android:id="@+id/tvCharacterName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:text="冯理达"
-            android:textSize="@dimen/advance_item_text_size1"
             android:textColor="@color/colorblack"
+            android:textSize="@dimen/advance_item_text_size1"
             android:textStyle="bold" />
 
         <TextView

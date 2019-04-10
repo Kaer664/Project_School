@@ -103,7 +103,6 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
                 holder.yesOrDo.setText(tMap.get("do"));
                 return convertView;
             }
-
             class ViewHolder{
                 public TextView title;
                 public TextView date;
