@@ -100,7 +100,9 @@ public class HttpTools {
                 .build();
         try {
             Response response = client.newCall(request).execute();
-            s = BitmapFactory.decodeStream(response.body().byteStream());
+            byte[] bytes = response.body().bytes();
+            s = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+            response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
