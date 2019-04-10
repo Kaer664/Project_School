@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mo.bean.UserLoginBean;
@@ -18,12 +20,14 @@ import com.mo.view.IToolsView;
 public class ThinkingActivity extends AppCompatActivity implements IToolsView {
     private Toolbar toolbar;
     private ToolsPresenter toolsPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thinking);
         toolBar();
         init();
+        settoolbarName();
     }
 
     private void toolBar() {
@@ -102,5 +106,13 @@ public class ThinkingActivity extends AppCompatActivity implements IToolsView {
     @Override
     public void isChangePass(boolean b) {
 
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbthinking);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
     }
 }

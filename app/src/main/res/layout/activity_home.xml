@@ -16,7 +16,7 @@
         android:focusable="true"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="1                                                                                                            "
+        android:text="如果看到此消息请关闭程序重新打开，服务器连接已中断                                                                                                            "
         android:textColor="@color/colorblack" />
 
     <LinearLayout

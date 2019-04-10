@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -43,7 +44,6 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     private String activityId;
     private PartyActivityPresenter partyActivityPresenter;
     private String id;
-
     private int width;
     private int height;
     @Override
@@ -51,6 +51,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_park_details);
         toolBar();
+
         Resources resources = this.getResources();
         DisplayMetrics dm = resources.getDisplayMetrics();
         width = dm.widthPixels;
@@ -63,6 +64,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             partyActivityPresenter.getPartyActivityById(id);
             init();
         }
+        settoolbarName();
     }
 
     private void toolBar() {
@@ -200,5 +202,13 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     @Override
     public void isChangePass(boolean b) {
 
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbParkdetailsUserName);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
     }
 }

@@ -1,26 +1,33 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mo.bean.PartyNewsBean;
 import com.mo.bean.PartyNewsListBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.PartyNewsPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IPartyNewsView;
+import com.mo.view.IToolsView;
 
 import java.util.List;
 
-public class TempNewsActivity extends AppCompatActivity implements IPartyNewsView {
+public class TempNewsActivity extends AppCompatActivity implements IPartyNewsView, IToolsView {
 
     private TextView mTvNewsTitle;
     private TextView mTvNewsWriter;
     private ImageView mImgNewsPic;
     private TextView mTvNewContext;
     private PartyNewsPresenter partyNewsPresenter;
-
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
+    private Toolbar toolbar;
 
 
     @Override
@@ -28,6 +35,8 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_news);
         init();
+        toolBar();
+        settoolbarName();
         int id = getIntent().getIntExtra("id", 1);
         partyNewsPresenter.getPartyNewsById(String.valueOf(id));
     }
@@ -37,7 +46,8 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
         mTvNewsWriter = (TextView) findViewById(R.id.tvNewsWriter);
         mImgNewsPic = (ImageView) findViewById(R.id.imgNewsPic);
         mTvNewContext = (TextView) findViewById(R.id.tvNewContext);
-        partyNewsPresenter=new PartyNewsPresenter(this,this);
+        partyNewsPresenter = new PartyNewsPresenter(this, this);
+
     }
 
     @Override
@@ -50,15 +60,64 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (bean!=null){
+                if (bean != null) {
                     mTvNewsTitle.setText(bean.getTitle());
                     mTvNewsWriter.setText(bean.getWriterPersonName());
                     mTvNewContext.setText(bean.getWorkTask());
-                    if (bitmap!=null){
+                    if (bitmap != null) {
                         mImgNewsPic.setImageBitmap(bitmap);
                     }
                 }
             }
         });
     }
+
+    public void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbTempnews);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbTempnewsUserName);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,8 +21,11 @@ import android.widget.TextView;
 
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.presenter.PartyActivityPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IPartyActivityView;
+import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,15 +36,17 @@ import java.util.Map;
 /**
  * 党务活动
  */
-public class CommunistPartyActivity extends AppCompatActivity implements IPartyActivityView{
+public class CommunistPartyActivity extends AppCompatActivity implements IPartyActivityView, IToolsView {
     private Toolbar toolbar;
     private ListView partListView;
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_communist_party);
         toolBar();
         init();
+        settoolbarName();
         PartyActivityPresenter partyActivityPresenter = new PartyActivityPresenter(this, this);
         partyActivityPresenter.getAllPartyActivity();
     }
@@ -165,4 +171,36 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
         }
     };
 
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbCommunistpartyUserName);
+            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+        }
+    }
 }
