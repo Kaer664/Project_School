@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -70,6 +71,20 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
                 finish();
             }
         });
+        settoolbarName();
+    }
+    public void settoolbarName() {
+        toolsPresenter=new ToolsPresenter(this,this);
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbbirthdayDetailsUsername);
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
+        }
     }
 
     private void init() {

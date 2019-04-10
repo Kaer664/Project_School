@@ -197,7 +197,11 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbAdvancedfigures);
-            tvtbTempnewsUserName.setText(userRealName.substring(1));
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
         }
     }
 }

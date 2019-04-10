@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,21 +9,26 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.mo.bean.ScoreRankBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.bean.UserScoreBean;
 import com.mo.presenter.ScorePresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IScoreView;
+import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RankingActivity extends AppCompatActivity implements IScoreView {
+public class RankingActivity extends AppCompatActivity implements IScoreView , IToolsView {
 
     private ListView listViewRank;
     private ScorePresenter scorePresenter;
+    private ToolsPresenter toolsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,21 @@ public class RankingActivity extends AppCompatActivity implements IScoreView {
                 finish();
             }
         });
+        settoolbarName();
+    }
+
+    public void settoolbarName() {
+        toolsPresenter=new ToolsPresenter(this,this);
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbRankingName);
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
+        }
     }
 
     @Override
@@ -77,5 +98,30 @@ public class RankingActivity extends AppCompatActivity implements IScoreView {
                 }
             }
         });
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
     }
 }

@@ -30,7 +30,7 @@
 
     <dimen name="advance_item_text_size1">19sp</dimen>
     <dimen name="advance_item_text_size">18sp</dimen>
-    <dimen name="advance_item_margin_size">7sp</dimen>
+    <dimen name="advance_item_margin_size">5sp</dimen>
     <dimen name="advance_item_img_height_size">227sp</dimen>
     <dimen name="advance_item_img_weight_size">171sp</dimen>
 

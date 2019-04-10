@@ -142,7 +142,11 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbstudy);
-            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
         }
     }
 

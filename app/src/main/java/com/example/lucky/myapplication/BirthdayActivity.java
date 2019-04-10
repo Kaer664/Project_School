@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -21,20 +22,24 @@ import android.widget.TextView;
 
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.model.BirthDao;
 import com.mo.presenter.BirthPresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IBirthView;
+import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class BirthdayActivity extends AppCompatActivity implements IBirthView{
+public class BirthdayActivity extends AppCompatActivity implements IBirthView, IToolsView {
     private Toolbar toolbar;
     private ListView lvBirthdayActivity;
     private TextView tvBirthdayName;
     private BirthPresenter bp;
+    private ToolsPresenter toolsPresenter;
     private List<Map<String, Object>> data = new ArrayList<>();
 
     @Override
@@ -44,6 +49,7 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
         toolBar();
         init();
         bp.getAllBirthActivity();
+
     }
 
     private void toolBar() {
@@ -58,6 +64,7 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
                 finish();
             }
         });
+        settoolbarName();
     }
 
 
@@ -161,6 +168,19 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
             }
         });
     }
+    public void settoolbarName() {
+        toolsPresenter=new ToolsPresenter(this,this);
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbbirthdayUsername);
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
+        }
+    }
 
     @Override
     public void showBirthActivityInfo(BirthActivityBean bean, Bitmap bitmap) {
@@ -168,5 +188,30 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView{
         for(int i=0;i<t;i++){
             BirthActivityBean.BirthActivitiesListBean bean1 = bean.getBirthActivitiesList().get(i);
         }
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
     }
 }

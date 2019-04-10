@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,9 +15,12 @@ import android.widget.TextView;
 import com.example.lucky.myapplication.bean.ChildBean;
 import com.example.lucky.myapplication.bean.GroupBean;
 import com.mo.bean.ScoreRankBean;
+import com.mo.bean.UserLoginBean;
 import com.mo.bean.UserScoreBean;
 import com.mo.presenter.ScorePresenter;
+import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IScoreView;
+import com.mo.view.IToolsView;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
@@ -24,13 +28,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class IntegralActivity extends AppCompatActivity implements IScoreView {
+public class IntegralActivity extends AppCompatActivity implements IScoreView , IToolsView {
 
     private ExpandableListView exListView;
     private TextView tvSumScore;
     private ScorePresenter scorePresenter;
     private List<GroupBean> groupList=new ArrayList<>();
     private List<List<ChildBean>> childBean=new ArrayList<>();
+    private ToolsPresenter toolsPresenter;
 
     private List<GroupBean> groupList1=new ArrayList<>();
     private List<List<ChildBean>> childBean1=new ArrayList<>();
@@ -178,8 +183,47 @@ public class IntegralActivity extends AppCompatActivity implements IScoreView {
         }
     }
 
+    public void settoolbarName() {
+        toolsPresenter=new ToolsPresenter(this ,this);
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbintegralname);
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
+        }
+    }
+
     @Override
     public void showScoreRank(List<ScoreRankBean.AllUserScoreListBean> list) {
+
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
 
     }
 }
