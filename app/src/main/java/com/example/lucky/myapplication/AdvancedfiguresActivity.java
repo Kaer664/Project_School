@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,12 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 
 import com.mo.bean.AdvancePersonBean;
 import com.mo.presenter.AdvancePersonPresenter;
 import com.mo.view.IAdvancePersonView;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +30,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
 
     private GridView gridViewAdvanced;
     private Toolbar toolbar;
+    private ImageView img;
     //gridViewAdvanced
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +39,45 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         toolBar();
         init();
         AdvancePersonPresenter ap=new AdvancePersonPresenter(this,this);
-        ap.getAllAdvancePerson();
-        ap.getAdvancePersonById("5");
+        //ap.getAllAdvancePerson();
+        //ap.getAdvancePersonById("5");
+        //http://172.18.1.168:8080/redplat//UpLoad/workPic/IMG_20160220_111800.jpg
+        getConBitmap("http://172.18.1.168:8080/redplat//UpLoad/workPic/IMG_20160220_111800.jpg");
+
+    }
+    private void getConBitmap(final String path){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    URL url = new URL(path);
+                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                    con.setRequestMethod("GET");  //设置请求的方式
+                    con.setConnectTimeout(10000000);  //连接的超时时间   单位毫秒
+                    con.setDoInput(true);       //设置希望读   还是写
+                    con.connect();     //建立连接
+                    //得到响应代码
+                    int responseCode = con.getResponseCode();
+                    if (responseCode == 200) {
+                        //判断响应代码是不是200  200表示成功连接上了
+                        Log.i("TEST", "OK");
+                        InputStream is = con.getInputStream();    //可以连接了那么就开始读取数据
+                        final Bitmap bitmap = BitmapFactory.decodeStream(is);   //通过静态方法把数据转换为Bitmap类型数据
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //通过这样的机制来更改ui
+                                img.setImageBitmap(bitmap);
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
     }
 
     private void toolBar() {
@@ -54,6 +97,8 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
 
     private void init() {
         gridViewAdvanced= (GridView) findViewById(R.id.gridViewAdvanced);
+        img= (ImageView) findViewById(R.id.img);
+
         initView();
     }
     private List<Map<String,Object>> data=new ArrayList<>();
@@ -95,6 +140,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
                 return null;
             }
         };
+
     }
 
     /**

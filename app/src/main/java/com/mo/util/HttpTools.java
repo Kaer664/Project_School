@@ -91,9 +91,12 @@ public class HttpTools {
         if (!checkNetWorkAction(context)) {
             return null;
         }
+
         Bitmap s=null;
         OkHttpClient client=new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
+        Log.i("TestNum",url+picName);
+
         Request request=new Request.Builder()
                 .url(url+picName)
                 .method("POST",builder.build())
