@@ -142,11 +142,9 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             PartyActivityBean.ReplyListBean javaBean = userReply.get(i);
             Map<String, Object> map = new HashMap<>();
             map.put("name", javaBean.getUserName());
-            map.put("date", "date"+i);
+            map.put("date", "");
             map.put("headImg",R.drawable.img);
             map.put("content", javaBean.getReplyContent());
-            Log.i("TestNum",javaBean.getUserName());
-            Log.i("TestNum",javaBean.getReplyContent());
             reply_data.add(map);
         }
         handler.post(new Runnable() {
@@ -210,7 +208,11 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbParkdetailsUserName);
-            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
         }
     }
 }

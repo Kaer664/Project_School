@@ -20,7 +20,7 @@ public class ScoreInfoDaoImpl implements ScoreInfoDao {
         new Thread() {
             @Override
             public void run() {
-                String json = HttpTools.postJson(context, Address.GET_USER_SCORE, "userId", userId);
+                String json = HttpTools.postJson(context, Address.GET_USER_SCORE, "userID", userId);
                 Gson gson = new Gson();
                 UserScoreBean bean = gson.fromJson(json, UserScoreBean.class);
                 listener.result(bean);

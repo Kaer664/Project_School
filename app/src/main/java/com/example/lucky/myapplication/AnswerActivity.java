@@ -96,6 +96,7 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
                         public void onClick(View v) {
                             Intent intent=new Intent(AnswerActivity.this,AnswerDetailActivity.class);
                             intent.putExtra("id",data.get(position).get("id"));
+                            intent.putExtra("title",data.get(position).get("title"));
                             startActivity(intent);
                         }
                     });
@@ -129,7 +130,12 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
             map.put("title",userBean.getTitle());
             map.put("start",userBean.getStartTime());
             map.put("stop",userBean.getEndTime());
-            map.put("do",userBean.getYesOrNotDo());
+            if(userBean.getYesOrNotDo().equals("1")){
+                map.put("do",userBean.getScore());
+            }else {
+                map.put("do","0");
+            }
+
             map.put("id",userBean.getId());
             data.add(map);
         }
@@ -186,7 +192,11 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbAnswerUserName);
-            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
         }
     }
 }

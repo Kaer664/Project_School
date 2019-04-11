@@ -14,44 +14,49 @@ import android.widget.TextView;
 
 import com.example.lucky.myapplication.bean.ChildBean;
 import com.example.lucky.myapplication.bean.GroupBean;
+import com.mo.bean.ScoreRankBean;
 import com.mo.bean.UserLoginBean;
+import com.mo.bean.UserScoreBean;
+import com.mo.presenter.ScorePresenter;
 import com.mo.presenter.ToolsPresenter;
+import com.mo.view.IScoreView;
 import com.mo.view.IToolsView;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class IntegralActivity extends AppCompatActivity implements IToolsView {
+public class IntegralActivity extends AppCompatActivity implements IScoreView , IToolsView {
 
     private ExpandableListView exListView;
     private TextView tvSumScore;
+    private ScorePresenter scorePresenter;
     private List<GroupBean> groupList=new ArrayList<>();
     private List<List<ChildBean>> childBean=new ArrayList<>();
-    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
+    private ToolsPresenter toolsPresenter;
+
+    private List<GroupBean> groupList1=new ArrayList<>();
+    private List<List<ChildBean>> childBean1=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_integral);
         toolBar();
-        settoolbarName();
-        for(int i=0;i<5;i++){
-            GroupBean g=new GroupBean("测试内容","20");
-            groupList.add(g);
-        }
-        for(int i=0;i<5;i++){
-            List<ChildBean> list=new ArrayList<>();
-            for(int j=0;j<3;j++){
-                ChildBean c=new ChildBean("测试内容","5");
-                list.add(c);
-            }
-            childBean.add(list);
-        }
+        init();
+
         exListView= (ExpandableListView) findViewById(R.id.exListView);
         tvSumScore= (TextView) findViewById(R.id.tvSumScore);
+    }
 
+    private void init() {
+        scorePresenter=new ScorePresenter(this,this);
+        scorePresenter.getUserScoreInfo();
+    }
+
+    private void initView(){
         BaseExpandableListAdapter adapter=new BaseExpandableListAdapter() {
-
 
             @Override
             public int getGroupCount() {
@@ -104,8 +109,8 @@ public class IntegralActivity extends AppCompatActivity implements IToolsView {
             public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
                 LayoutInflater inflater=LayoutInflater.from(IntegralActivity.this);
                 View v=inflater.inflate(R.layout.child_item,null);
-               TextView c= (TextView) v.findViewById(R.id.tvChildTitle);
-               TextView cScore= (TextView) v.findViewById(R.id.tvChildScore);
+                TextView c= (TextView) v.findViewById(R.id.tvChildTitle);
+                TextView cScore= (TextView) v.findViewById(R.id.tvChildScore);
                 c.setText(childBean.get(groupPosition).get(childPosition).getTitle());
                 cScore.setText(childBean.get(groupPosition).get(childPosition).getScore());
                 return v;
@@ -117,7 +122,7 @@ public class IntegralActivity extends AppCompatActivity implements IToolsView {
             }
         };
         exListView.setAdapter(adapter);
-    }
+    };
 
     private Toolbar toolbar;
     private void toolBar() {
@@ -134,6 +139,68 @@ public class IntegralActivity extends AppCompatActivity implements IToolsView {
         });
     }
 
+
+    @Override
+    public void showUserScoreInfo(UserScoreBean bean) {
+        if (bean!=null){
+            final String scoreSum = bean.getScoreSum();
+            String answerScore = bean.getAnswerActivityscoreSum();
+            String replyScore = bean.getReplyscoreSum();
+            GroupBean gb1=new GroupBean("答题活动得分",answerScore);
+            GroupBean gb2=new GroupBean("回复得分",replyScore);
+            groupList.add(gb1);
+            groupList.add(gb2);
+            List<UserScoreBean.UserAnswerActivityScorelistBean> activityScorelist = bean.getUserAnswerActivityScorelist();
+            List<UserScoreBean.UserReplyScoreListBean> replyScoreList = bean.getUserReplyScoreList();
+
+            //活动
+            if (activityScorelist!=null||replyScoreList!=null){
+
+
+                List<ChildBean> list=new ArrayList<>();
+                for (UserScoreBean.UserAnswerActivityScorelistBean scoreBean:activityScorelist){
+                    ChildBean cb=new ChildBean(scoreBean.getTitle(),scoreBean.getScore());
+                    list.add(cb);
+                }
+
+
+                List<ChildBean> list1=new ArrayList<>();
+                //回复
+                for (UserScoreBean.UserReplyScoreListBean scoreBean:replyScoreList){
+                    ChildBean cb=new ChildBean(scoreBean.getTitle(),scoreBean.getScore());
+                    list1.add(cb);
+                }
+                childBean.add(list);
+                childBean.add(list1);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvSumScore.setText(scoreSum);
+                        initView();
+                    }
+                });
+            }
+        }
+    }
+
+    public void settoolbarName() {
+        toolsPresenter=new ToolsPresenter(this ,this);
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        if (userRealName != null) {
+            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbintegralname);
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
+        }
+    }
+
+    @Override
+    public void showScoreRank(List<ScoreRankBean.AllUserScoreListBean> list) {
+
+    }
 
     @Override
     public void showRollingNotify(String content) {
@@ -158,14 +225,5 @@ public class IntegralActivity extends AppCompatActivity implements IToolsView {
     @Override
     public void isChangePass(boolean b) {
 
-    }
-
-    public void settoolbarName() {
-        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
-        String userRealName = sharedPreferences.getString("userRealName", null);
-        if (userRealName != null) {
-            TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbintegralname);
-            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
-        }
     }
 }

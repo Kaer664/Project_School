@@ -7,12 +7,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.example.lucky.myapplication.adapter.MyAdapter;
 import com.mo.bean.LearningGardenInfoBean;
 import com.mo.bean.LearningGardenListBean;
 import com.mo.bean.UserLoginBean;
@@ -26,9 +31,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudyActivity extends AppCompatActivity implements ILearningGardenView, AdapterView.OnItemClickListener, IToolsView {
+public class StudyActivity extends AppCompatActivity implements ILearningGardenView, IToolsView {
     private Toolbar toolbar;
     private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
+    private LearningGardenPresenter lgp = new LearningGardenPresenter(this, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +43,6 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         toolBar();
         init();
         settoolbarName();
-        LearningGardenPresenter lgp = new LearningGardenPresenter(this, this);
         lgp.getAllLearningGarden();
     }
 
@@ -60,29 +65,38 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
 
     private void init() {
         lvStudy = (ListView) findViewById(R.id.lvStudy);
-        initView();
+        lvStudy.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String id1= (String) mapList.get(position).get("id");
+                Intent intent=new Intent(StudyActivity.this,StudydetailsActivity.class);
+                intent.putExtra("id",id1);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void initView() {
-        for (int i = 0; i < 3; i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("img", R.drawable.study);
-            map.put("title", "title" + i);
-            map.put("date", "发布日期" + i);
-            data.add(map);
-        }
-        SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.study_item
-                , new String[]{"img", "title", "date"}
-                , new int[]{R.id.imgStudyPic, R.id.tvStudyTitle, R.id.tvStudyinfoCreatetime});
-        lvStudy.setAdapter(adapter);
-        lvStudy.setOnItemClickListener(this);
-    }
-
+    private List<Map<String, Object>> mapList = new ArrayList<>();
     @Override
-    public void showLearningGardenList(List<LearningGardenListBean.LearningGardensListBean> list, Bitmap[] bitmaps) {
-        for (int i = 0; i < list.size(); i++) {
+    public void showLearningGardenList(final List<LearningGardenListBean.LearningGardensListBean> list, Bitmap[] bitmaps) {
 
+        for (int i = 0; i < list.size(); i++) {
+            Map<String, Object> map = new HashMap<>();
+            LearningGardenListBean.LearningGardensListBean bean = list.get(i);
+            map.put("title",bean.getTitle());
+            map.put("date",bean.getCreateDate());
+            map.put("bitmap",bitmaps[i]);
+            map.put("id",bean.getId());
+            mapList.add(map);
         }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MyAdapter<Map<String, Object>> adapter=new MyAdapter<>(mapList,StudyActivity.this);
+                lvStudy.setAdapter(adapter);
+            }
+        });
+
     }
 
     @Override
@@ -90,27 +104,6 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         Log.i("", "");
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = null;
-        switch (position) {
-            case 0:
-                intent = new Intent(this, StudydetailsActivity.class);
-                intent.putExtra("id", "");
-                startActivity(intent);
-                break;
-            case 1:
-                intent = new Intent(this, StudydetailsActivity.class);
-                intent.putExtra("id", "");
-                startActivity(intent);
-                break;
-            case 2:
-                intent = new Intent(this, StudydetailsActivity.class);
-                intent.putExtra("id", "");
-                startActivity(intent);
-                break;
-        }
-    }
 
     @Override
     public void showRollingNotify(String content) {
@@ -142,7 +135,11 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbstudy);
-            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            if (userRealName.length() < 3) {
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            } else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
         }
     }
 

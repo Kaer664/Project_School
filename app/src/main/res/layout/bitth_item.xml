@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/birthTvMsg"
-            android:text="党员生日党员生日党员生日党员生日党员生日党员生日党员生日党员生日党员生日党员生日党员生日党员生日"
+            android:text="515151515511511"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_weight="1"/>

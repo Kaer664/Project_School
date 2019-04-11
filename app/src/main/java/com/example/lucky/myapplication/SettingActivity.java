@@ -90,7 +90,11 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbSettingName);
-            tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            if(userRealName.length()<3){
+                tvtbTempnewsUserName.setText(userRealName.toString());
+            }else {
+                tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
+            }
         }
     }
 

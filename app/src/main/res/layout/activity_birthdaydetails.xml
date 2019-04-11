@@ -62,6 +62,7 @@
         android:layout_below="@+id/llBirthdaydetails"
         android:layout_above="@+id/line_bottom">
         <LinearLayout
+            android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -102,12 +103,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#ccc"/>
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@color/black"
-                android:dividerHeight="1px"
-                android:id="@+id/listViewBirth"></ListView>
         </LinearLayout>
     </ScrollView>
 
