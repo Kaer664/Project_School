@@ -7,132 +7,152 @@
     android:layout_height="match_parent"
     android:background="@color/colorwhite"
     tools:context="com.example.lucky.myapplication.StudydetailsActivity">
-     <android.support.v7.widget.Toolbar
-         android:id="@+id/tbStudyDetails"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:background="@color/colorred">
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorwhite"
-              android:textStyle="bold"
-              android:textSize="20sp"
-              android:text="学习园地详情"/>
 
-          <TextView
-              android:id="@+id/tvtbstudydetails"
-              android:layout_width="@dimen/round_width"
-              android:layout_height="@dimen/round_width"
-              android:layout_margin="@dimen/round_margin"
-              android:background="@drawable/round"
-              android:gravity="center"
-              android:textColor="@color/colorwhite"
-              android:textStyle="bold"
-              android:textSize="@dimen/round_textsize"
-              android:text="华林"
-              android:layout_gravity="right" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbStudyDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred">
 
-          <ImageView
-              android:layout_width="25dp"
-              android:layout_height="25dp"
-              android:layout_gravity="right"
-              android:src="@drawable/icon_ident" />
-     </android.support.v7.widget.Toolbar>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学习园地详情"
+            android:textColor="@color/colorwhite"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvtbstudydetails"
+            android:layout_width="@dimen/round_width"
+            android:layout_height="@dimen/round_width"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/round_margin"
+            android:background="@drawable/round"
+            android:gravity="center"
+            android:text="华林"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/round_textsize"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
 
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lineBot"
+        android:layout_below="@+id/tbStudyDetails">
 
-     <LinearLayout
-         android:layout_below="@id/tbStudyDetails"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:orientation="vertical">
-          <VideoView
-              android:id="@+id/vvStudyDetailsVideo"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-          <TextView
-              android:id="@+id/tvStudyDetailsTitle"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:gravity="center_horizontal"/>
+            <RelativeLayout
+                android:id="@+id/rlvvStudyDetailsVideo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:visibility="gone">
 
-          <TextView
-              android:id="@+id/tvStudyDetailsWriter"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:gravity="center_horizontal"/>
+                <VideoView
+                    android:id="@+id/vvStudyDetailsVideo"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_gravity="center_horizontal" />
+            </RelativeLayout>
 
-          <TextView
-              android:id="@+id/tvStudyDetailsContent"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/tvStudyDetailsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black" />
 
-          <ImageView
-              android:id="@+id/imgStudyDetails"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tvStudyDetailsWriter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black" />
 
-          <TextView
-              android:id="@+id/tvStudyDetailsDownload"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:visibility="gone">
+            <TextView
+                android:id="@+id/tvStudyDetailsContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black" />
 
-          </TextView>
+            <ImageView
+                android:id="@+id/imgStudyDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
 
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="评论："
-              android:textSize="20sp"
-              android:textColor="@color/black"/>
-          <TextView
-              android:id="@+id/tvStudyReplyContent"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:textSize="16sp"
-              android:text="好好敲代码"
-              />
-          <TextView
-              android:id="@+id/tvStudyReplyName"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textColor="@color/black"
-              android:text="——孙华林"
-              android:gravity="right"/>
-     </LinearLayout>
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
-         android:background="@color/colorgray">
+            <TextView
+                android:id="@+id/tvStudyDetailsDownload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
-          <EditText
-              android:id="@+id/etStudyDetailsComment"
-              android:layout_width="0dp"
-              android:layout_height="35dp"
-              android:layout_gravity="center_vertical"
-              android:layout_weight="10"
-              android:background="@color/colorwhite" />
+            </TextView>
 
-          <Button
-              android:id="@+id/btnStudyDetailsSendComment"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_vertical"
-              android:layout_weight="1"
-              android:text="发送" />
-     </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="评论："
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvStudyReplyContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="好好敲代码"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvStudyReplyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="——孙华林"
+                android:textColor="@color/black" />
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/lineBot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorgray">
+
+        <EditText
+            android:id="@+id/etStudyDetailsComment"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="10"
+            android:background="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/btnStudyDetailsSendComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="评论" />
+    </LinearLayout>
 
 
 </RelativeLayout>

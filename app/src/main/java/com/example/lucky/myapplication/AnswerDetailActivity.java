@@ -67,7 +67,10 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         });
     }
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
+    int f;
     private void init() {
         rbAnswerA = (RadioButton) findViewById(R.id.rbAnswerA);
         rbAnswerB = (RadioButton) findViewById(R.id.rbAnswerB);
@@ -75,7 +78,13 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         rbAnswerD = (RadioButton) findViewById(R.id.rbAnswerD);
         rgSelect = (RadioGroup) findViewById(R.id.rgSelect);
         rbQuestionContext = (TextView) findViewById(R.id.rbQuestionContext);
+        sp=this.getPreferences(MODE_PRIVATE);
         btnNext = (Button) findViewById(R.id.btnNext);
+        f=sp.getInt("TestNumX"+id,0);
+        if(f==200){
+            btnNext.setEnabled(false);
+            Toast.makeText(this,"已经答题过啦。",Toast.LENGTH_SHORT).show();
+        }
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +93,14 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
                 } else if (btnNext.getText().toString().equals("提交")) {
                     Log.i("TestNum", "这个时候变成提交了");
                     //调用
-                    answerActivityPresenter.saveScore(id,title, String.valueOf(score));
+                    if(f==200){
+                    }else{
+                        answerActivityPresenter.saveScore(id,title, String.valueOf(score));
+                        editor=sp.edit();
+                        editor.putInt("TestNumX"+id,200);
+                        editor.commit();
+                        btnNext.setEnabled(false);
+                    }
                 } else if (count < sign) {
                     RadioButton rb = (RadioButton) findViewById(rgSelect.getCheckedRadioButtonId());
                     String selectString = rb.getText().toString();

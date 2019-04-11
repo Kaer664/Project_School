@@ -16,6 +16,7 @@
             android:layout_weight="2"
             android:src="@drawable/xxdj"/>
         <TextView
+            android:id="@+id/tvPersonalName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="孙华林"

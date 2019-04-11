@@ -31,6 +31,11 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
         String pwd = preferences.getString("pwd","");
         if (username!=""&&pwd!=""){
             toolsPresenter.login(username,pwd);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         setContentView(R.layout.activity_login);
@@ -69,9 +74,9 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
                     }else{
                         toolsPresenter.saveUserInfo(null,null,bean);
                     }
-                    Toast.makeText(LoginActivity.this, "欢迎你"+bean.getUserRealName(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "欢迎你" + bean.getUserRealName(), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "账号密码不正确", Toast.LENGTH_SHORT).show();

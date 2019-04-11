@@ -81,10 +81,14 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         });
     }
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    int f;
     /**
      * 方法用于绑定控件
      */
     private void init() {
+        sp=this.getPreferences(MODE_PRIVATE);
         etBottom = (EditText) findViewById(R.id.etBottom);
         btnBottom = (Button) findViewById(R.id.btnBottom);
         textView = (TextView) findViewById(R.id.textView);
@@ -94,6 +98,10 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         lineAdd= (LinearLayout) findViewById(R.id.lineAdd);
         btnBottom.setOnClickListener(this);
         toolsPresenter=new ToolsPresenter(this,this);
+        f=sp.getInt("TestNumXX"+id,0);
+        if(f==200){
+            btnBottom.setEnabled(false);
+        }
     }
 
     private void initView() {
@@ -165,8 +173,17 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnBottom:
-                toolsPresenter.addReply(activityId,"党务活动评论",etBottom.getText().toString());
-                etBottom.setText("");
+                f=sp.getInt("TestNumXX"+id,0);
+                if(f==200){
+                    Toast.makeText(this,"已经评论过了",Toast.LENGTH_SHORT).show();
+                }else{
+                    toolsPresenter.addReply(activityId,"党务活动评论",etBottom.getText().toString());
+                    etBottom.setText("");
+                    editor=sp.edit();
+                    editor.putInt("TestNumXX"+id,200);
+                    editor.commit();
+                    btnBottom.setEnabled(false);
+                }
                 break;
         }
     }

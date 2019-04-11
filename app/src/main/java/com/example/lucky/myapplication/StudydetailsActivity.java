@@ -13,6 +13,8 @@ import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -38,7 +40,8 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     private String id;
     private Toolbar toolbar;
     private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
-
+    MediaController controller;
+    RelativeLayout rlvvStudyDetailsVideo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +71,8 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
         tvStudyDetailsDownload = (TextView) findViewById(R.id.tvStudyDetailsDownload);
         imgStudyDetails = (ImageView) findViewById(R.id.imgStudyDetails);
         lgp = new LearningGardenPresenter(this, this);
-
+        controller = new MediaController(this);//实例化控制器
+         rlvvStudyDetailsVideo= (RelativeLayout) findViewById(R.id.rlvvStudyDetailsVideo);
     }
 
     public void toolBar() {
@@ -166,8 +170,13 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                     tvStudyDetailsTitle.setText(bean1.getTitle());//标题
                     tvStudyDetailsWriter.setText(bean1.getWriterPersonName());//创建者
                     tvStudyDetailsContent.setText(bean1.getWorkTask());//内容
-                    vvStudyDetailsVideo.setVideoURI(Uri.parse(Address.VIDAO_URL + bean1.getVideoUrl()));//视频
-                    vvStudyDetailsVideo.start();
+                    if (bean1.getVideoUrl()!= null) {
+                        rlvvStudyDetailsVideo.setVisibility(View.VISIBLE);
+                        vvStudyDetailsVideo.setVideoURI(Uri.parse(Address.VIDAO_URL + bean1.getVideoUrl()));//视频
+                        vvStudyDetailsVideo.setMediaController(controller);
+                        controller.setMediaPlayer(vvStudyDetailsVideo);
+                    }
+
 
                     //回复的列表，没到控件显示
                     List<LearningGardenInfoBean.ReplyListBean> listBeen = bean.getReplyList();
@@ -179,4 +188,5 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
             }
         });
     }
+
 }

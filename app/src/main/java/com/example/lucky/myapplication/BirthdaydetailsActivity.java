@@ -87,7 +87,11 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
         }
     }
 
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    int f;
     private void init() {
+        sp=this.getPreferences(MODE_PRIVATE);
         etComment = (EditText) findViewById(R.id.etComment);
         btnSendComment = (Button) findViewById(R.id.btnSendComment);
         textView = (TextView) findViewById(R.id.textView);
@@ -103,13 +107,28 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
         height = dm.heightPixels;
 //        initView();
         btnSendComment.setOnClickListener(this);
+        f=sp.getInt("TestNumXXX"+id,0);
+        if(f==200){
+            btnSendComment.setEnabled(false);
+        }
     }
 
     @Override
     public void onClick(View v) {
         String reply = etComment.getText().toString();
         if (reply != null || !reply.equals("")) {
-            toolsPresenter.addReply(id, "党员生日活动", reply);
+            f=sp.getInt("TestNumXXX"+id,0);
+            if(f==200){
+
+            }else {
+                toolsPresenter.addReply(id, "党员生日活动", reply);
+                etComment.setText("");
+                editor=sp.edit();
+                editor.putInt("TestNumXXX"+id,200);
+                editor.commit();
+                btnSendComment.setEnabled(false);
+            }
+
         } else {
             Toast.makeText(this, "请输入回复内容", Toast.LENGTH_SHORT).show();
         }

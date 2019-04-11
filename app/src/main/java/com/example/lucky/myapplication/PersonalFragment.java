@@ -2,6 +2,7 @@ package com.example.lucky.myapplication;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.mo.bean.UserLoginBean;
+import com.mo.presenter.ToolsPresenter;
+import com.mo.view.IToolsView;
 
 /**
  * Created by 15632 on 2019/3/26.
  */
 
-public class PersonalFragment extends Fragment {
+public class PersonalFragment extends Fragment implements IToolsView {
+    private TextView tvPersonalName;
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(getContext(), this);
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -49,5 +57,36 @@ public class PersonalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        tvPersonalName= (TextView) getActivity().findViewById(R.id.tvPersonalName);
+        settoolbarName();
+    }
+    public void settoolbarName() {
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String userRealName = sharedPreferences.getString("userRealName", null);
+        tvPersonalName.setText(userRealName);
+    }
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(UserLoginBean bean) {
+
+    }
+
+    @Override
+    public void isReply(boolean b) {
+
+    }
+
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
     }
 }
