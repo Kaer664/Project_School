@@ -19,16 +19,18 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
     private Toolbar tblogin;
     private Button btnLogin;
     private EditText etUsername, etPassword;
-    private CheckBox cbautologin;
+    private CheckBox cbautologin=null;
     private ToolsPresenter toolsPresenter=new ToolsPresenter(this,this);
+    private String username="",pwd="";
+    private int isRemember=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         SharedPreferences preferences = toolsPresenter.readUserInfo();
-        String username = preferences.getString("username", "");
-        String pwd = preferences.getString("pwd","");
+        username = preferences.getString("username", "");
+        pwd = preferences.getString("pwd","");
         if (username!=""&&pwd!=""){
             toolsPresenter.login(username,pwd);
             try {
@@ -44,7 +46,12 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolsPresenter.login(etUsername.getText().toString(),etPassword.getText().toString());
+                if (!cbautologin.isChecked()){
+                    isRemember=0;
+                }
+                username=etUsername.getText().toString();
+                pwd=etPassword.getText().toString();
+                toolsPresenter.login(username,pwd);
             }
         });
     }
@@ -69,8 +76,8 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
             @Override
             public void run() {
                 if (bean != null) {
-                    if(cbautologin.isChecked()){
-                        toolsPresenter.saveUserInfo(etUsername.getText().toString(),etPassword.getText().toString(),bean);
+                    if(isRemember==1){
+                        toolsPresenter.saveUserInfo(username,pwd,bean);
                     }else{
                         toolsPresenter.saveUserInfo(null,null,bean);
                     }

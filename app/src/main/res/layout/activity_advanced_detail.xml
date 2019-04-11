@@ -119,7 +119,6 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/honor"/>
             <TextView
-                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="荣誉经历"

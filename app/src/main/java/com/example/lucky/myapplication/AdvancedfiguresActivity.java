@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -65,6 +66,15 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
 
     private void init() {
         gridViewAdvanced= (GridView) findViewById(R.id.gridViewAdvanced);
+        gridViewAdvanced.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String id1= (String) data.get(position).get("id");
+                Intent intent=new Intent(AdvancedfiguresActivity.this,AdvancedDetailActivity.class);
+                intent.putExtra("id",id1);
+                startActivity(intent);
+            }
+        });
         //initView();
     }
     private List<Map<String,Object>> data=new ArrayList<>();
@@ -142,6 +152,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
             map.put("name","-"+apb.getTitle()+"-");
             map.put("introduction",apb.getWorkTask());
             map.put("createDate",apb.getCreateDate());
+            map.put("id",apb.getId());
             data.add(map);
         }
         handler.post(new Runnable() {
