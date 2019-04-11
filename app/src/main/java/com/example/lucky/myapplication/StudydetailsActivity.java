@@ -2,6 +2,7 @@ package com.example.lucky.myapplication;
 
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -113,10 +114,15 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                 toolsPresenter.addReply(id, "学习园地评论", etStudyDetailsComment.getText().toString());
                 break;
             case R.id.tvStudyDetailsDownload:
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
-                request.setDestinationInExternalPublicDir("/download/", tvStudyDetailsDownload.getText().toString());
-                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                downloadManager.enqueue(request);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
+                startActivity(intent);
+//                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
+//                request.setDestinationInExternalPublicDir("/download/", tvStudyDetailsDownload.getText().toString());
+//                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+//                downloadManager.enqueue(request);
                 break;
         }
     }
