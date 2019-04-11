@@ -52,6 +52,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/lineStu"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -100,32 +101,36 @@
                 android:id="@+id/tvStudyDetailsDownload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:textColor="@color/colorblack">
 
             </TextView>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="评论："
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/tvStudyReplyContent"
+                android:layout_marginTop="@dimen/details_margin_top"
+                android:layout_height="1dp"
+                android:background="#ccc"/>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="好好敲代码"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="观点"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/details_margin_left"
+                    android:textSize="@dimen/details_text_size"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+            </LinearLayout>
             <TextView
-                android:id="@+id/tvStudyReplyName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="——孙华林"
-                android:textColor="@color/black" />
+                android:layout_height="1dp"
+                android:background="#ccc"/>
         </LinearLayout>
     </ScrollView>
 
