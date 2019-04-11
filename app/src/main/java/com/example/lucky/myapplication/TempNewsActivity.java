@@ -67,13 +67,13 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
             @Override
             public void run() {
                 if (bean != null) {
-                    mTvNewsTitle.setText(bean.getTitle().toString());
-                    mTvNewsWriter.setText(bean.getWriterPersonName().toString());
-                    mTvNewContext.setText(bean.getWorkTask().toString());
+                    mTvNewsTitle.setText(bean.getTitle());
+                    mTvNewsWriter.setText(bean.getWriterPersonName());
+                    mTvNewContext.setText(bean.getWorkTask());
                     if (bitmap != null) {
                         mImgNewsPic.setImageBitmap(bitmap);
                     }
-                }
+               }
             }
         });
     }
