@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.lucky.myapplication.util.PatchInputStream;
 
@@ -42,7 +43,7 @@ public class HttpTools {
 
     public static String postJson(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value){
         if (!checkNetWorkAction(context)) {
-            return null;
+            return "{msg:error}";
         }
         String s=null;
         OkHttpClient client=new OkHttpClient();
@@ -65,7 +66,7 @@ public class HttpTools {
 
     public static String postJson(@NonNull Context context, @NonNull String url, LinkedHashMap<String, String> map)  {
         if (!checkNetWorkAction(context)) {
-            return null;
+            return "{msg:error}";
         }
         String s=null;
         OkHttpClient client=new OkHttpClient();

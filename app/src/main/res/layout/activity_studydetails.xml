@@ -66,7 +66,7 @@
                     android:id="@+id/vvStudyDetailsVideo"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"/>
             </RelativeLayout>
 
             <TextView
@@ -148,7 +148,8 @@
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="10"
-            android:background="@color/colorwhite" />
+            android:textColor="@color/black"
+            android:background="@color/colorwhite"/>
 
         <Button
             android:id="@+id/btnStudyDetailsSendComment"

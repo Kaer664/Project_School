@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
     private CheckBox cbautologin=null;
     private ToolsPresenter toolsPresenter=new ToolsPresenter(this,this);
     private String username="",pwd="";
-    private int isRemember=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +45,6 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!cbautologin.isChecked()){
-                    isRemember=0;
-                }
                 username=etUsername.getText().toString();
                 pwd=etPassword.getText().toString();
                 toolsPresenter.login(username,pwd);
@@ -76,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
             @Override
             public void run() {
                 if (bean != null) {
-                    if(isRemember==1){
+                    if(cbautologin.isChecked()){
                         toolsPresenter.saveUserInfo(username,pwd,bean);
                     }else{
                         toolsPresenter.saveUserInfo(null,null,bean);
@@ -86,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
                     Toast.makeText(LoginActivity.this, "欢迎你" + bean.getUserRealName(), Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "账号密码不正确", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "登陆失败，请检查网路稍后重试", Toast.LENGTH_SHORT).show();
                 }
             }
         });

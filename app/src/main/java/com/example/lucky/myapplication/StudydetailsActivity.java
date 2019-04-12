@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -52,6 +53,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     private int width;
     private int height;
     private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
+    boolean isReply=false;
     MediaController controller;
     RelativeLayout rlvvStudyDetailsVideo;
     @Override
@@ -110,7 +112,15 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {   //点击发送按钮发送
         switch (v.getId()) {
             case R.id.btnStudyDetailsSendComment:
-                toolsPresenter.addReply(id, "学习园地评论", etStudyDetailsComment.getText().toString());
+                String replyContent = etStudyDetailsComment.getText().toString().trim();
+                if (isReply){
+                    new AlertDialog.Builder(this).setMessage("您已发表观点").show();
+                }else if (replyContent.length()<=10){
+                    new AlertDialog.Builder(this).setMessage("每个观点至少10个字以上").show();
+                } else{
+                    toolsPresenter.addReply(id, "学习园地评论",replyContent);
+                }
+
                 break;
             case R.id.tvStudyDetailsDownload:
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
@@ -178,7 +188,6 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void showLearningGardenInfo(final LearningGardenInfoBean bean, final Bitmap bitmap) {
 
-        //回复的列表，没到控件显示
         List<LearningGardenInfoBean.ReplyListBean> listBeen = bean.getReplyList();
         for(int i=0;i<listBeen.size();i++){
             LearningGardenInfoBean.ReplyListBean replyListBean = listBeen.get(i);
@@ -192,7 +201,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //回复没有加载
+                //显示活动信息
                 if (bean != null) {
                     LearningGardenInfoBean.LearningGardenListBean bean1 = bean.getLearningGardenList().get(0);
                     tvStudyDetailsTitle.setText(bean1.getTitle());//标题
@@ -205,7 +214,14 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                         vvStudyDetailsVideo.setMediaController(controller);
                         controller.setMediaPlayer(vvStudyDetailsVideo);
                     }
+                    if (bitmap!=null){
+                        imgStudyDetails.setVisibility(View.VISIBLE);
+                        imgStudyDetails.setImageBitmap(bitmap);
+                    }
                 }
+
+                //显示用户评论
+                String name = toolsPresenter.readUserInfo().getString("userRealName", "");
                 if(data!=null){
                     for(int i=0;i<data.size();i++){
                         lineStu.addView(new CommentView(StudydetailsActivity.this,data.get(i)));
@@ -214,6 +230,9 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                         t.setHeight(1);
                         t.setBackgroundColor(Color.BLACK);
                         lineStu .addView(t);
+                        if (name.equals(data.get(i).get("name"))){
+                            isReply=true;
+                        }
                     }
                 }
             }
