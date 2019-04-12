@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -41,11 +42,18 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     private ImageView imgView;
     private LinearLayout lineAdd;
     private ToolsPresenter toolsPresenter;
-    private String activityId;
     private PartyActivityPresenter partyActivityPresenter;
     private String id;
     private int width;
     private int height;
+    private boolean isReply=false;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,28 +75,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         settoolbarName();
     }
 
-    private void toolBar() {
-        toolbar = (Toolbar) findViewById(R.id.tbParkdetails);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
-    int f;
-    /**
-     * 方法用于绑定控件
-     */
     private void init() {
-        sp=this.getPreferences(MODE_PRIVATE);
         etBottom = (EditText) findViewById(R.id.etBottom);
         btnBottom = (Button) findViewById(R.id.btnBottom);
         textView = (TextView) findViewById(R.id.textView);
@@ -98,10 +85,6 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         lineAdd= (LinearLayout) findViewById(R.id.lineAdd);
         btnBottom.setOnClickListener(this);
         toolsPresenter=new ToolsPresenter(this,this);
-        f=sp.getInt("TestNumXX"+id,0);
-        if(f==200){
-            btnBottom.setEnabled(false);
-        }
     }
 
     private void initView() {
@@ -126,13 +109,14 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
 
     }
 
-
     List<Map<String, Object>> data = new ArrayList<>();
     List<Map<String, Object>> reply_data = new ArrayList<>();
 
     @Override
     public void showPartyActivityInfo(PartyActivityBean bean, Bitmap bitmap) {
-        //新闻消息内容,主要加载到本地中
+        data.clear();
+        reply_data.clear();
+        //新闻消息内容
         List<PartyActivityBean.PartyActivitiesListBean> list = bean.getPartyActivitiesList();
         for (int i = 0; i < list.size(); i++) {
             PartyActivityBean.PartyActivitiesListBean javaBean = list.get(i);
@@ -140,16 +124,21 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             map.put("title", javaBean.getTitle());
             map.put("writer", javaBean.getWriterPersonName());
             map.put("content", javaBean.getWorkTask());
-            activityId= javaBean.getId();
             map.put("img",bitmap);
             data.add(map);
         }
-        //用户评论内容,主要加载到本地中
+
+        //用户评论内容
+        SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
+        String name = sharedPreferences.getString("userRealName", "");
         List<PartyActivityBean.ReplyListBean> userReply = bean.getReplyList();
         for (int i = 0; i < userReply.size(); i++) {
             PartyActivityBean.ReplyListBean javaBean = userReply.get(i);
             Map<String, Object> map = new HashMap<>();
             map.put("name", javaBean.getUserName());
+            if (javaBean.getUserName().equals(name)){
+                isReply=true;
+            }
             map.put("date", "");
             map.put("headImg",R.drawable.img);
             map.put("content", javaBean.getReplyContent());
@@ -163,26 +152,19 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         });
     }
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-        }
-    };
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnBottom:
-                f=sp.getInt("TestNumXX"+id,0);
-                if(f==200){
-                    Toast.makeText(this,"已经评论过了",Toast.LENGTH_SHORT).show();
+                String replyContent=etBottom.getText().toString();
+                if (isReply){
+                    new AlertDialog.Builder(this).setMessage("此活动您已发表观点").setNegativeButton("确定",null).show();
+                }else if (replyContent.length()<=10){
+                    new AlertDialog.Builder(this).setMessage("每个观点至少10个字以上").setNegativeButton("确定",null).show();
                 }else{
-                    toolsPresenter.addReply(activityId,"党务活动评论",etBottom.getText().toString());
-                    etBottom.setText("");
-                    editor=sp.edit();
-                    editor.putInt("TestNumXX"+id,200);
-                    editor.commit();
-                    btnBottom.setEnabled(false);
+                    toolsPresenter.addReply(id,"党务活动评论",replyContent);
+                    lineAdd.removeAllViews();
                 }
                 break;
         }
@@ -205,6 +187,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             public void run() {
                 if (b){
                     Toast.makeText(ParkDetailsActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                    etBottom.setText("");
                     partyActivityPresenter.getPartyActivityById(id);
                 }
             }
@@ -220,7 +203,9 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     public void isChangePass(boolean b) {
 
     }
-    public void settoolbarName() {
+
+
+    private void settoolbarName() {
         SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
@@ -232,4 +217,19 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             }
         }
     }
+
+    private void toolBar() {
+        toolbar = (Toolbar) findViewById(R.id.tbParkdetails);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
 }

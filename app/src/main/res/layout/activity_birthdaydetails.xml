@@ -62,7 +62,6 @@
         android:layout_below="@+id/llBirthdaydetails"
         android:layout_above="@+id/line_bottom">
         <LinearLayout
-            android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -103,6 +102,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#ccc"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/line"></LinearLayout>
         </LinearLayout>
     </ScrollView>
 

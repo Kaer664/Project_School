@@ -30,7 +30,10 @@ import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IPartyNewsView;
 import com.mo.view.IToolsView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 15632 on 2019/3/26.
@@ -80,7 +83,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                                 linearLayout.addView(tvNews1);
                                 viewFlipper.addView(linearLayout);
                             } else {
-
                                 tvNews2.setText(ss[count]);
                                 count++;
                                 tvNews2.setGravity(Gravity.CENTER_VERTICAL);
@@ -238,9 +240,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     @Override
     public void showAllPartyNews(List<PartyNewsListBean.PartyAffairsNewsListBean> list) {
         if (list != null) {
-            String[] ss = new String[list.size()];
+            String[] ss=new String[list.size()];
             for (int i = 0; i < list.size(); i++) {
-                ss[i] = list.get(i).getTitle();
+                ss[i]=list.get(i).getTitle();
             }
             Message msg = new Message();
             msg.obj = ss;
@@ -249,6 +251,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         }
     }
 
+    private String t;
     @Override
     public void showPartyNewsInfo(PartyNewsBean.PartyAffairsNewsBean bean, Bitmap bitmap) {
 

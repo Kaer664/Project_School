@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -42,6 +43,8 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
     private BirthPresenter birthPresenter;
     private String id;
     private LinearLayout line;
+    private boolean isReply = false;
+    List<Map<String, Object>> replyData;
 
     private int width;
     private int height;
@@ -73,15 +76,16 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
         });
         settoolbarName();
     }
+
     public void settoolbarName() {
-        toolsPresenter=new ToolsPresenter(this,this);
+        toolsPresenter = new ToolsPresenter(this, this);
         SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbbirthdayDetailsUsername);
-            if(userRealName.length()<3){
+            if (userRealName.length() < 3) {
                 tvtbTempnewsUserName.setText(userRealName.toString());
-            }else {
+            } else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
         }
@@ -90,14 +94,15 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
     SharedPreferences sp;
     SharedPreferences.Editor editor;
     int f;
+
     private void init() {
-        sp=this.getPreferences(MODE_PRIVATE);
+        sp = this.getPreferences(MODE_PRIVATE);
         etComment = (EditText) findViewById(R.id.etComment);
         btnSendComment = (Button) findViewById(R.id.btnSendComment);
         textView = (TextView) findViewById(R.id.textView);
         tvBirthdayTitle = (TextView) findViewById(R.id.tvBirthdayTitle);
         imgView = (ImageView) findViewById(R.id.imgView);
-        line= (LinearLayout) findViewById(R.id.line);
+        line = (LinearLayout) findViewById(R.id.line);
         toolsPresenter = new ToolsPresenter(this, this);
         birthPresenter = new BirthPresenter(this, this);
         birthPresenter.getBirthActivityById(id);
@@ -105,34 +110,20 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
         DisplayMetrics dm = resources.getDisplayMetrics();
         width = dm.widthPixels;
         height = dm.heightPixels;
-//        initView();
         btnSendComment.setOnClickListener(this);
-        f=sp.getInt("TestNumXXX"+id,0);
-        if(f==200){
-            btnSendComment.setEnabled(false);
-        }
+        f = sp.getInt("TestNumXXX" + id, 0);
     }
 
     @Override
     public void onClick(View v) {
         String reply = etComment.getText().toString();
-        if (reply != null || !reply.equals("")) {
-            f=sp.getInt("TestNumXXX"+id,0);
-            if(f==200){
-
-            }else {
-                toolsPresenter.addReply(id, "党员生日活动", reply);
-                etComment.setText("");
-                editor=sp.edit();
-                editor.putInt("TestNumXXX"+id,200);
-                editor.commit();
-                btnSendComment.setEnabled(false);
-            }
-
+        if (isReply) {
+            new AlertDialog.Builder(this).setMessage("此活动您已发表观点").setNegativeButton("确定", null).show();
+        } else if (reply.length() <= 10) {
+            new AlertDialog.Builder(this).setMessage("每个观点至少10个字以上").setNegativeButton("确定", null).show();
         } else {
-            Toast.makeText(this, "请输入回复内容", Toast.LENGTH_SHORT).show();
+            toolsPresenter.addReply(id, "党员生日活动", reply);
         }
-        etComment.setText("");
     }
 
     @Override
@@ -151,7 +142,9 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
             @Override
             public void run() {
                 if (b) {
+                    line.removeAllViews();
                     Toast.makeText(BirthdaydetailsActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                    etComment.setText("");
                     birthPresenter.getBirthActivityById(id);
                 } else {
                     Toast.makeText(BirthdaydetailsActivity.this, "上传失败，请稍后重试", Toast.LENGTH_SHORT).show();
@@ -192,20 +185,25 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
                     if (bitmap != null) {
                         imgView.setImageBitmap(bitmap);
                     }
+
+                    String name = toolsPresenter.readUserInfo().getString("userRealName", "");
                     List<BirthActivityBean.ReplyListBean> replyList = bean.getReplyList();
-                    List<Map<String, Object>> replyData = new ArrayList<>();
-                    for (BirthActivityBean.ReplyListBean replyListBean:replyList){
-                        Map<String,Object> map=new HashMap();
+                    replyData = new ArrayList<>();
+                    replyData.clear();
+                    for (BirthActivityBean.ReplyListBean replyListBean : replyList) {
+                        Map<String, Object> map = new HashMap();
                         map.put("name", replyListBean.getUserName());
+                        if (name.equals(replyListBean.getUserName())){
+                            isReply=true;
+                        }
                         map.put("date", "");
-                        map.put("headImg",R.drawable.img);
+                        map.put("headImg", R.drawable.img);
                         map.put("content", replyListBean.getReplyContent());
                         replyData.add(map);
                     }
-
-                    for(int i=0;i<replyData.size();i++){
-                        line.addView(new CommentView(BirthdaydetailsActivity.this,replyData.get(i)));
-                        TextView t=new TextView(BirthdaydetailsActivity.this);
+                    for (int i = 0; i < replyData.size(); i++) {
+                        line.addView(new CommentView(BirthdaydetailsActivity.this, replyData.get(i)));
+                        TextView t = new TextView(BirthdaydetailsActivity.this);
                         t.setWidth(width);
                         t.setHeight(1);
                         t.setBackgroundColor(Color.BLACK);

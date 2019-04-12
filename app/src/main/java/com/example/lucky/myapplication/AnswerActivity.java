@@ -32,7 +32,9 @@ import java.util.Map;
 
 public class AnswerActivity extends AppCompatActivity implements IAnswerActivityView, IToolsView {
     private Toolbar toolbar;
-    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
+    private ListView listViewAnswer;
+    private ToolsPresenter toolsPresenter;
+    private AnswerActivityPresenter ap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +42,11 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
         toolBar();
         init();
         settoolbarName();
-        AnswerActivityPresenter ap=new AnswerActivityPresenter(this,this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         ap.getActivityList();
     }
 
@@ -58,9 +64,11 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
         });
     }
 
-    private ListView listViewAnswer;
+
     private void init() {
         listViewAnswer= (ListView) findViewById(R.id.listViewAnswer);
+        toolsPresenter=new ToolsPresenter(this, this);
+        ap=new AnswerActivityPresenter(this,this);
     }
 
     private void initView() {
@@ -106,8 +114,15 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
                 }
                 Map<String,String> tMap=data.get(position);
                 holder.title.setText(tMap.get("title"));
-                holder.date.setText(tMap.get("start")+"--"+tMap.get("stop"));
-                holder.yesOrDo.setText(tMap.get("do"));
+                holder.date.setText("答题时间："+tMap.get("start")+"--"+tMap.get("stop"));
+                if(tMap.get("do").equals("0")){
+                    holder.yesOrDo.setText("未答题");
+                    holder.btnAnswer.setEnabled(true);
+                }else{
+                    holder.yesOrDo.setText(tMap.get("do"));
+                    holder.btnAnswer.setText("已答题");
+                    holder.btnAnswer.setEnabled(false);
+                }
                 return convertView;
             }
 
@@ -124,6 +139,7 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
     private List<Map<String,String>> data=new ArrayList<>();
     @Override
     public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list) {
+        data.clear();
         for(int i=0;i<list.size();i++){
             Map<String,String> map=new HashMap<>();
             AnswerActivityListBean.UserAnswerActivityListBean userBean = list.get(i);
@@ -131,7 +147,7 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
             map.put("start",userBean.getStartTime());
             map.put("stop",userBean.getEndTime());
             if(userBean.getYesOrNotDo().equals("1")){
-                map.put("do",userBean.getScore());
+                map.put("do","得分："+userBean.getScore());
             }else {
                 map.put("do","0");
             }

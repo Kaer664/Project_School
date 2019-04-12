@@ -20,6 +20,8 @@ import com.mo.view.IScoreView;
 import com.mo.view.IToolsView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +84,14 @@ public class RankingActivity extends AppCompatActivity implements IScoreView , I
             @Override
             public void run() {
                 if (list != null) {
+                    Collections.sort(list, new Comparator<ScoreRankBean.AllUserScoreListBean>() {
+                        @Override
+                        public int compare(ScoreRankBean.AllUserScoreListBean o1, ScoreRankBean.AllUserScoreListBean o2) {
+                            Integer t1=Integer.parseInt(o1.getScore());
+                            Integer t2=Integer.parseInt(o2.getScore());
+                            return -t1.compareTo(t2);
+                        }
+                    });
                     List<Map<String, String>> data = new ArrayList<>();
                     for (int i=0;i<list.size();i++) {
                         ScoreRankBean.AllUserScoreListBean bean=list.get(i);

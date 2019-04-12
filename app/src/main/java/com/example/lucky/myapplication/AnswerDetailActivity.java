@@ -33,9 +33,10 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
     private RadioButton rbAnswerA, rbAnswerB, rbAnswerC, rbAnswerD;
     private Button btnNext;
     private RadioGroup rgSelect;
-    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
-    private AnswerActivityPresenter answerActivityPresenter=new AnswerActivityPresenter(this,this);
-    private String id,title;
+    private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
+    private AnswerActivityPresenter answerActivityPresenter = new AnswerActivityPresenter(this, this);
+    private String id, title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +46,9 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         id = getIntent().getStringExtra("id");
         title = getIntent().getStringExtra("title");
         AnswerActivityPresenter aap = new AnswerActivityPresenter(this, this);
-        if(id==null){
-            Toast.makeText(this,"数据可能有错，请稍后再试",Toast.LENGTH_LONG).show();
-        }else {
+        if (id == null) {
+            Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
+        } else {
             aap.getQuestionInfo(id);
             init();
         }
@@ -67,10 +68,6 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         });
     }
 
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
-
-    int f;
     private void init() {
         rbAnswerA = (RadioButton) findViewById(R.id.rbAnswerA);
         rbAnswerB = (RadioButton) findViewById(R.id.rbAnswerB);
@@ -78,39 +75,27 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         rbAnswerD = (RadioButton) findViewById(R.id.rbAnswerD);
         rgSelect = (RadioGroup) findViewById(R.id.rgSelect);
         rbQuestionContext = (TextView) findViewById(R.id.rbQuestionContext);
-        sp=this.getPreferences(MODE_PRIVATE);
+
         btnNext = (Button) findViewById(R.id.btnNext);
-        f=sp.getInt("TestNumX"+id,0);
-        if(f==200){
-            btnNext.setEnabled(false);
-            Toast.makeText(this,"已经答题过啦。",Toast.LENGTH_SHORT).show();
-        }
+
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (data.size() == 0) {
                     Toast.makeText(AnswerDetailActivity.this, "请检查网络，或者题目无效，未请求到数据。", Toast.LENGTH_LONG).show();
                 } else if (btnNext.getText().toString().equals("提交")) {
-                    Log.i("TestNum", "这个时候变成提交了");
-                    //调用
-                    if(f==200){
-                    }else{
-                        answerActivityPresenter.saveScore(id,title, String.valueOf(score));
-                        editor=sp.edit();
-                        editor.putInt("TestNumX"+id,200);
-                        editor.commit();
-                        btnNext.setEnabled(false);
-                    }
+                    //提交数据
+                    answerActivityPresenter.saveScore(id, title, String.valueOf(score));
+                    btnNext.setEnabled(false);
                 } else if (count < sign) {
                     RadioButton rb = (RadioButton) findViewById(rgSelect.getCheckedRadioButtonId());
                     String selectString = rb.getText().toString();
                     String answerString = listAnswer.get(count);
-                    if (selectString.equals(answerString)) {
+                    if (selectString.equals(answerString)) {//如果选择的和答案一样，就加一分
                         score++;
                     }
-                    if (count == sign - 1) {
-                        btnNext.setText("提交");
-                    } else {
+                    if (!(count == sign - 1)) {//如果没走到最后一项，就继续取数据
                         setData();
                     }
                 }
@@ -130,6 +115,9 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         rbAnswerB.setText(b);
         rbAnswerC.setText(c);
         rbAnswerD.setText(d);
+        if (count == sign - 1){//如果走到最后一项，将按钮变成提交
+            btnNext.setText("提交");
+        }
     }
 
 
@@ -155,7 +143,7 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
             map.put("c", bean.getSelectC());
             map.put("d", bean.getSelectD());
             Log.i("TestNum", bean.getAnswer());
-            switch (bean.getAnswer()){
+            switch (bean.getAnswer()) {
                 case "A":
                     listAnswer.add(bean.getSelectA());
                     break;
@@ -186,10 +174,11 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (b){
-                    Toast.makeText(AnswerDetailActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(AnswerDetailActivity.this,"上传失败",Toast.LENGTH_SHORT).show();
+                if (b) {
+                    Toast.makeText(AnswerDetailActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(AnswerDetailActivity.this, "上传失败", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -225,14 +214,15 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
     public void isChangePass(boolean b) {
 
     }
+
     public void settoolbarName() {
         SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbAnswerdetailUsername);
-            if(userRealName.length()<3){
+            if (userRealName.length() < 3) {
                 tvtbTempnewsUserName.setText(userRealName.toString());
-            }else {
+            } else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
         }
