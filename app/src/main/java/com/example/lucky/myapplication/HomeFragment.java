@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     private TextView tvNews2;
     private ToolsPresenter toolsPresenter;
     private PartyNewsPresenter partyNewsPresenter;
+    private List<String> ids1=new ArrayList<>();
     int count = 0;
     ViewFlipper viewFlipper;
     private Handler handler = new Handler() {
@@ -70,13 +71,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                             tvNews1 = new TextView(getActivity());
                             tvNews2 = new TextView(getActivity());
                             tvNews1.setText(ss[count]);
+                            tvNews1.setTag(count);
                             count++;
                             tvNews1.setGravity(Gravity.CENTER_VERTICAL);
                             tvNews1.setTextColor(Color.BLACK);
                             tvNews1.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    intentTempNews(count);
+                                    intentTempNews(ids1.get((Integer) v.getTag()));
                                 }
                             });
                             if (count == num - 1) {
@@ -84,13 +86,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                                 viewFlipper.addView(linearLayout);
                             } else {
                                 tvNews2.setText(ss[count]);
+                                tvNews2.setTag(count);
                                 count++;
                                 tvNews2.setGravity(Gravity.CENTER_VERTICAL);
                                 tvNews2.setTextColor(Color.BLACK);
                                 tvNews2.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        intentTempNews(count);
+                                       intentTempNews(ids1.get((Integer) v.getTag()));
                                     }
                                 });
                                 linearLayout.addView(tvNews1);
@@ -106,23 +109,25 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                             tvNews1 = new TextView(getActivity());
                             tvNews2 = new TextView(getActivity());
                             tvNews1.setText(ss[count]);
+                            tvNews1.setTag(count);
                             count++;
                             tvNews1.setGravity(Gravity.CENTER_VERTICAL);
                             tvNews1.setTextColor(Color.BLACK);
                             tvNews1.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    intentTempNews(count);
+                                    intentTempNews(ids1.get((Integer) v.getTag()));
                                 }
                             });
                             tvNews2.setText(ss[count]);
+                            tvNews2.setTag(count);
                             count++;
                             tvNews2.setGravity(Gravity.CENTER_VERTICAL);
                             tvNews2.setTextColor(Color.BLACK);
                             tvNews2.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    intentTempNews(count);
+                                    intentTempNews(ids1.get((Integer) v.getTag()));
                                 }
                             });
                             linearLayout.addView(tvNews1);
@@ -201,7 +206,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         }
     }
 
-    public void intentTempNews(int i) {
+    public void intentTempNews(String i) {
+        Log.i("TestNum",ids1.toString());
         Intent intent1 = new Intent(getActivity(), TempNewsActivity.class);
         intent1.putExtra("id", i);
         startActivity(intent1);
@@ -242,7 +248,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         if (list != null) {
             String[] ss=new String[list.size()];
             for (int i = 0; i < list.size(); i++) {
-                ss[i]=list.get(i).getTitle();
+                PartyNewsListBean.PartyAffairsNewsListBean bean = list.get(i);
+                ss[i]=bean.getTitle();
+                ids1.add(bean.getId());
             }
             Message msg = new Message();
             msg.obj = ss;
@@ -251,7 +259,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
         }
     }
 
-    private String t;
     @Override
     public void showPartyNewsInfo(PartyNewsBean.PartyAffairsNewsBean bean, Bitmap bitmap) {
 

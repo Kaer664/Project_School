@@ -38,8 +38,8 @@ public class TempNewsActivity extends AppCompatActivity implements IPartyNewsVie
         init();
         toolBar();
         settoolbarName();
-        int id = getIntent().getIntExtra("id",-1);
-        if (id==-1){
+        String id = getIntent().getStringExtra("id");
+        if (id.equals("")){
             Toast.makeText(this,"获取服务器数据失败，请尝试重新打开界面",Toast.LENGTH_SHORT).show();
         }else {
             partyNewsPresenter.getPartyNewsById(String.valueOf(id));
