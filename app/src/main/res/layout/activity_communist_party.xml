@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.example.lucky.myapplication.CommunistPartyActivity">
 
-    <ImageButton
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:background="@color/d_c"/>
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbCommunistparty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="党务活动"/>
+
+        <TextView
+            android:id="@+id/tvtbCommunistpartyUserName"
+            android:layout_width="@dimen/round_width"
+            android:layout_height="@dimen/round_width"
+            android:layout_margin="@dimen/round_margin"
+            android:background="@drawable/round"
+            android:gravity="center"
+            android:textSize="@dimen/round_textsize"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:text="华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
+    <ListView
+        android:layout_below="@id/tbCommunistparty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:divider="@color/black"
+        android:dividerHeight="1px"
+        android:id="@+id/partListView"></ListView>
+</RelativeLayout>

@@ -1,6 +1,8 @@
 package com.mo.model.impl;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.mo.bean.LearningGardenInfoBean;
 import com.mo.bean.LearningGardenListBean;
@@ -26,20 +28,16 @@ public class LearningGradenDaoImpl implements LearningGardenDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_LEARNING_GARDEN_BY_ID, "id", "all");
-                try {
-                    JSONObject jsonObject = new JSONObject(json);
-                    List list=null;
-                    if ("success".equals(jsonObject.get("msg"))) {
-                        Gson gson = new Gson();
-                        LearningGardenListBean bean = gson.fromJson(json, LearningGardenListBean.class);
-                        list=bean.getLearningGardenList();
-                        listener.result(list);
-                    }else{
-                        listener.result(list);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                List<LearningGardenListBean.LearningGardensListBean> list = null;
+                Bitmap[] bitmaps = null;
+                Gson gson = new Gson();
+                list = gson.fromJson(json, LearningGardenListBean.class).getLearningGardenList();
+                bitmaps = new Bitmap[list.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
+                    bitmaps[i] = bitmap;
                 }
+                listener.result(list, bitmaps);
             }
         }.start();
     }
@@ -49,10 +47,18 @@ public class LearningGradenDaoImpl implements LearningGardenDao {
         new Thread() {
             @Override
             public void run() {
+                LearningGardenInfoBean bean = null;
+                Bitmap bitmap = null;
                 String json = HttpTools.postJson(context, Address.GET_LEARNING_GARDEN_BY_ID, "id", id);
                 Gson gson = new Gson();
-                LearningGardenInfoBean bean = gson.fromJson(json, LearningGardenInfoBean.class);
-                listener.result(bean);
+                bean = gson.fromJson(json, LearningGardenInfoBean.class);
+                List<LearningGardenInfoBean.LearningGardenListBean> learningGardenList = bean.getLearningGardenList();
+                if (learningGardenList.size() != 0) {
+                    bitmap = HttpTools.getBitmap(context, Address.PIC_URL,learningGardenList.get(0).getImgUrl());
+                }else{
+                    Log.i("test", "run: 没有此id号对应的活动");
+                }
+                listener.result(bean, bitmap);
             }
         }.start();
     }

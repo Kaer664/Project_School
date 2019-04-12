@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    android:orientation="vertical"
+    tools:context="com.example.lucky.myapplication.AdvancedfiguresActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbAdvancedfigures"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="先进人物"/>
+
+        <TextView
+            android:id="@+id/tvtbAdvancedfigures"
+            android:layout_width="@dimen/round_width"
+            android:layout_height="@dimen/round_width"
+            android:layout_margin="@dimen/round_margin"
+            android:background="@drawable/round"
+            android:gravity="center"
+            android:textSize="@dimen/round_textsize"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:text="华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_expert1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="先进人物"
+            android:textColor="@color/colorblack" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_expert" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="12">
+
+        <!--添加listview -->
+        <GridView
+            android:layout_width="match_parent"
+            android:id="@+id/gridViewAdvanced"
+            android:numColumns="2"
+            android:layout_height="wrap_content">
+        </GridView>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.mo.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import  com.mo.bean.PartyActivityBean;
 
@@ -23,7 +24,7 @@ public interface PartyActivityDao {
      * 返回党务活动列表
      */
     interface ActivityListListener{
-        void result(List list);
+        void result(List list, Bitmap[] bitmaps);
     }
 
     /**
@@ -34,6 +35,6 @@ public interface PartyActivityDao {
      */
     void getPartyActivityById(Context context, String id, ActivityListener listener);
     interface ActivityListener{
-        void result(PartyActivityBean bean);
+        void result(PartyActivityBean bean,Bitmap bitmap);
     }
 }

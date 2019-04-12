@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.example.lucky.myapplication.IntegralActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbIntegral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="我的积分"/>
+
+        <TextView
+            android:id="@+id/tvtbintegralname"
+            android:layout_width="@dimen/round_width"
+            android:layout_height="@dimen/round_width"
+            android:layout_margin="@dimen/round_margin"
+            android:background="@drawable/round"
+            android:gravity="center"
+            android:textSize="@dimen/round_textsize"
+            android:textColor="@color/colorwhite"
+            android:text="华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:gravity="center"
+       android:orientation="horizontal">
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#4a4a4a"
+           android:textSize="17sp"
+           android:text="总分为："/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textColor="#4a4a4a"
+           android:id="@+id/tvSumScore"
+           android:textSize="17sp"
+           android:text="88"/>
+   </LinearLayout>
+    <ExpandableListView
+        android:background="#00000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/exListView"></ExpandableListView>
+</LinearLayout>

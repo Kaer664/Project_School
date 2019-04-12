@@ -7,6 +7,13 @@ import java.util.List;
  */
 
 public class AnswerActivityListBean {
+    @Override
+    public String toString() {
+        return "AnswerActivityListBean{" +
+                "msg='" + msg + '\'' +
+                ", userAnswerActivityList=" + userAnswerActivityList +
+                '}';
+    }
 
     /**
      * userAnswerActivityList : [{"startTime":"2019-03-28","id":"2","createTime":"2019-03-18","title":"竞赛2","yesOrNotDo":"0","selectedProblemList":"1,2,3,","yxx":"1","endTime":"2019-04-04"},{"startTime":"2019-03-19","id":"1","userID":"1","createTime":"2019-03-18","title":"竞赛1","yesOrNotDo":"1","selectedProblemList":"1,2,","score":"8","userName":"孙华林","yxx":"1","endTime":"2019-03-21"}]

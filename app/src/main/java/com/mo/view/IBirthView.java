@@ -1,5 +1,7 @@
 package com.mo.view;
 
+import android.graphics.Bitmap;
+
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
 
@@ -13,6 +15,8 @@ import java.util.List;
 public interface IBirthView {
     //本月过生日的党员名单
     void showBirthMonth(List<BirthdayMonthBean.UserListBean> list);
-    //生日活动列表
-    void showBirthActivityList(List<BirthActivityBean.BirthActivitiesListBean> list);
+    //显示所有生日活动列表
+    void showBirthActivityList(List<BirthActivityBean.BirthActivitiesListBean> list, Bitmap[] bitmaps);
+    //根据id显示具体生日活动列表
+    void showBirthActivityInfo(BirthActivityBean bean, Bitmap bitmap);
 }

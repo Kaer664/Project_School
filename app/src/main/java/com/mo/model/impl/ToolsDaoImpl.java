@@ -1,6 +1,7 @@
 package com.mo.model.impl;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.model.ToolsDao;
@@ -12,6 +13,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by 风雨诺 on 2019/3/26.
@@ -63,6 +66,12 @@ public class ToolsDaoImpl implements ToolsDao {
         }.start();
     }
 
+    /**
+     * 用户发表评论
+     * @param context
+     * @param map
+     * @param listener
+     */
     @Override
     public void addReply(final Context context, final LinkedHashMap<String, String> map, final AddReplyListener listener) {
         new Thread() {
@@ -84,6 +93,12 @@ public class ToolsDaoImpl implements ToolsDao {
         }.start();
     }
 
+    /**
+     * 用户反馈
+     * @param context
+     * @param map
+     * @param listener
+     */
     @Override
     public void addFeedBack(final Context context, final LinkedHashMap<String, String> map, final AddFeedListener listener) {
         new Thread() {
@@ -124,5 +139,30 @@ public class ToolsDaoImpl implements ToolsDao {
                 }
             }
         }.start();
+    }
+
+    private static SharedPreferences preferences=null;
+
+    public void saveUserInfo(Context context,String userName,String pwd,UserLoginBean bean){
+        if (preferences==null){
+            preferences= context.getSharedPreferences("userInfo", MODE_PRIVATE);
+        }
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("username",userName);
+        editor.putString("pwd",pwd);
+            if (bean!=null){
+            editor.putString("userId",bean.getUserID());
+            editor.putString("userRealName",bean.getUserRealName());
+        }else{
+            editor.putString("userId",null);
+            editor.putString("userRealName",null);
+        }
+        editor.commit();
+    }
+    public SharedPreferences readUserInfo(Context context){
+        if (preferences==null){
+            preferences= context.getSharedPreferences("userInfo", MODE_PRIVATE);
+        }
+        return preferences;
     }
 }

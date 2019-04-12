@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="part_text_size">20sp</dimen>
-    <dimen name="part_img_height">100dp</dimen>
+
+
+    <dimen name="main_bottom_size">14sp</dimen>
+
+    <dimen name="part_text_size">19sp</dimen>
+    <dimen name="part_line_padding">3dp</dimen>
+    <dimen name="part_img_height">90dp</dimen>
     <color name="d_c">#b6afb1</color>
+
+    <!--党务活动界面-->
+    <dimen name="details_text_size">26sp</dimen>
+    <dimen name="details_margin_top">28sp</dimen>
+    <dimen name="details_margin_left">14dp</dimen>
+    <dimen name="details_btn_size">20sp</dimen>
+
+
+    <!--党务活动评论区的-->
+    <dimen name="details_item_head_img_width">55dp</dimen>
+    <dimen name="details_item_head_img_margin">7dp</dimen>
+    <dimen name="details_item_name_text">16sp</dimen>
+    <dimen name="details_item_msg_text">18sp</dimen>
+    <dimen name="details_item_date_text">16sp</dimen>
+    <dimen name="details_item_margin_text">3dp</dimen>
+
+
+
+    <dimen name="advance_item_name_text">24sp</dimen>
+    <dimen name="advance_item_msg_text">20sp</dimen>
+    <dimen name="advance_item_date_text">24sp</dimen>
+
+    <dimen name="advance_item_text_size1">20sp</dimen>
+    <dimen name="advance_item_text_size">19sp</dimen>
+    <dimen name="advance_item_margin_size">5sp</dimen>
+    <dimen name="advance_item_img_height_size">236sp</dimen>
+    <dimen name="advance_item_img_weight_size">177sp</dimen>
+
+    <dimen name="think_title_text_size">24sp</dimen>
+    <dimen name="think_edit_size">22sp</dimen>
+    <dimen name="think_btn_text_size">26sp</dimen>
+
+    <dimen name="answer_detail_title_size">27sp</dimen>
+    <dimen name="answer_detail_context_size">26sp</dimen>
+    <dimen name="answer_detail_a_b_c_d_size">24sp</dimen>
+    <dimen name="answer_detail_margin">9sp</dimen>
+
+    <dimen name="student_title_text_size">22sp</dimen>
+    <dimen name="student_date_text_size">16sp</dimen>
+    <dimen name="student_img_weight">120sp</dimen>
+    <dimen name="student_img_height">90sp</dimen>
+
+    <!--排行榜-->
+    <dimen name="ranking_padding">5dp</dimen>
+    <dimen name="ranking_text_size">25dp</dimen>
+
+    <!--圆角 margin-->
+    <dimen name="round_margin">10dp</dimen>
+    <dimen name="round_width">25dp</dimen>
+    <dimen name="round_textsize">10sp</dimen>
+
+
 </resources>

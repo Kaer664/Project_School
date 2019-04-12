@@ -11,65 +11,95 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class LoginActivity extends AppCompatActivity {
-  private   Toolbar tblogin;
-  private Button btnLogin;
-  private EditText etUsername,etPassword;
-  private SharedPreferences sharedPreferences;
-  private SharedPreferences.Editor editor;
-  private CheckBox cbautologin;
-  private String username="guo",password="111";
+import com.mo.bean.UserLoginBean;
+import com.mo.presenter.ToolsPresenter;
+import com.mo.view.IToolsView;
+
+public class LoginActivity extends AppCompatActivity implements IToolsView {
+    private Toolbar tblogin;
+    private Button btnLogin;
+    private EditText etUsername, etPassword;
+    private CheckBox cbautologin=null;
+    private ToolsPresenter toolsPresenter=new ToolsPresenter(this,this);
+    private String username="",pwd="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences preferences = toolsPresenter.readUserInfo();
+        username = preferences.getString("username", "");
+        pwd = preferences.getString("pwd","");
+        if (username!=""&&pwd!=""){
+            toolsPresenter.login(username,pwd);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         setContentView(R.layout.activity_login);
         initview();
         /*测试数据*/
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etUsername.getText().toString().equals(username)&&etPassword.getText().toString().equals(password)){
-                    editor.putString("username",etUsername.getText().toString());
-                    if (cbautologin.isChecked())
-                    editor.putString("password",etPassword.getText().toString());
-                    editor.commit();
-                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
-                    if (password.toString().equals("111"))//初始密码，这里是写死的，不需要改成从服务器获取的
-                    {
-                        Toast.makeText(LoginActivity.this,"为了安全性，请您修改初始密码",Toast.LENGTH_SHORT).show();
+                username=etUsername.getText().toString();
+                pwd=etPassword.getText().toString();
+                toolsPresenter.login(username,pwd);
+            }
+        });
+    }
+
+
+    private void initview() {
+        tblogin = (Toolbar) findViewById(R.id.tblogin);
+        btnLogin = (Button) findViewById(R.id.btnlogin);
+        etUsername = (EditText) findViewById(R.id.etUsername);
+        etPassword = (EditText) findViewById(R.id.etPwd);
+        cbautologin = (CheckBox) findViewById(R.id.cbautologin);
+    }
+
+    @Override
+    public void showRollingNotify(String content) {
+
+    }
+
+    @Override
+    public void showLogin(final UserLoginBean bean) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (bean != null) {
+                    if(cbautologin.isChecked()){
+                        toolsPresenter.saveUserInfo(username,pwd,bean);
+                    }else{
+                        toolsPresenter.saveUserInfo(null,null,bean);
                     }
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "欢迎你" + bean.getUserRealName(), Toast.LENGTH_SHORT).show();
                     finish();
-                }else {
-                    Toast.makeText(LoginActivity.this,"账户名或密码错误！",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "登陆失败，请检查网路稍后重试", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        Initet();
-        //setSupportActionBar(tblogin);
     }
 
-    private void Initet() {
-        etUsername.setText(sharedPreferences.getString("username",""));
-        etPassword.setText(sharedPreferences.getString("password",""));
-        if (etUsername.getText().toString().equals(username)&&etPassword.getText().toString().equals(password)){
-            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-            startActivity(intent);
-            if (password.toString().equals("111"))//初始密码，这里是写死的，不需要改成从服务器获取的
-            {
-                Toast.makeText(LoginActivity.this,"为了安全性，请您修改初始密码",Toast.LENGTH_SHORT).show();
-            }
-            finish();
-        }
+    @Override
+    public void isReply(boolean b) {
+
     }
 
-    private void initview() {
-        tblogin= (Toolbar) findViewById(R.id.tblogin);
-        btnLogin= (Button) findViewById(R.id.btnlogin);
-        etUsername= (EditText) findViewById(R.id.etUsername);
-        etPassword= (EditText) findViewById(R.id.etPwd);
-        sharedPreferences=getSharedPreferences("UserInfo",MODE_PRIVATE);
-        editor=sharedPreferences.edit();
-        cbautologin= (CheckBox) findViewById(R.id.cbautologin);
+    @Override
+    public void isFeedBack(boolean b) {
+
+    }
+
+    @Override
+    public void isChangePass(boolean b) {
+
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorwhite"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imgbirthdayPic"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvbirthdayinfoCreater"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="孙华林"
+            android:textColor="@color/colorblack"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvbirthdayinfoCreatetime"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="2019-3-24发布"
+            android:textColor="@color/colorblack"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvbirthdayinfoContext"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center_vertical"
+            android:text="生日活动生日活动生日活动生日活动生日活动"
+            android:textColor="@color/colorblack"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

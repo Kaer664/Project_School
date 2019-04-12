@@ -1,17 +1,30 @@
 package com.mo.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.example.lucky.myapplication.util.PatchInputStream;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PipedInputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.Map;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Created by 风雨诺 on 2019/3/25.
@@ -30,84 +43,76 @@ public class HttpTools {
 
     public static String postJson(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value){
         if (!checkNetWorkAction(context)) {
-            return null;
+            return "{msg:error}";
         }
-        StringBuffer sb = new StringBuffer();
+        String s=null;
+        OkHttpClient client=new OkHttpClient();
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add(key,value);
+        Request request=new Request.Builder()
+                .url(url)
+                .method("POST",builder.build())
+                .build();
         try {
-            URL u = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(3 * 1000);
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setReadTimeout(5 * 1000);
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            String post = key + "=" + value;
-            dos.write(post.getBytes());
-            dos.flush();
-            dos.close();
-            conn.connect();
-            if (conn.getResponseCode() == 200) {
-                InputStream is = conn.getInputStream();
-                byte[] bytes = new byte[1024];
-                int led = is.read(bytes, 0, 1024);
-                while (led != -1) {
-                    String s = new String(bytes, 0, led);
-                    sb.append(s);
-                    led = is.read(bytes, 0, 1024);
-                }
-            }
-            Log.i("test", "postJson: "+sb.toString());
+            Response response = client.newCall(request).execute();
+            s = response.body().string();
+            Log.i("test", "postJson: "+s);
+            response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sb.toString();
+        return s;
     }
 
-    public static String postJson(@NonNull Context context, @NonNull String url, Map<String,String> map)  {
+    public static String postJson(@NonNull Context context, @NonNull String url, LinkedHashMap<String, String> map)  {
+        if (!checkNetWorkAction(context)) {
+            return "{msg:error}";
+        }
+        String s=null;
+        OkHttpClient client=new OkHttpClient();
+        FormBody.Builder builder = new FormBody.Builder();
+        if (map!=null){
+            for (Map.Entry<String,String> entry:map.entrySet()){
+                builder.add(entry.getKey(),entry.getValue());
+            }
+        }
+        Request request=new Request.Builder()
+                .url(url)
+                .method("POST",builder.build())
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            s = response.body().string();
+            Log.i("test", "postJson: "+s);
+            response.body().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
+
+    public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName){
         if (!checkNetWorkAction(context)) {
             return null;
         }
-        StringBuffer sb = new StringBuffer();
+
+        Bitmap s=null;
+        OkHttpClient client=new OkHttpClient();
+        FormBody.Builder builder = new FormBody.Builder();
+        Log.i("TestNum",url+picName);
+
+        Request request=new Request.Builder()
+                .url(url+picName)
+                .method("POST",builder.build())
+                .build();
         try {
-            URL u = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) u.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setConnectTimeout(3 * 1000);
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
-            conn.setReadTimeout(5 * 1000);
-            DataOutputStream dos = new DataOutputStream(conn.getOutputStream());
-            if (map!=null){
-                StringBuffer sb2=new StringBuffer();
-                for (Map.Entry<String,String> entry:map.entrySet()){
-                    sb2.append(entry.getKey()+"=");
-                    sb2.append(entry.getValue()+"&");
-                }
-                sb2.deleteCharAt(sb2.length()-1);
-                dos.write(sb2.toString().getBytes());
-            }
-            dos.flush();
-            dos.close();
-            conn.connect();
-            if (conn.getResponseCode() == 200) {
-                InputStream is = conn.getInputStream();
-                byte[] bytes = new byte[1024];
-                int led = is.read(bytes, 0, 1024);
-                while (led != -1) {
-                    String s = new String(bytes, 0, led);
-                    sb.append(s);
-                    led = is.read(bytes, 0, 1024);
-                }
-            }
-            Log.i("test", "postJson: "+sb.toString());
+            Response response = client.newCall(request).execute();
+            InputStream is = response.body().byteStream();
+            s = BitmapFactory.decodeStream(new PatchInputStream(is));
+            response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return sb.toString();
-    }
-
-    public static String postJsonByOKHTTP(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value) {
-        return "";
+        return s;
     }
 }

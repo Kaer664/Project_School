@@ -10,7 +10,25 @@
         android:layout_height="0dp"
         android:layout_weight="6"
         android:background="@drawable/me_background">
+        <com.example.lucky.myapplication.view.CircleImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:src="@drawable/xxdj"/>
+        <TextView
+            android:id="@+id/tvPersonalName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="孙华林"
+            android:textSize="25sp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" >
 
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -46,6 +64,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:id="@+id/lineRaking"
                 android:layout_weight="5">
 
                 <ImageView
@@ -91,6 +110,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:id="@+id/lineIntegral"
                 android:layout_weight="5">
 
                 <ImageView

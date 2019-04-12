@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite"
+    tools:context="com.example.lucky.myapplication.BirthdaydetailsActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbbirthdayDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorred"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="生日活动"/>
+
+        <TextView
+            android:id="@+id/tvtbbirthdayDetailsUsername"
+            android:layout_width="@dimen/round_width"
+            android:layout_height="@dimen/round_width"
+            android:layout_margin="@dimen/round_margin"
+            android:background="@drawable/round"
+            android:gravity="center"
+            android:textSize="@dimen/round_textsize"
+            android:textColor="@color/colorwhite"
+            android:text="华林"
+            android:layout_gravity="right" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_ident" />
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/llBirthdaydetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tbbirthdayDetails">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/details_margin_top"
+            android:layout_marginLeft="@dimen/details_margin_left"
+            android:layout_marginRight="@dimen/details_margin_left"
+            android:text="党员生日活动"
+            android:textSize="@dimen/details_text_size"
+            android:textColor="@color/black"
+            android:id="@+id/tvBirthdayTitle"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/llBirthdaydetails"
+        android:layout_above="@+id/line_bottom">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="这是测试文本"
+                android:textColor="@color/black"
+                android:textSize="@dimen/details_btn_size" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgView"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ccc"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="观点"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/details_margin_left"
+                    android:textSize="@dimen/details_bold_size"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ccc"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/line"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/line_bottom"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorgray">
+
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            android:hint="请发表内容"
+            android:textColor="@color/black"
+            android:textColorHint="#969494"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="10"
+            android:background="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/btnSendComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="发送" />
+    </LinearLayout>
+</RelativeLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/me_background"
+    android:background="@color/colorwhite"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -12,14 +12,16 @@
         android:id="@+id/tblogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorbtnblue">
+        android:background="@color/colorred"
+        >
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tvtblogintitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="欢迎登录信息党建"
-            android:textColor="@color/colorred"
+            android:layout_gravity="center_horizontal"
+            android:text="欢迎登录信息党建系统"
+            android:textColor="@color/colorwhite"
             android:textSize="24sp"
             android:textStyle="bold" />
     </android.support.v7.widget.Toolbar>
@@ -27,14 +29,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="2">
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_weight="5">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -57,19 +59,22 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="right"
-                        android:text="用户名："
-                        android:textColor="@color/colorwhite"
+                        android:textSize="15sp"
+                        android:text="账号："
+                        android:textColor="@color/colorblack"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etUsername"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:singleLine="true"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/colorblack"
+                        android:theme="@style/MyEditText"
+                        android:singleLine="true" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -78,20 +83,23 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="right"
                         android:text="密码："
-                        android:textColor="@color/colorwhite"
+                        android:textSize="15sp"
+                        android:textColor="@color/colorblack"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/etPwd"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:inputType="numberPassword"
-                        android:singleLine="true"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/colorblack"
+                        android:theme="@style/MyEditText"
+                        android:singleLine="true" />
                 </LinearLayout>
 
                 <CheckBox
@@ -99,6 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:checked="true"
                     android:text="自动登录"
                     android:textColor="@color/colorred"
                     android:textStyle="bold" />

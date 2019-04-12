@@ -10,21 +10,8 @@ import java.util.List;
 
 public class BirthActivityBean {
 
-    /**
-     * birthActivitiesList : [{"imgUrl":"IMG_20160220_111759.jpg","typeName":"党员生日活动","id":"8","title":"生日活动1","writerPersonName":"孙华林","yxx":"1","createDate":"2019-03-16","writerID":"1","typeID":"5","workTask":"生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1"},{"imgUrl":"IMG_20160220_111800.jpg","typeName":"党员生日活动","id":"9","title":"生日活动2","writerPersonName":"孙华林","yxx":"1","createDate":"2019-03-13","writerID":"1","typeID":"5","workTask":"生日活动2生日活动2生日活动2生日活动2"}]
-     * msg : success
-     */
-
-    private String msg;
     private List<BirthActivitiesListBean> birthActivitiesList;
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
+    private List<ReplyListBean> replyList;
 
     public List<BirthActivitiesListBean> getBirthActivitiesList() {
         return birthActivitiesList;
@@ -34,18 +21,42 @@ public class BirthActivityBean {
         this.birthActivitiesList = birthActivitiesList;
     }
 
+    public List<ReplyListBean> getReplyList() {
+        return replyList;
+    }
+
+    public void setReplyList(List<ReplyListBean> replyList) {
+        this.replyList = replyList;
+    }
+
     public static class BirthActivitiesListBean {
+        @Override
+        public String toString() {
+            return "BirthActivitiesListBean{" +
+                    "imgUrl='" + imgUrl + '\'' +
+                    ", typeName='" + typeName + '\'' +
+                    ", id='" + id + '\'' +
+                    ", title='" + title + '\'' +
+                    ", writerPersonName='" + writerPersonName + '\'' +
+                    ", yxx='" + yxx + '\'' +
+                    ", createDate='" + createDate + '\'' +
+                    ", writerID='" + writerID + '\'' +
+                    ", typeID='" + typeID + '\'' +
+                    ", workTask='" + workTask + '\'' +
+                    '}';
+        }
+
         /**
-         * imgUrl : IMG_20160220_111759.jpg
+         * imgUrl : IMG_20160220_111800.jpg
          * typeName : 党员生日活动
-         * id : 8
-         * title : 生日活动1
+         * id : 9
+         * title : 生日活动2
          * writerPersonName : 孙华林
          * yxx : 1
-         * createDate : 2019-03-16
+         * createDate : 2019-03-13
          * writerID : 1
          * typeID : 5
-         * workTask : 生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1生日活动1
+         * workTask : 生日活动2生日活动2生日活动2生日活动2
          */
 
         private String imgUrl;
@@ -137,6 +148,52 @@ public class BirthActivityBean {
 
         public void setWorkTask(String workTask) {
             this.workTask = workTask;
+        }
+    }
+
+    public static class ReplyListBean {
+        /**
+         * id : 16
+         * userID : 1
+         * userName : 孙华林
+         * replyContent : 这个党员生日活动很有意义
+         */
+
+        private String id;
+        private String userID;
+        private String userName;
+        private String replyContent;
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getUserID() {
+            return userID;
+        }
+
+        public void setUserID(String userID) {
+            this.userID = userID;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getReplyContent() {
+            return replyContent;
+        }
+
+        public void setReplyContent(String replyContent) {
+            this.replyContent = replyContent;
         }
     }
 }

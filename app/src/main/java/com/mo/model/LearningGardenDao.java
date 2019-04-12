@@ -1,6 +1,7 @@
 package com.mo.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.mo.bean.LearningGardenInfoBean;
 
@@ -26,7 +27,7 @@ public interface LearningGardenDao {
      */
     void getLearningGardenById(Context context, String id, LearningGardenListener listener);
     interface LearningGardenListener{
-        void result(List list);
-        void result(LearningGardenInfoBean infoBean);
+        void result(List list, Bitmap[] bitmaps);
+        void result(LearningGardenInfoBean infoBean,Bitmap bitmap);
     }
 }

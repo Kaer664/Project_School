@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorwhite">
+
+    <ImageView
+        android:id="@+id/imgPinglun"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvPinglunUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorblack"
+            android:text="孙华林" />
+
+        <TextView
+            android:id="@+id/tvPinglunContext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:textColor="@color/colorblack"
+            android:text="合作共赢" />
+
+        <TextView
+            android:id="@+id/tvPinglunTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="12sp"
+            android:textColor="@color/colorblack"
+            android:text="2019-3-24发表" />
+    </LinearLayout>
+</LinearLayout>

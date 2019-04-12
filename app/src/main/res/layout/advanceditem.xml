@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/advance_item_margin_size"
+    android:layout_height="match_parent"
+    android:background="@color/colorwhite">
+
+        <ImageView
+            android:id="@+id/imgCharacter"
+            android:layout_width="@dimen/advance_item_img_weight_size"
+            android:layout_gravity="center"
+            android:layout_height="@dimen/advance_item_img_height_size"
+            android:src="@drawable/study"
+            />
+        <TextView
+            android:id="@+id/tvCharacterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="冯理达"
+            android:textSize="@dimen/advance_item_text_size1"
+            android:textColor="@color/colorblack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCharacterAchievement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="全国优秀共产党员"
+            android:textSize="@dimen/advance_item_text_size"
+            android:textColor="@color/colorblack" />
+
+        <TextView
+            android:id="@+id/tvCreateDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/advance_item_text_size"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="(2008.02)"
+            android:textColor="@color/colorblack" />
+
+
+</LinearLayout>
