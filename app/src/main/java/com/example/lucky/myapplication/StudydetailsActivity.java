@@ -35,6 +35,7 @@ import com.mo.util.Address;
 import com.mo.view.ILearningGardenView;
 import com.mo.view.IToolsView;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +56,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
     MediaController controller;
     RelativeLayout rlvvStudyDetailsVideo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +78,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
         vvStudyDetailsVideo = (VideoView) findViewById(R.id.vvStudyDetailsVideo);
         tvStudyDetailsTitle = (TextView) findViewById(R.id.tvStudyDetailsTitle);
         tvStudyDetailsWriter = (TextView) findViewById(R.id.tvStudyDetailsWriter);
-        lineStu= (LinearLayout) findViewById(R.id.lineStu);
+        lineStu = (LinearLayout) findViewById(R.id.lineStu);
         tvStudyDetailsContent = (TextView) findViewById(R.id.tvStudyDetailsContent);
         etStudyDetailsComment = (EditText) findViewById(R.id.etStudyDetailsComment);
         btnStudyDetailsSendComment = (Button) findViewById(R.id.btnStudyDetailsSendComment);
@@ -90,7 +92,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
         height = dm.heightPixels;
         lgp = new LearningGardenPresenter(this, this);
         controller = new MediaController(this);//实例化控制器
-         rlvvStudyDetailsVideo= (RelativeLayout) findViewById(R.id.rlvvStudyDetailsVideo);
+        rlvvStudyDetailsVideo = (RelativeLayout) findViewById(R.id.rlvvStudyDetailsVideo);
     }
 
     public void toolBar() {
@@ -119,10 +121,6 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 intent.setData(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
                 startActivity(intent);
-//                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
-//                request.setDestinationInExternalPublicDir("/download/", tvStudyDetailsDownload.getText().toString());
-//                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-//                downloadManager.enqueue(request);
                 break;
         }
     }
@@ -180,18 +178,19 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private List<Map<String,Object>> data=new ArrayList<>();
+    private List<Map<String, Object>> data = new ArrayList<>();
+
     @Override
     public void showLearningGardenInfo(final LearningGardenInfoBean bean, final Bitmap bitmap) {
 
         //回复的列表，没到控件显示
         List<LearningGardenInfoBean.ReplyListBean> listBeen = bean.getReplyList();
-        for(int i=0;i<listBeen.size();i++){
+        for (int i = 0; i < listBeen.size(); i++) {
             LearningGardenInfoBean.ReplyListBean replyListBean = listBeen.get(i);
             Map<String, Object> map = new HashMap<>();
             map.put("name", replyListBean.getUserName());
             map.put("date", "");
-            map.put("headImg",R.drawable.img);
+            map.put("headImg", R.drawable.img);
             map.put("content", replyListBean.getReplyContent());
             data.add(map);
         }
@@ -205,21 +204,22 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                     tvStudyDetailsWriter.setText(bean1.getWriterPersonName());//创建者
                     tvStudyDetailsContent.setText(bean1.getWorkTask());//内容
                     tvStudyDetailsDownload.setText(bean1.getFileUrl());
-                    if (bean1.getVideoUrl()!= null) {
+                    if (bean1.getVideoUrl() != null) {
                         rlvvStudyDetailsVideo.setVisibility(View.VISIBLE);
+                        //new String(test.getBytes("UTF-8"))
                         vvStudyDetailsVideo.setVideoURI(Uri.parse(Address.VIDAO_URL + bean1.getVideoUrl()));//视频
                         vvStudyDetailsVideo.setMediaController(controller);
                         controller.setMediaPlayer(vvStudyDetailsVideo);
                     }
                 }
-                if(data!=null){
-                    for(int i=0;i<data.size();i++){
-                        lineStu.addView(new CommentView(StudydetailsActivity.this,data.get(i)));
-                        TextView t=new TextView(StudydetailsActivity.this);
+                if (data != null) {
+                    for (int i = 0; i < data.size(); i++) {
+                        lineStu.addView(new CommentView(StudydetailsActivity.this, data.get(i)));
+                        TextView t = new TextView(StudydetailsActivity.this);
                         t.setWidth(width);
                         t.setHeight(1);
                         t.setBackgroundColor(Color.BLACK);
-                        lineStu .addView(t);
+                        lineStu.addView(t);
                     }
                 }
             }
