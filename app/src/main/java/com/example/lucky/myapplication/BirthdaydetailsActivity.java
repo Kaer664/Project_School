@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -112,6 +113,16 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
         height = dm.heightPixels;
         btnSendComment.setOnClickListener(this);
         f = sp.getInt("TestNumXXX" + id, 0);
+         /* edittext 触摸获取焦点，软键盘弹起*/
+        etComment.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etComment.setFocusable(true);
+                etComment.setFocusableInTouchMode(true);
+                return false;
+            }
+
+        });
     }
 
     @Override
