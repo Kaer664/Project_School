@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.lucky.myapplication.util.PatchInputStream;
 
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PipedInputStream;
@@ -41,22 +42,22 @@ public class HttpTools {
         }
     }
 
-    public static String postJson(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value){
+    public static String postJson(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value) {
         if (!checkNetWorkAction(context)) {
             return "{msg:error}";
         }
-        String s=null;
-        OkHttpClient client=new OkHttpClient();
+        String s = null;
+        OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add(key,value);
-        Request request=new Request.Builder()
+        builder.add(key, value);
+        Request request = new Request.Builder()
                 .url(url)
-                .method("POST",builder.build())
+                .method("POST", builder.build())
                 .build();
         try {
             Response response = client.newCall(request).execute();
             s = response.body().string();
-            Log.i("test", "postJson: "+s);
+            Log.i("test", "postJson: " + s);
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,26 +65,26 @@ public class HttpTools {
         return s;
     }
 
-    public static String postJson(@NonNull Context context, @NonNull String url, LinkedHashMap<String, String> map)  {
+    public static String postJson(@NonNull Context context, @NonNull String url, LinkedHashMap<String, String> map) {
         if (!checkNetWorkAction(context)) {
             return "{msg:error}";
         }
-        String s=null;
-        OkHttpClient client=new OkHttpClient();
+        String s = null;
+        OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        if (map!=null){
-            for (Map.Entry<String,String> entry:map.entrySet()){
-                builder.add(entry.getKey(),entry.getValue());
+        if (map != null) {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                builder.add(entry.getKey(), entry.getValue());
             }
         }
-        Request request=new Request.Builder()
+        Request request = new Request.Builder()
                 .url(url)
-                .method("POST",builder.build())
+                .method("POST", builder.build())
                 .build();
         try {
             Response response = client.newCall(request).execute();
             s = response.body().string();
-            Log.i("test", "postJson: "+s);
+            Log.i("test", "postJson: " + s);
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,19 +92,19 @@ public class HttpTools {
         return s;
     }
 
-    public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName){
+    public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName) {
         if (!checkNetWorkAction(context)) {
             return null;
         }
 
-        Bitmap s=null;
-        OkHttpClient client=new OkHttpClient();
+        Bitmap s = null;
+        OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        Log.i("TestNum",url+picName);
+        Log.i("TestNum", url + picName);
 
-        Request request=new Request.Builder()
-                .url(url+picName)
-                .method("POST",builder.build())
+        Request request = new Request.Builder()
+                .url(url + picName)
+                .method("POST", builder.build())
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -114,5 +115,30 @@ public class HttpTools {
             e.printStackTrace();
         }
         return s;
+    }
+
+    public static File getFile(@NonNull Context context, @NonNull String url, String fileName) {
+        if (!checkNetWorkAction(context)) {
+            return null;
+        }
+
+        File s = null;
+        OkHttpClient client = new OkHttpClient();
+        FormBody.Builder builder = new FormBody.Builder();
+        Log.i("TestNum", url + fileName);
+
+        Request request = new Request.Builder()
+                .url(url + fileName)
+                .method("POST", builder.build())
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            InputStream is = response.body().byteStream();
+//            s = BitmapFactory.decodeStream(new PatchInputStream(is));
+            response.body().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

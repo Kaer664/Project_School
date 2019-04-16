@@ -100,7 +100,7 @@ public class ToolsDaoImpl implements ToolsDao {
      * @param listener
      */
     @Override
-    public void addFeedBack(final Context context, final LinkedHashMap<String, String> map, final AddFeedListener listener) {
+    public void addFeedBack(final Context context, final LinkedHashMap<String, String> map, final AddFeedListener listener){
         new Thread() {
             @Override
             public void run() {

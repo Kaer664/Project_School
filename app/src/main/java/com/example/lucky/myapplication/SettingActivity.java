@@ -17,10 +17,13 @@ import android.widget.Toast;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.presenter.ToolsPresenter;
+import com.mo.util.UpdateApp;
 import com.mo.view.IToolsView;
 
 public class SettingActivity extends AppCompatActivity implements IToolsView {
     private LinearLayout aboutUs, changePassword;
+    private LinearLayout checkUpdate;
+
     private Button btnExitLogin;
     private ToolsPresenter toolsPresenter;
 
@@ -33,6 +36,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
         settoolbarName();
 
         aboutUs = (LinearLayout) findViewById(R.id.aboutUs);
+        checkUpdate = (LinearLayout) findViewById(R.id.checkUpdate);
         changePassword = (LinearLayout) findViewById(R.id.changePassword);
         btnExitLogin = (Button) findViewById(R.id.btnExitLogin);
         aboutUs.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +55,13 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
                 alertDialog.show();
             }
         });
+        checkUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingActivity.this,"按钮被点击",Toast.LENGTH_SHORT).show();
+                new UpdateApp(SettingActivity.this).execute();
+            }
+        });
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +73,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
             @Override
             public void onClick(View v) {
                 //跳转之前把sharedPreferences里保存的密码删掉
-                toolsPresenter.saveUserInfo(null, null, null);
+                toolsPresenter.saveUserInfo(null,null,null);
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
                 Toast.makeText(SettingActivity.this, "您已退出登录！", Toast.LENGTH_SHORT).show();
@@ -72,7 +83,6 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
     }
 
     private Toolbar toolbar;
-
     private void toolBar() {
         toolbar = (Toolbar) findViewById(R.id.tbSetting);
         toolbar.setTitle("");
@@ -86,15 +96,14 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
             }
         });
     }
-
     public void settoolbarName() {
         SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbSettingName);
-            if (userRealName.length() < 3) {
+            if(userRealName.length()<3){
                 tvtbTempnewsUserName.setText(userRealName.toString());
-            } else {
+            }else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
         }
