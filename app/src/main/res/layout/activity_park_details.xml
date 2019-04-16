@@ -48,11 +48,12 @@
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:gravity="center"
+               android:gravity="center_vertical"
+               android:textStyle="bold"
                android:layout_marginTop="@dimen/details_margin_top"
                android:layout_marginLeft="@dimen/details_margin_left"
                android:layout_marginRight="@dimen/details_margin_left"
-               android:text=""
+               android:text="这是测试文本测试测试测试测试测试测试"
                android:textSize="@dimen/details_text_size"
                android:textColor="@color/black"
                android:id="@+id/details_top_title"/>

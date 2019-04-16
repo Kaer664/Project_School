@@ -17,12 +17,12 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="如果看到此消息请关闭程序重新打开，服务器连接已中断                                                                                                            "
-        android:textColor="@color/colorblack" />
+        android:textColor="@color/colorAccent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="2">
 
         <ImageView
             android:layout_width="0dp"
@@ -113,10 +113,11 @@
             android:src="@drawable/icon_expert1" />
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="党员服务"
-            android:textColor="@color/colorblack" />
+            android:textColor="@color/colorPrimary" />
 
         <ImageView
             android:layout_width="wrap_content"
