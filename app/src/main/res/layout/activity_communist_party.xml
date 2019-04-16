@@ -40,6 +40,7 @@
             android:src="@drawable/icon_ident" />
     </android.support.v7.widget.Toolbar>
     <ListView
+        android:layout_marginTop="10dp"
         android:layout_below="@id/tbCommunistparty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
