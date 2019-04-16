@@ -32,7 +32,6 @@
             android:textSize="@dimen/round_textsize"
             android:textColor="@color/colorwhite"
             android:textStyle="bold"
-            android:text="华林"
             android:layout_gravity="right" />
 
         <ImageView
@@ -57,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="先进人物"
-            android:textColor="@color/colorblack" />
+            android:textColor="@color/colorred" />
 
         <ImageView
             android:layout_width="wrap_content"

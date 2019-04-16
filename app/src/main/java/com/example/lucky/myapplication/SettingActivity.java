@@ -40,7 +40,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
             public void onClick(View v) {
                 final AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("关于我们")
-                        .setMessage("Powered by Software Studio （软件工作室技术支持）")
+                        .setMessage("By（软件创新工作室)\n蔡准、贾洪言、郭文彬、孙华林")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -62,7 +62,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
             @Override
             public void onClick(View v) {
                 //跳转之前把sharedPreferences里保存的密码删掉
-                toolsPresenter.saveUserInfo(null,null,null);
+                toolsPresenter.saveUserInfo(null, null, null);
                 Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                 startActivity(intent);
                 Toast.makeText(SettingActivity.this, "您已退出登录！", Toast.LENGTH_SHORT).show();
@@ -72,6 +72,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
     }
 
     private Toolbar toolbar;
+
     private void toolBar() {
         toolbar = (Toolbar) findViewById(R.id.tbSetting);
         toolbar.setTitle("");
@@ -85,14 +86,15 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
             }
         });
     }
+
     public void settoolbarName() {
         SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbSettingName);
-            if(userRealName.length()<3){
+            if (userRealName.length() < 3) {
                 tvtbTempnewsUserName.setText(userRealName.toString());
-            }else {
+            } else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
         }

@@ -3,33 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.example.lucky.myapplication.AdvancedDetailActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbPd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorred">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="活动详情"
             android:textColor="@color/colorwhite"
-            android:textStyle="bold"
             android:textSize="20sp"
-            android:text="活动详情"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvtbParkdetailsUserName"
             android:layout_width="@dimen/round_width"
             android:layout_height="@dimen/round_width"
+            android:layout_gravity="right"
             android:layout_margin="@dimen/round_margin"
             android:background="@drawable/round"
             android:gravity="center"
-            android:textSize="@dimen/round_textsize"
-            android:textColor="@color/colorwhite"
             android:text="华林"
-            android:layout_gravity="right" />
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/round_textsize" />
 
         <ImageView
             android:layout_width="25dp"
@@ -39,15 +41,16 @@
     </android.support.v7.widget.Toolbar>
     <!--顶部-->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
         android:id="@+id/LineTop"
-        android:layout_below="@id/tbPd"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:layout_below="@id/tbPd"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -57,67 +60,75 @@
                 android:padding="@dimen/ranking_padding" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="3"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/part_img_height"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:id="@+id/tvName"
-                        android:textSize="@dimen/details_item_name_text"
-                        android:text="吴大观"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="吴大观"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/details_item_name_text" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:id="@+id/tvMsg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="@dimen/details_item_name_text"
-                        android:text="20"/>
+                        android:text="20"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/details_item_name_text" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
+
                     <TextView
+                        android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
                         android:layout_gravity="center"
-                        android:id="@+id/tvDate"
-                        android:textSize="@dimen/details_item_name_text"
-                        android:text="20"/>
+                        android:text="20"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/details_item_name_text" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="#7e7d7d"/>
+            android:background="#7e7d7d" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/honor"/>
+                android:src="@drawable/honor" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,16 +137,19 @@
                 android:textSize="@dimen/details_btn_size" />
         </LinearLayout>
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_below="@+id/LineTop"
+        android:layout_height="match_parent"
         android:layout_above="@+id/line_bottom"
-        android:layout_height="match_parent">
+        android:layout_below="@+id/LineTop">
+
         <LinearLayout
+            android:id="@+id/lineAdd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/lineAdd"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvPeople"
                 android:layout_width="match_parent"

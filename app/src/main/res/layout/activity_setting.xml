@@ -19,7 +19,7 @@
             android:textColor="@color/colorwhite"
             android:textStyle="bold"
             android:textSize="20sp"
-            android:text="排行榜"/>
+            android:text="设置"/>
 
         <TextView
             android:id="@+id/tvtbSettingName"
@@ -30,7 +30,6 @@
             android:gravity="center"
             android:textSize="@dimen/round_textsize"
             android:textColor="@color/colorwhite"
-            android:text="华林"
             android:layout_gravity="right" />
 
         <ImageView
