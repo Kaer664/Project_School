@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lineBot"
+        android:padding="10dp"
         android:layout_below="@+id/tbStudyDetails">
 
         <LinearLayout
@@ -58,7 +59,6 @@
                 android:id="@+id/rlvvStudyDetailsVideo"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_margin="20dp"
                 android:visibility="gone">
 
                 <VideoView
@@ -73,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
+                android:textSize="24sp"
                 android:textColor="@color/black" />
 
             <TextView
@@ -80,20 +81,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:textColor="@color/black" />
+                android:textSize="20sp"
+                android:textColor="@color/colorgray" />
 
             <TextView
                 android:id="@+id/tvStudyDetailsContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
+                android:textSize="20sp"
                 android:textColor="@color/black" />
 
             <ImageView
                 android:id="@+id/imgStudyDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:visibility="gone" />
 
             <TextView

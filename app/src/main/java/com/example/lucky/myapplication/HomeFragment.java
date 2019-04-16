@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -47,7 +48,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     private TextView tvNews2;
     private ToolsPresenter toolsPresenter;
     private PartyNewsPresenter partyNewsPresenter;
-    private List<String> ids1=new ArrayList<>();
+    private List<String> ids1 = new ArrayList<>();
     int count = 0;
     ViewFlipper viewFlipper;
     private Handler handler = new Handler() {
@@ -93,7 +94,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                                 tvNews2.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                       intentTempNews(ids1.get((Integer) v.getTag()));
+                                        intentTempNews(ids1.get((Integer) v.getTag()));
                                     }
                                 });
                                 linearLayout.addView(tvNews1);
@@ -113,6 +114,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                             count++;
                             tvNews1.setGravity(Gravity.CENTER_VERTICAL);
                             tvNews1.setTextColor(Color.BLACK);
+//                            tvNews1.setEllipsize(TextUtils.TruncateAt.END);
+//                            tvNews1.setSingleLine();
                             tvNews1.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -122,8 +125,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                             tvNews2.setText(ss[count]);
                             tvNews2.setTag(count);
                             count++;
-                            tvNews2.setGravity(Gravity.CENTER_VERTICAL);
-                            tvNews2.setTextColor(Color.BLACK);
+//                            tvNews2.setGravity(Gravity.CENTER_VERTICAL);
+//                            tvNews2.setTextColor(Color.BLACK);
+                            tvNews2.setEllipsize(TextUtils.TruncateAt.END);
+                            tvNews2.setSingleLine(true);
                             tvNews2.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -207,7 +212,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     }
 
     public void intentTempNews(String i) {
-        Log.i("TestNum",ids1.toString());
+        Log.i("TestNum", ids1.toString());
         Intent intent1 = new Intent(getActivity(), TempNewsActivity.class);
         intent1.putExtra("id", i);
         startActivity(intent1);
@@ -246,10 +251,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
     @Override
     public void showAllPartyNews(List<PartyNewsListBean.PartyAffairsNewsListBean> list) {
         if (list != null) {
-            String[] ss=new String[list.size()];
+            String[] ss = new String[list.size()];
             for (int i = 0; i < list.size(); i++) {
                 PartyNewsListBean.PartyAffairsNewsListBean bean = list.get(i);
-                ss[i]=bean.getTitle();
+                ss[i] = bean.getTitle();
                 ids1.add(bean.getId());
             }
             Message msg = new Message();
