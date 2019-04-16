@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 public class UpdateApp extends AsyncTask<Void, Void, Boolean> {
     private Context context;
-    private final String APP_NAME = "app-debug-v4.16.apk";
+    private final String APP_NAME = "app-debug.apk";
     private String appFile = null;
 
     public UpdateApp(Context context) {
@@ -72,7 +72,7 @@ public class UpdateApp extends AsyncTask<Void, Void, Boolean> {
                     .show();
         }else{
             //不需要更新
-            Toast.makeText(context,"已更新",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"已安装最新版本",Toast.LENGTH_SHORT).show();
         }
     }
 

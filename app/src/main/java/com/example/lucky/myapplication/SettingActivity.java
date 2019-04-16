@@ -58,7 +58,6 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
         checkUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(SettingActivity.this,"按钮被点击",Toast.LENGTH_SHORT).show();
                 new UpdateApp(SettingActivity.this).execute();
             }
         });

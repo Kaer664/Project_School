@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements IToolsView {
                     }
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
-                    Toast.makeText(LoginActivity.this, "欢迎你" + bean.getUserRealName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "欢迎你" + bean.getUserRealName(), Toast.LENGTH_LONG).show();
                     finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "登陆失败，请检查用户名和密码稍后重试", Toast.LENGTH_SHORT).show();
