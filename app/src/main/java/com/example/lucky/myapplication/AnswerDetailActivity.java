@@ -122,7 +122,7 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
 
 
     @Override
-    public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list) {
+    public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list,String serverTime) {
 
     }
 

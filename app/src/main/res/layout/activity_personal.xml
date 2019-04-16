@@ -19,8 +19,8 @@
             android:id="@+id/tvPersonalName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="孙华林"
-            android:textSize="25sp"
+            android:layout_marginLeft="20dp"
+            android:textSize="30sp"
             android:layout_gravity="center_vertical"
             android:layout_weight="2" />
         <LinearLayout
@@ -78,6 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"
+                    android:textSize="18sp"
                     android:text="排行榜"
                     android:textColor="@color/colorblack" />
 
@@ -125,6 +126,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"
                     android:text="我的积分"
+                    android:textSize="18sp"
                     android:textColor="@color/colorblack" />
 
                 <ImageView
@@ -172,6 +174,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="7"
                     android:text="设置"
+                    android:textSize="18sp"
                     android:textColor="@color/colorblack" />
 
                 <ImageView

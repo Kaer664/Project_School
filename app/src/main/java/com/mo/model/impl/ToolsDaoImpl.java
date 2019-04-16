@@ -66,6 +66,27 @@ public class ToolsDaoImpl implements ToolsDao {
         }.start();
     }
 
+    @Override
+    public void getServerTime(final Context context, final NotifyListener listener) {
+        new Thread() {
+            @Override
+            public void run() {
+                String json=HttpTools.postJson(context, Address.GET_TIME, null);
+                try {
+                    JSONObject object=new JSONObject(json);
+                    String msg=object.getString("msg");
+                    if ("success".equals(msg)){
+                        listener.result(object.getString("ServerSysCurrentDate"));
+                    }else{
+                        listener.result(null);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
     /**
      * 用户发表评论
      * @param context
@@ -100,7 +121,7 @@ public class ToolsDaoImpl implements ToolsDao {
      * @param listener
      */
     @Override
-    public void addFeedBack(final Context context, final LinkedHashMap<String, String> map, final AddFeedListener listener) {
+    public void addFeedBack(final Context context, final LinkedHashMap<String, String> map, final AddFeedListener listener){
         new Thread() {
             @Override
             public void run() {
@@ -125,13 +146,13 @@ public class ToolsDaoImpl implements ToolsDao {
         new Thread() {
             @Override
             public void run() {
-                String json=HttpTools.postJson(context, Address.CHANGE_PWD, map);
+                String json = HttpTools.postJson(context, Address.CHANGE_PWD, map);
                 try {
-                    JSONObject object=new JSONObject(json);
-                    String msg=object.getString("msg");
-                    if ("success".equals(msg)){
+                    JSONObject object = new JSONObject(json);
+                    String msg = object.getString("msg");
+                    if ("success".equals(msg)) {
                         listener.result(true);
-                    }else{
+                    } else {
                         listener.result(false);
                     }
                 } catch (JSONException e) {

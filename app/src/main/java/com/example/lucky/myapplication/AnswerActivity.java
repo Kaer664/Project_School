@@ -25,6 +25,8 @@ import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IAnswerActivityView;
 import com.mo.view.IToolsView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,13 +117,32 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
                 Map<String,String> tMap=data.get(position);
                 holder.title.setText(tMap.get("title"));
                 holder.date.setText("答题时间："+tMap.get("start")+"--"+tMap.get("stop"));
-                if(tMap.get("do").equals("0")){
-                    holder.yesOrDo.setText("未答题");
-                    holder.btnAnswer.setEnabled(true);
-                }else{
-                    holder.yesOrDo.setText(tMap.get("do"));
-                    holder.btnAnswer.setText("已答题");
-                    holder.btnAnswer.setEnabled(false);
+                SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+                try {
+                    long now = dateFormat.parse(serverTime).getTime();
+                    long start = dateFormat.parse(tMap.get("start")).getTime();
+                    long stop = dateFormat.parse(tMap.get("stop")).getTime();
+                    if (start<=now
+                            &&stop>=now){
+                        if(tMap.get("do").equals("0")){
+                            holder.yesOrDo.setText("未答题");
+                            holder.btnAnswer.setEnabled(true);
+                        }else{
+                            holder.yesOrDo.setText(tMap.get("do"));
+                            holder.btnAnswer.setText("已答题");
+                            holder.btnAnswer.setEnabled(false);
+                        }
+                    }else{
+                        holder.btnAnswer.setText("未在活动时间");
+                        holder.btnAnswer.setEnabled(false);
+                        if(tMap.get("do").equals("0")){
+                            holder.yesOrDo.setText("未答题");
+                        }else{
+                            holder.yesOrDo.setText(tMap.get("do"));
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
                 return convertView;
             }
@@ -137,8 +158,12 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
     }
 
     private List<Map<String,String>> data=new ArrayList<>();
+    private String serverTime;
     @Override
-    public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list) {
+    public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list,String serverTime) {
+
+            this.serverTime=serverTime;
+
         data.clear();
         for(int i=0;i<list.size();i++){
             Map<String,String> map=new HashMap<>();

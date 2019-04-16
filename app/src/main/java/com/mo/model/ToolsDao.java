@@ -3,7 +3,7 @@ package com.mo.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import  com.mo.bean.UserLoginBean;
+import com.mo.bean.UserLoginBean;
 
 import java.util.LinkedHashMap;
 
@@ -21,52 +21,68 @@ import java.util.LinkedHashMap;
 public interface ToolsDao {
     /**
      * 用户登陆操作
-     * @param context 上下文
-     * @param map 键值对
+     *
+     * @param context  上下文
+     * @param map      键值对
      * @param listener 监听
      */
     void login(Context context, LinkedHashMap<String, String> map, loginListener listener);
-    interface loginListener{
+
+    interface loginListener {
         void result(UserLoginBean bean);
     }
 
     /**
      * 获取即时滚动通知
+     *
      * @param context
      * @param listener
      */
     void getRollNotify(Context context, NotifyListener listener);
-    interface NotifyListener{
+
+    void getServerTime(Context context, NotifyListener listeners);
+
+    interface NotifyListener {
         void result(String content);
     }
 
     /**
      * 发表评论
+     *
      * @param context
      * @param map
      */
     void addReply(Context context, LinkedHashMap<String, String> map, AddReplyListener listener);
-    interface AddReplyListener{
+
+    interface AddReplyListener {
         void result(boolean isAdd);
     }
+
     /**
      * 问题反馈
+     *
      * @param context
      * @param map
      */
     void addFeedBack(Context context, LinkedHashMap<String, String> map, AddFeedListener listener);
-    interface AddFeedListener{
+
+    interface AddFeedListener {
         void result(boolean isAdd);
     }
+
     /**
      * 修改密码接口
+     *
      * @param context
      * @param map
      */
     void changePass(Context context, LinkedHashMap<String, String> map, ChangePassListener listener);
-    interface ChangePassListener{
+
+    interface ChangePassListener {
         void result(boolean isChange);
     }
-    void saveUserInfo(Context context,String userName,String pwd,UserLoginBean bean);
+
+    void saveUserInfo(Context context, String userName, String pwd, UserLoginBean bean);
+
     SharedPreferences readUserInfo(Context context);
 }

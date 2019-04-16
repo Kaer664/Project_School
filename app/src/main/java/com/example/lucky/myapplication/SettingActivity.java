@@ -17,10 +17,13 @@ import android.widget.Toast;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.presenter.ToolsPresenter;
+import com.mo.util.UpdateApp;
 import com.mo.view.IToolsView;
 
 public class SettingActivity extends AppCompatActivity implements IToolsView {
     private LinearLayout aboutUs, changePassword;
+    private LinearLayout checkUpdate;
+
     private Button btnExitLogin;
     private ToolsPresenter toolsPresenter;
 
@@ -33,6 +36,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
         settoolbarName();
 
         aboutUs = (LinearLayout) findViewById(R.id.aboutUs);
+        checkUpdate = (LinearLayout) findViewById(R.id.checkUpdate);
         changePassword = (LinearLayout) findViewById(R.id.changePassword);
         btnExitLogin = (Button) findViewById(R.id.btnExitLogin);
         aboutUs.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +44,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
             public void onClick(View v) {
                 final AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("关于我们")
-                        .setMessage("Powered by Software Studio （软件工作室技术支持）")
+                        .setMessage("By（软件创新工作室)\n蔡准、贾洪言、郭文彬、孙华林")
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -49,6 +53,12 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
                         })
                         .create();
                 alertDialog.show();
+            }
+        });
+        checkUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new UpdateApp(SettingActivity.this).execute();
             }
         });
         changePassword.setOnClickListener(new View.OnClickListener() {

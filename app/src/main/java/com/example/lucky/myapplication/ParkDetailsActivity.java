@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -46,7 +47,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
     private String id;
     private int width;
     private int height;
-    private boolean isReply=false;
+    private boolean isReply = false;
 
     private Handler handler = new Handler() {
         @Override
@@ -65,7 +66,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         width = dm.widthPixels;
         height = dm.heightPixels;
         partyActivityPresenter = new PartyActivityPresenter(this, this);
-        id= getIntent().getStringExtra("id");
+        id = getIntent().getStringExtra("id");
         if (id == null) {
             Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
         } else {
@@ -82,21 +83,31 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         tvWriterName = (TextView) findViewById(R.id.tvWriterName);
         details_top_title = (TextView) findViewById(R.id.details_top_title);
         imgView = (ImageView) findViewById(R.id.imgView);
-        lineAdd= (LinearLayout) findViewById(R.id.lineAdd);
+        lineAdd = (LinearLayout) findViewById(R.id.lineAdd);
         btnBottom.setOnClickListener(this);
-        toolsPresenter=new ToolsPresenter(this,this);
+        toolsPresenter = new ToolsPresenter(this, this);
+        /* edittext 触摸获取焦点，软键盘弹起*/
+        etBottom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                etBottom.setFocusable(true);
+                etBottom.setFocusableInTouchMode(true);
+                return false;
+            }
+
+        });
     }
 
     private void initView() {
-       Log.i("TestNum",String.valueOf(data.size()));
-        Map<String,Object> tMap=data.get(0);
+        Log.i("TestNum", String.valueOf(data.size()));
+        Map<String, Object> tMap = data.get(0);
         details_top_title.setText((String) tMap.get("title"));
         tvWriterName.setText((String) tMap.get("writer"));
         textView.setText((String) tMap.get("content"));
         imgView.setImageBitmap((Bitmap) tMap.get("img"));
-        for(int i=0;i<reply_data.size();i++){
-            lineAdd.addView(new CommentView(this,reply_data.get(i)));
-            TextView t=new TextView(this);
+        for (int i = 0; i < reply_data.size(); i++) {
+            lineAdd.addView(new CommentView(this, reply_data.get(i)));
+            TextView t = new TextView(this);
             t.setWidth(width);
             t.setHeight(1);
             t.setBackgroundColor(Color.BLACK);
@@ -124,7 +135,7 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             map.put("title", javaBean.getTitle());
             map.put("writer", javaBean.getWriterPersonName());
             map.put("content", javaBean.getWorkTask());
-            map.put("img",bitmap);
+            map.put("img", bitmap);
             data.add(map);
         }
 
@@ -136,11 +147,11 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
             PartyActivityBean.ReplyListBean javaBean = userReply.get(i);
             Map<String, Object> map = new HashMap<>();
             map.put("name", javaBean.getUserName());
-            if (javaBean.getUserName().equals(name)){
-                isReply=true;
+            if (javaBean.getUserName().equals(name)) {
+                isReply = true;
             }
             map.put("date", "");
-            map.put("headImg",R.drawable.img);
+            map.put("headImg", R.drawable.img);
             map.put("content", javaBean.getReplyContent());
             reply_data.add(map);
         }
@@ -155,15 +166,15 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnBottom:
-                String replyContent=etBottom.getText().toString();
-                if (isReply){
-                    new AlertDialog.Builder(this).setMessage("此活动您已发表观点").setNegativeButton("确定",null).show();
-                }else if (replyContent.length()<=10){
-                    new AlertDialog.Builder(this).setMessage("每个观点至少10个字以上").setNegativeButton("确定",null).show();
-                }else{
-                    toolsPresenter.addReply(id,"党务活动评论",replyContent);
+                String replyContent = etBottom.getText().toString();
+                if (isReply) {
+                    new AlertDialog.Builder(this).setMessage("此活动您已发表观点").setNegativeButton("确定", null).show();
+                } else if (replyContent.length() <= 10) {
+                    new AlertDialog.Builder(this).setMessage("每个观点至少10个字以上").setNegativeButton("确定", null).show();
+                } else {
+                    toolsPresenter.addReply(id, "党务活动评论", replyContent);
                     lineAdd.removeAllViews();
                 }
                 break;
@@ -185,8 +196,8 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (b){
-                    Toast.makeText(ParkDetailsActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                if (b) {
+                    Toast.makeText(ParkDetailsActivity.this, "上传成功", Toast.LENGTH_SHORT).show();
                     etBottom.setText("");
                     partyActivityPresenter.getPartyActivityById(id);
                 }
@@ -210,9 +221,9 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbParkdetailsUserName);
-            if(userRealName.length()<3){
+            if (userRealName.length() < 3) {
                 tvtbTempnewsUserName.setText(userRealName.toString());
-            }else {
+            } else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
         }

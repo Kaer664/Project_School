@@ -3,27 +3,20 @@ package com.mo.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.lucky.myapplication.util.PatchInputStream;
 
-import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PipedInputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -32,31 +25,45 @@ import okhttp3.Response;
 
 public class HttpTools {
     private static boolean checkNetWorkAction(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-        if (networkInfo == null) {
-            return false;
-        } else {
-            return true;
+//        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+//        if (networkInfo == null) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+
+        try {   //服务器ip地址
+            String ip = "172.18.1.168";
+            Process p = Runtime.getRuntime().exec("ping -c 1 -w 1 " + ip);
+            int status = p.waitFor();
+            if (status == 0) {
+                return true;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return false;
     }
 
-    public static String postJson(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value){
+    public static String postJson(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value) {
         if (!checkNetWorkAction(context)) {
             return "{msg:error}";
         }
-        String s=null;
-        OkHttpClient client=new OkHttpClient();
+        String s = null;
+        OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        builder.add(key,value);
-        Request request=new Request.Builder()
+        builder.add(key, value);
+        Request request = new Request.Builder()
                 .url(url)
-                .method("POST",builder.build())
+                .method("POST", builder.build())
                 .build();
         try {
             Response response = client.newCall(request).execute();
             s = response.body().string();
-            Log.i("test", "postJson: "+s);
+            Log.i("test", "postJson: " + s);
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,26 +71,26 @@ public class HttpTools {
         return s;
     }
 
-    public static String postJson(@NonNull Context context, @NonNull String url, LinkedHashMap<String, String> map)  {
+    public static String postJson(@NonNull Context context, @NonNull String url, LinkedHashMap<String, String> map) {
         if (!checkNetWorkAction(context)) {
             return "{msg:error}";
         }
-        String s=null;
-        OkHttpClient client=new OkHttpClient();
+        String s = null;
+        OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        if (map!=null){
-            for (Map.Entry<String,String> entry:map.entrySet()){
-                builder.add(entry.getKey(),entry.getValue());
+        if (map != null) {
+            for (Map.Entry<String, String> entry : map.entrySet()) {
+                builder.add(entry.getKey(), entry.getValue());
             }
         }
-        Request request=new Request.Builder()
+        Request request = new Request.Builder()
                 .url(url)
-                .method("POST",builder.build())
+                .method("POST", builder.build())
                 .build();
         try {
             Response response = client.newCall(request).execute();
             s = response.body().string();
-            Log.i("test", "postJson: "+s);
+            Log.i("test", "postJson: " + s);
             response.body().close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,19 +98,19 @@ public class HttpTools {
         return s;
     }
 
-    public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName){
+    public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName) {
         if (!checkNetWorkAction(context)) {
             return null;
         }
 
-        Bitmap s=null;
-        OkHttpClient client=new OkHttpClient();
+        Bitmap s = null;
+        OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
-        Log.i("TestNum",url+picName);
+        Log.i("TestNum", url + picName);
 
-        Request request=new Request.Builder()
-                .url(url+picName)
-                .method("POST",builder.build())
+        Request request = new Request.Builder()
+                .url(url + picName)
+                .method("POST", builder.build())
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -114,5 +121,30 @@ public class HttpTools {
             e.printStackTrace();
         }
         return s;
+    }
+
+    public static File getFile(@NonNull Context context, @NonNull String url, String fileName) {
+        if (!checkNetWorkAction(context)) {
+            return null;
+        }
+
+        File s = null;
+        OkHttpClient client = new OkHttpClient();
+        FormBody.Builder builder = new FormBody.Builder();
+        Log.i("TestNum", url + fileName);
+
+        Request request = new Request.Builder()
+                .url(url + fileName)
+                .method("POST", builder.build())
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            InputStream is = response.body().byteStream();
+//            s = BitmapFactory.decodeStream(new PatchInputStream(is));
+            response.body().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
