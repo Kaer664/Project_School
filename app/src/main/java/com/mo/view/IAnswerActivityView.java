@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface IAnswerActivityView {
     //显示所有答题活动列表
-    void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list);
+    void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list,String serverTime);
     //显示问题信息
     void showQuestionInfo(List<QuestionInfoBean.ProblemListBean> list);
     //显示保存成绩是否成功

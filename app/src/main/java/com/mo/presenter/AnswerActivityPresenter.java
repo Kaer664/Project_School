@@ -38,12 +38,18 @@ public class AnswerActivityPresenter {
                 Log.i("test", "文件中没有用户id或用户名称");
                 return;
             }
+
             dao.getActivtyList(context, userId, new AnswerActivityDao.AnswerListener() {
                 @Override
-                public void result(List list) {
-                    if (view != null) {
-                        view.showAnswerActivityList(list);
-                    }
+                public void result(final List list) {
+                    toolsDao.getServerTime(context, new ToolsDao.NotifyListener() {
+                        @Override
+                        public void result(String content) {
+                            if (view != null) {
+                                view.showAnswerActivityList(list,content);
+                            }
+                        }
+                    });
                 }
             });
         }
