@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.presenter.ToolsPresenter;
+import com.mo.util.UpdateApp;
 import com.mo.view.IToolsView;
 
 public class MainActivity extends AppCompatActivity implements IToolsView {
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements IToolsView {
                 }
             }
         });
+        UpdateApp updateApp=new UpdateApp(this);
+        updateApp.execute();
     }
 
 

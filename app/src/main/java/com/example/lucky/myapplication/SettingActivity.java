@@ -17,10 +17,13 @@ import android.widget.Toast;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.presenter.ToolsPresenter;
+import com.mo.util.UpdateApp;
 import com.mo.view.IToolsView;
 
 public class SettingActivity extends AppCompatActivity implements IToolsView {
     private LinearLayout aboutUs, changePassword;
+    private LinearLayout checkUpdate;
+
     private Button btnExitLogin;
     private ToolsPresenter toolsPresenter;
 
@@ -33,6 +36,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
         settoolbarName();
 
         aboutUs = (LinearLayout) findViewById(R.id.aboutUs);
+        checkUpdate = (LinearLayout) findViewById(R.id.checkUpdate);
         changePassword = (LinearLayout) findViewById(R.id.changePassword);
         btnExitLogin = (Button) findViewById(R.id.btnExitLogin);
         aboutUs.setOnClickListener(new View.OnClickListener() {
@@ -41,14 +45,16 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
                 final AlertDialog alertDialog = new AlertDialog.Builder(SettingActivity.this)
                         .setTitle("关于我们")
                         .setMessage("Powered by Software Studio （软件工作室技术支持）")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-
-                            }
-                        })
+                        .setPositiveButton("确定",null)
                         .create();
                 alertDialog.show();
+            }
+        });
+        checkUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(SettingActivity.this,"按钮被点击",Toast.LENGTH_SHORT).show();
+                new UpdateApp(SettingActivity.this).execute();
             }
         });
         changePassword.setOnClickListener(new View.OnClickListener() {
