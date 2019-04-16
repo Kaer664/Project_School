@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                 case SHOW_NITIFY:
                     String s = "                                                                                                            ";
                     tvRollMessage.setText(msg.obj.toString() + s);
+                    tvRollMessage.setTextColor(getResources().getColor(R.color.colorAccent));
                     break;
                 case SHOW_PARTY_NEWS:
                     String[] ss = (String[]) msg.obj;

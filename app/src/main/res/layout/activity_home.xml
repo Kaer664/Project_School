@@ -17,7 +17,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:text="如果看到此消息请关闭程序重新打开，服务器连接已中断                                                                                                            "
-        android:textColor="@color/colorblack" />
+        android:textColor="@color/colorAccent" />
 
     <LinearLayout
         android:layout_width="match_parent"
