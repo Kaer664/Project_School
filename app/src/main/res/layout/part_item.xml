@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     >
 
-    <ImageView
+    <com.example.lucky.myapplication.ResizableImageView.ResizableImageView
         android:id="@+id/park_img"
         android:layout_width="0dp"
         android:layout_margin="10dp"
@@ -29,12 +29,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize = "end"
-
-            android:text="你好tttttt
-                    tttttttttt
-                    ttttttttt
-                        ttttttttttt
-                        ttttttttttt"
+            android:maxLines="2"
+            android:text="测试文本
+                        测试文本
+                        测试文本"
             android:textColor="@color/black"
             android:textSize="@dimen/part_text_size" />
 

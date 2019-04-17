@@ -3,10 +3,8 @@ package com.example.lucky.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -23,7 +20,6 @@ import android.widget.TextView;
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
 import com.mo.bean.UserLoginBean;
-import com.mo.model.BirthDao;
 import com.mo.presenter.BirthPresenter;
 import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IBirthView;
@@ -118,7 +114,6 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
                 holder.birthTvMsg.setText((String) map.get("date"));
                 holder.birthTvName.setText((String) map.get("title"));
                 holder.imgView.setImageBitmap((Bitmap) map.get("bitmap"));
-//                holder.imgView.setImageResource((Integer) map.get("img"));
                 return convertView;
             }
             class ViewHolder {
@@ -127,6 +122,20 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
                 public TextView birthTvMsg;
             }
         };
+
+        SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.bitth_item
+                ,new String[]{"date","title","bitmap"}
+                ,new int[]{R.id.birthTvMsg,R.id.birthTvName,R.id.item_img});
+        adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object data, String textRepresentation) {
+                if((view instanceof ImageView) & (data instanceof Bitmap)){
+                    ImageView imgView = (ImageView)view;
+                    imgView.setImageBitmap((Bitmap) data);
+                }
+                return false;
+            }
+        });
         lvBirthdayActivity.setAdapter(adapter1);
     }
 

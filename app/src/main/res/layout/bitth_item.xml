@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:background="@color/colorwhite"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    >
 
     <ImageView
-        android:layout_width="75dp"
-        android:layout_height="100dp"
-        android:src="@drawable/zongshuji"
-        android:layout_gravity="center"
         android:id="@+id/item_img"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_margin="10dp"
+        android:layout_height="@dimen/part_img_height"
+        android:layout_weight="1"
+        android:src="@drawable/anniu" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        >
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="秦桂英"
             android:id="@+id/birthTvName"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:layout_weight="1"/>
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/birthTvMsg"
-            android:text="515151515511511"
+            android:ellipsize = "end"
+            android:maxLines="2"
+            android:text="测试文本
+                        测试文本
+                        测试文本"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            android:textSize="@dimen/part_text_size" />
+
+
+        <TextView
+            android:id="@+id/birthTvMsg"
+            android:layout_below="@+id/birthTvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="你好"
+            android:textColor="@color/colorgray" />
+    </RelativeLayout>
+
 </LinearLayout>

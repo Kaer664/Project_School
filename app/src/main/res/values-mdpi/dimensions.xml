@@ -28,8 +28,8 @@
     <dimen name="advance_item_text_size1">17sp</dimen>
     <dimen name="advance_item_text_size">16sp</dimen>
     <dimen name="advance_item_margin_size">5sp</dimen>
-    <dimen name="advance_item_img_height_size">209sp</dimen>
-    <dimen name="advance_item_img_weight_size">157sp</dimen>
+    <dimen name="advance_item_img_height_size">209dp</dimen>
+    <dimen name="advance_item_img_weight_size">157dp</dimen>
 
     <dimen name="think_title_text_size">21sp</dimen>
     <dimen name="think_edit_size">19sp</dimen>

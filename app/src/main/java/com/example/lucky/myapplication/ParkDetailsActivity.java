@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lucky.myapplication.view.CommentView;
+import com.example.lucky.myapplication.ResizableImageView.CommentView;
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
 import com.mo.bean.UserLoginBean;

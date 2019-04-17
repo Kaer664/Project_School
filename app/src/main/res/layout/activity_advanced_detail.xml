@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="活动详情"
+            android:text="人物详情"
             android:textColor="@color/colorwhite"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -45,6 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/line_bottom"
+        android:layout_marginLeft="@dimen/details_margin_left"
+        android:layout_marginRight="@dimen/details_margin_left"
         android:layout_below="@id/tbPd">
 
         <LinearLayout
@@ -64,65 +66,44 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal">
 
-                    <ImageView
+                    <com.example.lucky.myapplication.ResizableImageView.ResizableImageView
                         android:id="@+id/imgPeople"
-                        android:layout_width="@dimen/part_img_height"
-                        android:layout_height="@dimen/part_img_height"
-                        android:padding="@dimen/ranking_padding" />
+                        android:layout_width="125dp"
+                        android:layout_height="157dp"
+                        android:layout_margin="5dp"
+                         />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/part_img_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical">
-
                             <TextView
                                 android:id="@+id/tvName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="吴大观"
+                                android:layout_margin="5dp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/details_item_name_text" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical">
-
+                                android:textSize="@dimen/details_btn_size" />
                             <TextView
                                 android:id="@+id/tvMsg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
+                                android:layout_gravity="center_vertical"
                                 android:text="20"
+                                android:layout_margin="5dp"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/details_item_name_text" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical">
-
+                                android:textSize="@dimen/details_btn_size" />
                             <TextView
                                 android:id="@+id/tvDate"
+                                android:text="这是时间"
+                                android:layout_margin="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:textColor="@color/colorgray"
-                                android:textSize="@dimen/details_item_name_text" />
-                        </LinearLayout>
+                                 />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -132,6 +113,7 @@
                     android:background="#7e7d7d" />
 
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -140,23 +122,25 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:src="@drawable/honor" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="荣誉经历"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center"
                         android:textColor="@color/colorred"
                         android:textSize="@dimen/details_btn_size" />
                 </LinearLayout>
             </LinearLayout>
             <TextView
                 android:id="@+id/tvPeople"
+                android:text="ssssssssss"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/answer_detail_margin"
-                android:layout_marginRight="@dimen/answer_detail_margin"
-                android:layout_marginTop="@dimen/answer_detail_margin"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/black"
                 android:textSize="@dimen/details_btn_size" />
         </LinearLayout>
