@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -64,23 +65,25 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
     }
 
 
+    private boolean mIsScroll;
     private void init(){
         lvBirthdayActivity = (ListView) findViewById(R.id.lvBirthdayActivity);
         tvBirthdayName= (TextView) findViewById(R.id.tvBirthdayName);
         bp=new BirthPresenter(this,this);
         bp.getBirthMonth();
-        lvBirthdayActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String id1 = (String) data.get(position).get("id");
-                Intent intent = new Intent(BirthdayActivity.this, BirthdaydetailsActivity.class);
-                intent.putExtra("id",id1);
-                startActivity(intent);
-            }
-        });
+//        lvBirthdayActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String id1 = (String) data.get(position).get("id");
+//                Intent intent = new Intent(BirthdayActivity.this, BirthdaydetailsActivity.class);
+//                intent.putExtra("id",id1);
+//                startActivity(intent);
+//            }
+//        });
     }
+    private int count=1;
     private void initView() {
-        BaseAdapter adapter1=new BaseAdapter() {
+        BaseAdapter adapter=new BaseAdapter() {
             @Override
             public int getCount() {
                 return data.size();
@@ -97,46 +100,46 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
             }
 
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(final int position, View convertView, ViewGroup parent) {
                 ViewHolder holder=null;
                 LayoutInflater inflater=LayoutInflater.from(BirthdayActivity.this);
                 if(convertView==null){
                     holder=new ViewHolder();
                     convertView=inflater.inflate(R.layout.bitth_item,null);
-                    holder.imgView= (ImageView) convertView.findViewById(R.id.item_img);
-                    holder.birthTvName= (TextView) convertView.findViewById(R.id.birthTvName);
-                    holder.birthTvMsg= (TextView) convertView.findViewById(R.id.birthTvMsg);
-                    convertView.setTag(holder);
+                    holder.title= (TextView) convertView.findViewById(R.id.birthTvName);
+                    //holder.title.setMovementMethod(ScrollingMovementMethod.getInstance());  //设置textView可以滚动
+                    holder.imageView = (ImageView) convertView.findViewById(R.id.item_img);
+                    holder.date= (TextView) convertView.findViewById(R.id.birthTvMsg);
+                    Map<String,Object> mapHolder=new HashMap<>();
+                    mapHolder.put("holder",holder);
+                    mapHolder.put("id",holder);
+                    convertView.setTag(mapHolder);
+                    convertView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String id=(String) data.get(position).get("id");
+                            Log.i("TestNUm", id);
+                            Intent intent=new Intent(BirthdayActivity.this,BirthdaydetailsActivity.class);
+                            intent.putExtra("id",id);
+                            startActivity(intent);
+                        }
+                    });
                 }else{
-                    holder= (ViewHolder) convertView.getTag();
+                    holder= (ViewHolder) ((Map) convertView.getTag()).get("holder");
                 }
                 Map<String,Object> map=data.get(position);
-                holder.birthTvMsg.setText((String) map.get("date"));
-                holder.birthTvName.setText((String) map.get("title"));
-                holder.imgView.setImageBitmap((Bitmap) map.get("bitmap"));
+                        holder.imageView.setImageBitmap((Bitmap) map.get("bitmap"));
+                holder.date.setText((String)map.get("date"));
+                holder.title.setText((String)map.get("title"));
                 return convertView;
             }
-            class ViewHolder {
-                public ImageView imgView;
-                public TextView birthTvName;
-                public TextView birthTvMsg;
+            class ViewHolder{
+                public ImageView imageView;
+                public TextView title;
+                public TextView date;
             }
         };
-
-        SimpleAdapter adapter=new SimpleAdapter(this,data,R.layout.bitth_item
-                ,new String[]{"date","title","bitmap"}
-                ,new int[]{R.id.birthTvMsg,R.id.birthTvName,R.id.item_img});
-        adapter.setViewBinder(new SimpleAdapter.ViewBinder() {
-            @Override
-            public boolean setViewValue(View view, Object data, String textRepresentation) {
-                if((view instanceof ImageView) & (data instanceof Bitmap)){
-                    ImageView imgView = (ImageView)view;
-                    imgView.setImageBitmap((Bitmap) data);
-                }
-                return false;
-            }
-        });
-        lvBirthdayActivity.setAdapter(adapter1);
+        lvBirthdayActivity.setAdapter(adapter);
     }
 
     String name="";

@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     >
 
-    <com.example.lucky.myapplication.ResizableImageView.ResizableImageView
+    <ImageView
         android:id="@+id/park_img"
         android:layout_width="0dp"
         android:layout_margin="10dp"

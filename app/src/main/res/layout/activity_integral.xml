@@ -48,13 +48,13 @@
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textColor="#4a4a4a"
+           android:textColor="#DC143C"
            android:textSize="17sp"
            android:text="总分为："/>
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:textColor="#4a4a4a"
+           android:textColor="#DC143C"
            android:id="@+id/tvSumScore"
            android:textSize="17sp"
            android:text="88"/>
