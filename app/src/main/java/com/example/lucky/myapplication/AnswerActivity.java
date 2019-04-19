@@ -160,31 +160,44 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
     private String serverTime;
     @Override
     public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list,String serverTime) {
-
-            this.serverTime=serverTime;
-
+        this.serverTime=serverTime;
         data.clear();
-        for(int i=0;i<list.size();i++){
-            Map<String,String> map=new HashMap<>();
-            AnswerActivityListBean.UserAnswerActivityListBean userBean = list.get(i);
-            map.put("title",userBean.getTitle());
-            map.put("start",userBean.getStartTime());
-            map.put("stop",userBean.getEndTime());
-            if(userBean.getYesOrNotDo().equals("1")){
-                map.put("do","得分："+userBean.getScore());
-            }else {
-                map.put("do","0");
-            }
+        if (list == null) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                Toast.makeText(AnswerActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else if (list.size() == 0) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AnswerActivity.this,"暂无答题有奖活动",Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            for(int i=0;i<list.size();i++){
+                Map<String,String> map=new HashMap<>();
+                AnswerActivityListBean.UserAnswerActivityListBean userBean = list.get(i);
+                map.put("title",userBean.getTitle());
+                map.put("start",userBean.getStartTime());
+                map.put("stop",userBean.getEndTime());
+                if(userBean.getYesOrNotDo().equals("1")){
+                    map.put("do","得分："+userBean.getScore());
+                }else {
+                    map.put("do","0");
+                }
 
-            map.put("id",userBean.getId());
-            data.add(map);
+                map.put("id",userBean.getId());
+                data.add(map);
+            }
         }
+
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(data.size()==0){
-                    Toast.makeText(AnswerActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
-                }else{
+                if(data.size()!=0){
                     initView();
                 }
             }

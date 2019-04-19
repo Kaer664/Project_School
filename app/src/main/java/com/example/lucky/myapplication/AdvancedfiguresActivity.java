@@ -146,7 +146,21 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      */
     @Override
     public void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list, Bitmap[] bitmaps) {
-        if(list!=null) {
+        if(list==null) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AdvancedfiguresActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }
+            });
+        }else if (list.size()==0){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AdvancedfiguresActivity.this,"暂无先进人物信息",Toast.LENGTH_LONG).show();
+                }
+            });
+        }else{
             for (int i = 0; i < list.size(); i++) {
                 AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
                 Map<String, Object> map = new HashMap<>();
@@ -161,9 +175,7 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(data.size()==0){
-                    Toast.makeText(AdvancedfiguresActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
-                }else{
+                if (data.size()!=0){
                     initView();
                 }
             }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lucky.myapplication.bean.ChildBean;
 import com.example.lucky.myapplication.bean.GroupBean;
@@ -147,7 +148,14 @@ public class IntegralActivity extends AppCompatActivity implements IScoreView , 
 
     @Override
     public void showUserScoreInfo(UserScoreBean bean) {
-        if (bean!=null){
+        if (bean == null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(IntegralActivity.this, "无法获取数据请稍后再试", Toast.LENGTH_LONG).show();
+                }
+            });
+        }else{
             final String scoreSum = bean.getScoreSum();
             String answerScore = bean.getAnswerActivityscoreSum();
             String replyScore = bean.getReplyscoreSum();

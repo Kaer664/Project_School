@@ -10,6 +10,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.ScoreRankBean;
 import com.mo.bean.UserLoginBean;
@@ -83,7 +84,11 @@ public class RankingActivity extends AppCompatActivity implements IScoreView , I
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (list != null) {
+                if (list==null){
+                    Toast.makeText(RankingActivity.this, "无法获取数据请稍后再试", Toast.LENGTH_LONG).show();
+                }else if (list.size()==0){
+                    Toast.makeText(RankingActivity.this, "暂无积分排行，请踊跃参与活动", Toast.LENGTH_LONG).show();
+                }else{
                     Collections.sort(list, new Comparator<ScoreRankBean.AllUserScoreListBean>() {
                         @Override
                         public int compare(ScoreRankBean.AllUserScoreListBean o1, ScoreRankBean.AllUserScoreListBean o2) {

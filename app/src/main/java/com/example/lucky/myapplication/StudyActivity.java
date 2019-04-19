@@ -76,8 +76,21 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
 
     @Override
     public void showLearningGardenList(final List<LearningGardenListBean.LearningGardensListBean> list, Bitmap[] bitmaps) {
-
-        if(list!=null) {
+        if (list == null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(StudyActivity.this, "无法获取数据请稍后再试", Toast.LENGTH_LONG).show();
+                }
+            });
+        } else if (list.size() == 0) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(StudyActivity.this, "暂无学习活动", Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
             for (int i = 0; i < list.size(); i++) {
                 Map<String, Object> map = new HashMap<>();
                 LearningGardenListBean.LearningGardensListBean bean = list.get(i);
@@ -91,9 +104,7 @@ public class StudyActivity extends AppCompatActivity implements ILearningGardenV
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (mapList.size() == 0) {
-                    Toast.makeText(StudyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
-                } else {
+                if (mapList.size() != 0) {
                     MyAdapter<Map<String, Object>> adapter = new MyAdapter<>(mapList, StudyActivity.this);
                     lvStudy.setAdapter(adapter);
                 }

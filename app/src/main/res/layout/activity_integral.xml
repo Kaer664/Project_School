@@ -57,7 +57,7 @@
            android:textColor="#DC143C"
            android:id="@+id/tvSumScore"
            android:textSize="17sp"
-           android:text="88"/>
+           android:text=""/>
    </LinearLayout>
     <ExpandableListView
         android:background="#00000000"

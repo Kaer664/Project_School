@@ -67,10 +67,11 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
 
 
     private boolean mIsScroll;
-    private void init(){
+
+    private void init() {
         lvBirthdayActivity = (ListView) findViewById(R.id.lvBirthdayActivity);
-        tvBirthdayName= (TextView) findViewById(R.id.tvBirthdayName);
-        bp=new BirthPresenter(this,this);
+        tvBirthdayName = (TextView) findViewById(R.id.tvBirthdayName);
+        bp = new BirthPresenter(this, this);
         bp.getBirthMonth();
 //        lvBirthdayActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -82,9 +83,11 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
 //            }
 //        });
     }
-    private int count=1;
+
+    private int count = 1;
+
     private void initView() {
-        BaseAdapter adapter=new BaseAdapter() {
+        BaseAdapter adapter = new BaseAdapter() {
             @Override
             public int getCount() {
                 return data.size();
@@ -102,39 +105,40 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
 
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
-                ViewHolder holder=null;
-                LayoutInflater inflater=LayoutInflater.from(BirthdayActivity.this);
-                if(convertView==null){
-                    holder=new ViewHolder();
-                    convertView=inflater.inflate(R.layout.bitth_item,null);
-                    holder.title= (TextView) convertView.findViewById(R.id.birthTvName);
+                ViewHolder holder = null;
+                LayoutInflater inflater = LayoutInflater.from(BirthdayActivity.this);
+                if (convertView == null) {
+                    holder = new ViewHolder();
+                    convertView = inflater.inflate(R.layout.bitth_item, null);
+                    holder.title = (TextView) convertView.findViewById(R.id.birthTvName);
                     //holder.title.setMovementMethod(ScrollingMovementMethod.getInstance());  //设置textView可以滚动
                     holder.imageView = (ImageView) convertView.findViewById(R.id.item_img);
-                    holder.date= (TextView) convertView.findViewById(R.id.birthTvMsg);
-                    Map<String,Object> mapHolder=new HashMap<>();
-                    mapHolder.put("holder",holder);
-                    mapHolder.put("id",holder);
+                    holder.date = (TextView) convertView.findViewById(R.id.birthTvMsg);
+                    Map<String, Object> mapHolder = new HashMap<>();
+                    mapHolder.put("holder", holder);
+                    mapHolder.put("id", holder);
                     convertView.setTag(mapHolder);
                     convertView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            String id=(String) data.get(position).get("id");
+                            String id = (String) data.get(position).get("id");
                             Log.i("TestNUm", id);
-                            Intent intent=new Intent(BirthdayActivity.this,BirthdaydetailsActivity.class);
-                            intent.putExtra("id",id);
+                            Intent intent = new Intent(BirthdayActivity.this, BirthdaydetailsActivity.class);
+                            intent.putExtra("id", id);
                             startActivity(intent);
                         }
                     });
-                }else{
-                    holder= (ViewHolder) ((Map) convertView.getTag()).get("holder");
+                } else {
+                    holder = (ViewHolder) ((Map) convertView.getTag()).get("holder");
                 }
-                Map<String,Object> map=data.get(position);
-                        holder.imageView.setImageBitmap((Bitmap) map.get("bitmap"));
-                holder.date.setText((String)map.get("date"));
-                holder.title.setText((String)map.get("title"));
+                Map<String, Object> map = data.get(position);
+                holder.imageView.setImageBitmap((Bitmap) map.get("bitmap"));
+                holder.date.setText((String) map.get("date"));
+                holder.title.setText((String) map.get("title"));
                 return convertView;
             }
-            class ViewHolder{
+
+            class ViewHolder {
                 public ImageView imageView;
                 public TextView title;
                 public TextView date;
@@ -143,17 +147,25 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
         lvBirthdayActivity.setAdapter(adapter);
     }
 
-    String name="";
+    String name = "";
+
     @Override
     public void showBirthMonth(List<BirthdayMonthBean.UserListBean> list) {
-        StringBuffer sb=new StringBuffer();
+        StringBuffer sb = new StringBuffer();
         sb.append("本月过生日的党员：");
-        for (int i=0;i<list.size();i++){
-            BirthdayMonthBean.UserListBean userListBean = list.get(i);
-            Log.i("TestNum","这是显示出生月份方法里面的数值："+userListBean.getName());
-            sb.append(userListBean.getName()).append("，");
+        if(list==null){
+            return;
+        }else if (list.size()==0){
+            sb=new StringBuffer("本月无党员过生日，");
+        }else{
+            for (int i = 0; i < list.size(); i++) {
+                BirthdayMonthBean.UserListBean userListBean = list.get(i);
+                Log.i("TestNum", "这是显示出生月份方法里面的数值：" + userListBean.getName());
+                sb.append(userListBean.getName()).append("，");
+            }
         }
-        name=sb.substring(0,sb.length()-1).toString();
+
+        name = sb.substring(0, sb.length() - 1).toString();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -165,45 +177,50 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
     @Override
     public void showBirthActivityList(List<BirthActivityBean.BirthActivitiesListBean> list, Bitmap[] bitmaps) {
         data.clear();
-        if(list!=null){
-            for (int i = 0; i < list.size(); i++) {
-                BirthActivityBean.BirthActivitiesListBean bean=list.get(i);
-                Map<String,Object> map=new HashMap<>();
-                map.put("title",bean.getTitle());
-                map.put("bitmap",bitmaps[i]);
-                map.put("date",bean.getCreateDate());
-                map.put("id",bean.getId());
-                data.add(map);
-            }
-        }else{
+        if (list == null) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(BirthdayActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                    Toast.makeText(BirthdayActivity.this, "无法获取数据请稍后再试", Toast.LENGTH_LONG).show();
                 }
             });
+        } else if (list.size() == 0) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BirthdayActivity.this, "暂无党员生日活动", Toast.LENGTH_LONG).show();
+                }
+            });
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                BirthActivityBean.BirthActivitiesListBean bean = list.get(i);
+                Map<String, Object> map = new HashMap<>();
+                map.put("title", bean.getTitle());
+                map.put("bitmap", bitmaps[i]);
+                map.put("date", bean.getCreateDate());
+                map.put("id", bean.getId());
+                data.add(map);
+            }
         }
-
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(data.size()==0){
-                    Toast.makeText(BirthdayActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
-                }else {
+                if (data.size() != 0) {
                     initView();
                 }
             }
         });
     }
+
     public void settoolbarName() {
-        toolsPresenter=new ToolsPresenter(this,this);
+        toolsPresenter = new ToolsPresenter(this, this);
         SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbbirthdayUsername);
-            if(userRealName.length()<3){
+            if (userRealName.length() < 3) {
                 tvtbTempnewsUserName.setText(userRealName.toString());
-            }else {
+            } else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
         }
@@ -211,8 +228,8 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
 
     @Override
     public void showBirthActivityInfo(BirthActivityBean bean, Bitmap bitmap) {
-       int t= bean.getBirthActivitiesList().size();
-        for(int i=0;i<t;i++){
+        int t = bean.getBirthActivitiesList().size();
+        for (int i = 0; i < t; i++) {
             BirthActivityBean.BirthActivitiesListBean bean1 = bean.getBirthActivitiesList().get(i);
         }
     }

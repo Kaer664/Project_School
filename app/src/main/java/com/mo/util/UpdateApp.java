@@ -84,6 +84,7 @@ public class UpdateApp extends AsyncTask<Void, Void, Boolean> {
         //判断需不需要更新
         if (isDisconnect) {
             Toast.makeText(context, "连不上服务器，请检查网络并重试", Toast.LENGTH_SHORT).show();
+            return;
         }
         if (b) {
             //需要更新
