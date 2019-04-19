@@ -51,9 +51,15 @@ public class PartyActivityDaoImpl implements PartyActivityDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_PARTY_ACTIVITY_BY_ID, "id", id);
+                PartyActivityBean bean=null;
+                Bitmap bitmap=null;
+                if (json==null){
+                    listener.result(bean,bitmap);
+                    return;
+                }
                 Gson gson = new Gson();
-                PartyActivityBean bean = gson.fromJson(json, PartyActivityBean.class);
-                Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, bean.getPartyActivitiesList().get(0).getImgUrl());
+                bean = gson.fromJson(json, PartyActivityBean.class);
+                bitmap= HttpTools.getBitmap(context, Address.PIC_URL, bean.getPartyActivitiesList().get(0).getImgUrl());
                 listener.result(bean, bitmap);
             }
         }.start();

@@ -55,6 +55,10 @@ public class ToolsDaoImpl implements ToolsDao {
             @Override
             public void run() {
                 String json=HttpTools.postJson(context, Address.ROLLING_NOTIFY, null);
+                if (json==null){
+                    listener.result(null);
+                    return;
+                }
                 try {
                     JSONObject object=new JSONObject(json);
                     String msg=object.getString("msg");
@@ -76,6 +80,10 @@ public class ToolsDaoImpl implements ToolsDao {
             @Override
             public void run() {
                 String json=HttpTools.postJson(context, Address.GET_TIME, null);
+                if (json==null){
+                    listener.result(null);
+                    return;
+                }
                 try {
                     JSONObject object=new JSONObject(json);
                     String msg=object.getString("msg");
@@ -103,6 +111,10 @@ public class ToolsDaoImpl implements ToolsDao {
             @Override
             public void run() {
                 String json=HttpTools.postJson(context, Address.ADD_REPLY, map);
+                if (json==null){
+                    listener.result(false);
+                    return;
+                }
                 try {
                     JSONObject object=new JSONObject(json);
                     String msg=object.getString("msg");
@@ -130,6 +142,10 @@ public class ToolsDaoImpl implements ToolsDao {
             @Override
             public void run() {
                 String json=HttpTools.postJson(context, Address.ADD_FEEDBACK, map);
+                if (json==null){
+                    listener.result(false);
+                    return;
+                }
                 try {
                     JSONObject object=new JSONObject(json);
                     String msg=object.getString("msg");
@@ -151,6 +167,10 @@ public class ToolsDaoImpl implements ToolsDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.CHANGE_PWD, map);
+                if (json==null){
+                    listener.result(false);
+                    return;
+                }
                 try {
                     JSONObject object = new JSONObject(json);
                     String msg = object.getString("msg");

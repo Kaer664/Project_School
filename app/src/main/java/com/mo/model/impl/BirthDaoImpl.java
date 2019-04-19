@@ -28,18 +28,22 @@ public class BirthDaoImpl implements BirthDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_BIRTHDAY, null);
+                List<BirthdayMonthBean.UserListBean> list = null;
+                if (json==null){
+                    listener.result(list);
+                    return;
+                }
                 try {
-                    List<BirthdayMonthBean.UserListBean> list = null;
                     JSONObject jsonObject = new JSONObject(json);
                     String msg = jsonObject.getString("msg");
                     if ("success".equals(msg)) {
                         Gson gson = new Gson();
                         list = gson.fromJson(json, BirthdayMonthBean.class).getUserList();
                     }
-                    listener.result(list);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                listener.result(list);
             }
         }.start();
     }
@@ -50,9 +54,12 @@ public class BirthDaoImpl implements BirthDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_BRITH_ACTIVITY_BY_ID, "id", "all");
-
                 List<BirthActivityBean.BirthActivitiesListBean> list = null;
                 Bitmap[] bitmaps = null;
+                if (json==null){
+                    listener.result(list, bitmaps);
+                    return;
+                }
                 Gson gson = new Gson();
                 list = gson.fromJson(json, BirthActivityBean.class).getBirthActivitiesList();
                 bitmaps = new Bitmap[list.size()];
@@ -60,7 +67,6 @@ public class BirthDaoImpl implements BirthDao {
                     Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
                     bitmaps[i] = bitmap;
                 }
-
                 listener.result(list, bitmaps);
             }
         }.start();
@@ -74,6 +80,10 @@ public class BirthDaoImpl implements BirthDao {
                 String json = HttpTools.postJson(context, Address.GET_BRITH_ACTIVITY_BY_ID, "id", id);
                 BirthActivityBean bean = null;
                 Bitmap bitmap = null;
+                if (json==null){
+                    listener.result(bean, bitmap);
+                    return;
+                }
                 Gson gson = new Gson();
                 bean = gson.fromJson(json, BirthActivityBean.class);
                 bitmap = HttpTools.getBitmap(context, Address.PIC_URL, bean.getBirthActivitiesList().get(0).getImgUrl());

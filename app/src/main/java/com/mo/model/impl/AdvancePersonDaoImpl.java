@@ -28,6 +28,10 @@ public class AdvancePersonDaoImpl implements AdvancePersonDao {
                 String json = HttpTools.postJson(context, Address.GET_ADVANCED_PERSRON_BY_ID, "id", "all");
                 List<AdvancePersonBean.AdvancedPersonListBean> list = null;
                 Bitmap[] bitmaps = null;
+                if (json==null){
+                    listener.result(list, bitmaps);
+                    return;
+                }
                 Gson gson = new Gson();
                 list = gson.fromJson(json, AdvancePersonBean.class).getAdvancedPersonList();
                 bitmaps = new Bitmap[list.size()];
@@ -45,10 +49,14 @@ public class AdvancePersonDaoImpl implements AdvancePersonDao {
         new Thread() {
             @Override
             public void run() {
+                AdvancePersonBean.AdvancedPersonListBean bean = null;
+                Bitmap bitmap = null;
                 String json = HttpTools.postJson(context, Address.GET_ADVANCED_PERSRON_BY_ID, "id", id);
+                if (json==null){
+                    listener.result(bean, bitmap);
+                    return;
+                }
                 try {
-                    AdvancePersonBean.AdvancedPersonListBean bean = null;
-                    Bitmap bitmap = null;
                     JSONObject jsonObject = new JSONObject(json);
                     String msg = jsonObject.getString("msg");
                     if ("success".equals(msg)) {
@@ -56,10 +64,10 @@ public class AdvancePersonDaoImpl implements AdvancePersonDao {
                         bean = gson.fromJson(json, AdvancePersonBean.class).getAdvancedPersonList().get(0);
                         bitmap = HttpTools.getBitmap(context, Address.PIC_URL, bean.getImgUrl());
                     }
-                    listener.result(bean, bitmap);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                listener.result(bean, bitmap);
             }
         }.start();
     }

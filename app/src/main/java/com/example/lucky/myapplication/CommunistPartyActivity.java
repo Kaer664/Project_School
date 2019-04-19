@@ -141,7 +141,21 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
 
     @Override
     public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list, Bitmap[] bs) {
-        if(list!=null) {
+        if(list==null) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(CommunistPartyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }
+            });
+        }else if (list.size()==0){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(CommunistPartyActivity.this,"暂无党建活动",Toast.LENGTH_LONG).show();
+                }
+            });
+        }else{
             for (int i = 0; i < list.size(); i++) {
                 Map<String, Object> map = new HashMap<>();
                 map.put("img", bs[i]);
@@ -150,20 +164,11 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
                 map.put("id", list.get(i).getId());
                 data.add(map);
             }
-        }else{
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(CommunistPartyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
-                }
-            });
         }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(data.size()==0){
-                    Toast.makeText(CommunistPartyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
-                }else{
+                if(data.size()!=0){
                     setListView();
                 }
             }

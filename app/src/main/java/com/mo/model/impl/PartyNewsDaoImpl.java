@@ -26,6 +26,10 @@ public class PartyNewsDaoImpl implements PartyNewsDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_ALL_NEWS, null);
+                if (json==null){
+                    listener.result(null);
+                    return;
+                }
                 try {
                     JSONObject object = new JSONObject(json);
                     String msg = object.getString("msg");
@@ -49,16 +53,19 @@ public class PartyNewsDaoImpl implements PartyNewsDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_NEWS_BY_ID, "id", value);
+                PartyNewsBean.PartyAffairsNewsBean bean = null;
+                Bitmap bitmap = null;
+                if (json==null){
+                    listener.result(bean,bitmap);
+                    return;
+                }
                 try {
-                    PartyNewsBean.PartyAffairsNewsBean bean = null;
-                    Bitmap bitmap = null;
                     JSONObject object = new JSONObject(json);
                     String msg = object.getString("msg");
                     if ("success".equals(msg)) {
                         Gson gson = new Gson();
                         bean = gson.fromJson(json, PartyNewsBean.class).getPartyAffairsNews().get(0);
                         bitmap = HttpTools.getBitmap(context, Address.PIC_URL, bean.getImgUrl());
-//                        listener.result(list, bitmap);
                     }
                     listener.result(bean, bitmap);
                 } catch (JSONException e) {

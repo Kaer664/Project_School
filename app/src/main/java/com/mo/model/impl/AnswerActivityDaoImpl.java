@@ -28,18 +28,22 @@ public class AnswerActivityDaoImpl implements AnswerActivityDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_ALL_ANSWER_ACTIVITY, "userID", userId);
+                List<AnswerActivityListBean.UserAnswerActivityListBean> bean = null;
+                if (json==null){
+                    listener.result(bean);
+                    return;
+                }
                 try {
-                    List<AnswerActivityListBean.UserAnswerActivityListBean> bean = null;
                     JSONObject jsonObject = new JSONObject(json);
                     String msg = jsonObject.getString("msg");
                     if ("success".equals(msg)) {
                         Gson gson = new Gson();
                         bean = gson.fromJson(json, AnswerActivityListBean.class).getUserAnswerActivityList();
                     }
-                    listener.result(bean);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                listener.result(bean);
             }
         }.start();
     }
@@ -50,18 +54,22 @@ public class AnswerActivityDaoImpl implements AnswerActivityDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.GET_ANSWER_ACTIVITY_INFO_BY_ID, "id", id);
+                List<QuestionInfoBean.ProblemListBean> bean = null;
+                if (json==null){
+                    listener.result(bean);
+                    return;
+                }
                 try {
-                    List<QuestionInfoBean.ProblemListBean> bean = null;
                     JSONObject jsonObject = new JSONObject(json);
                     String msg = jsonObject.getString("msg");
                     if ("success".equals(msg)) {
                         Gson gson = new Gson();
                         bean = gson.fromJson(json, QuestionInfoBean.class).getProblemList();
                     }
-                    listener.result(bean);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                listener.result(bean);
             }
         }.start();
     }
@@ -79,6 +87,10 @@ public class AnswerActivityDaoImpl implements AnswerActivityDao {
             @Override
             public void run() {
                 String json = HttpTools.postJson(context, Address.SAVE_SCORE, map);
+                if (json==null){
+                    listener.result(false);
+                    return;
+                }
                 try {
                     JSONObject jsonObject = new JSONObject(json);
                     String msg = jsonObject.getString("msg");

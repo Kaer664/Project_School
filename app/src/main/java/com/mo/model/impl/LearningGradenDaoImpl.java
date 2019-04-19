@@ -30,6 +30,10 @@ public class LearningGradenDaoImpl implements LearningGardenDao {
                 String json = HttpTools.postJson(context, Address.GET_LEARNING_GARDEN_BY_ID, "id", "all");
                 List<LearningGardenListBean.LearningGardensListBean> list = null;
                 Bitmap[] bitmaps = null;
+                if (json==null){
+                    listener.result(list,bitmaps);
+                    return;
+                }
                 Gson gson = new Gson();
                 list = gson.fromJson(json, LearningGardenListBean.class).getLearningGardenList();
                 bitmaps = new Bitmap[list.size()];
@@ -50,6 +54,10 @@ public class LearningGradenDaoImpl implements LearningGardenDao {
                 LearningGardenInfoBean bean = null;
                 Bitmap bitmap = null;
                 String json = HttpTools.postJson(context, Address.GET_LEARNING_GARDEN_BY_ID, "id", id);
+                if (json==null){
+                    listener.result(bean,bitmap);
+                    return;
+                }
                 Gson gson = new Gson();
                 bean = gson.fromJson(json, LearningGardenInfoBean.class);
                 List<LearningGardenInfoBean.LearningGardenListBean> learningGardenList = bean.getLearningGardenList();
