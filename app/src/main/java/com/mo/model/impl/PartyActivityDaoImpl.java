@@ -25,26 +25,22 @@ public class PartyActivityDaoImpl implements PartyActivityDao {
         new Thread() {
             @Override
             public void run() {
+                List<PartyActivityListBean.PartyActivitiesListBean> list = null;
+                Bitmap[] bitmaps = null;
                 String json = HttpTools.postJson(context, Address.GET_ALL_PARTY_ACTIVITY, null);
-                try {
-                    List<PartyActivityListBean.PartyActivitiesListBean> list = null;
-                    Bitmap[] bitmaps = null;
-                    JSONObject jsonObject = new JSONObject(json);
-                    String msg = jsonObject.getString("msg");
-                    if ("success".equals(msg)) {
-                        Gson gson = new Gson();
-                        list = gson.fromJson(json, PartyActivityListBean.class).getPartyActivitiesList();
-                        bitmaps = new Bitmap[list.size()];
-                        for (int i = 0; i < list.size(); i++) {
-                            Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
-                            bitmaps[i] = bitmap;
-                        }
-//                        listener.result(list);
-                    }
+                if (json==null){
                     listener.result(list, bitmaps);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    return;
                 }
+                Gson gson = new Gson();
+                list = gson.fromJson(json, PartyActivityListBean.class).getPartyActivitiesList();
+                bitmaps = new Bitmap[list.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, list.get(i).getImgUrl());
+                    bitmaps[i] = bitmap;
+                }
+                listener.result(list, bitmaps);
+
             }
         }.start();
     }
@@ -58,7 +54,7 @@ public class PartyActivityDaoImpl implements PartyActivityDao {
                 Gson gson = new Gson();
                 PartyActivityBean bean = gson.fromJson(json, PartyActivityBean.class);
                 Bitmap bitmap = HttpTools.getBitmap(context, Address.PIC_URL, bean.getPartyActivitiesList().get(0).getImgUrl());
-                listener.result(bean,bitmap);
+                listener.result(bean, bitmap);
             }
         }.start();
     }

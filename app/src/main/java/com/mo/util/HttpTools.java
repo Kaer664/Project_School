@@ -24,34 +24,33 @@ import okhttp3.Response;
  */
 
 public class HttpTools {
-    private static boolean checkNetWorkAction(Context context) {
-//        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-//        if (networkInfo == null) {
-//            return false;
-//        } else {
-//            return true;
+//    private static boolean checkNetWorkAction(Context context) {
+////        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+////        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+////        if (networkInfo == null) {
+////            return false;
+////        } else {
+////            return true;
+////        }
+//
+//        try {   //服务器ip地址
+//            Process p = Runtime.getRuntime().exec("ping -c 1 -w 1 " + Address.IP);
+//            int status = p.waitFor();
+//            if (status == 0) {
+//                return true;
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
 //        }
-
-        try {   //服务器ip地址
-            String ip = "172.18.1.168";
-            Process p = Runtime.getRuntime().exec("ping -c 1 -w 1 " + ip);
-            int status = p.waitFor();
-            if (status == 0) {
-                return true;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//        return false;
+//    }
 
     public static String postJson(@NonNull Context context, @NonNull String url, @NonNull String key, @NonNull String value) {
-        if (!checkNetWorkAction(context)) {
-            return "{msg:error}";
-        }
+//        if (!checkNetWorkAction(context)) {
+//            return null;
+//        }
         String s = null;
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
@@ -72,9 +71,9 @@ public class HttpTools {
     }
 
     public static String postJson(@NonNull Context context, @NonNull String url, LinkedHashMap<String, String> map) {
-        if (!checkNetWorkAction(context)) {
-            return "{msg:error}";
-        }
+//        if (!checkNetWorkAction(context)) {
+//            return null;
+//        }
         String s = null;
         OkHttpClient client = new OkHttpClient();
         FormBody.Builder builder = new FormBody.Builder();
@@ -99,9 +98,9 @@ public class HttpTools {
     }
 
     public static Bitmap getBitmap(@NonNull Context context, @NonNull String url, String picName) {
-        if (!checkNetWorkAction(context)) {
-            return null;
-        }
+//        if (!checkNetWorkAction(context)) {
+//            return null;
+//        }
 
         Bitmap s = null;
         OkHttpClient client = new OkHttpClient();
@@ -124,9 +123,9 @@ public class HttpTools {
     }
 
     public static File getFile(@NonNull Context context, @NonNull String url, String fileName) {
-        if (!checkNetWorkAction(context)) {
-            return null;
-        }
+//        if (!checkNetWorkAction(context)) {
+//            return null;
+//        }
 
         File s = null;
         OkHttpClient client = new OkHttpClient();

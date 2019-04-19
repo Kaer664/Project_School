@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 public class UpdateApp extends AsyncTask<Void, Void, Boolean> {
     private Context context;
-    private final String APP_NAME = "app-debug.apk";
+    private final String APP_NAME = "app-release1.apk";
     private String appFile = null;
 
     public UpdateApp(Context context) {

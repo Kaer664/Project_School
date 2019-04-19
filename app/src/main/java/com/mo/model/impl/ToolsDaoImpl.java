@@ -29,6 +29,10 @@ public class ToolsDaoImpl implements ToolsDao {
             public void run() {
                 String json= HttpTools.postJson(context, Address.USER_LOGIN, map);
                 try {
+                    if (json==null){
+                        listener.result(null);
+                        return;
+                    }
                     JSONObject object=new JSONObject(json);
                     String msg=object.getString("msg");
                     if ("loginSuccess".equals(msg)){

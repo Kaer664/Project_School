@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.AdvancePersonBean;
 import com.mo.bean.UserLoginBean;
@@ -144,21 +145,28 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      * @param bitmaps
      */
     @Override
-    public void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list, Bitmap[] bitmaps) {
-        for(int i=0;i<list.size();i++){
-            AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
-            Map<String,Object> map=new HashMap<>();
-            map.put("img",bitmaps[i]);
-            map.put("name","-"+apb.getTitle()+"-");
-            map.put("introduction",apb.getWorkTask());
-            map.put("createDate",apb.getCreateDate());
-            map.put("id",apb.getId());
-            data.add(map);
-        }
+    public void showAdvancePersonList(final List<AdvancePersonBean.AdvancedPersonListBean> list, final Bitmap[] bitmaps) {
+
         handler.post(new Runnable() {
             @Override
             public void run() {
-                initView();
+                if(list==null||bitmaps==null){
+                    Toast.makeText(AdvancedfiguresActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                }else if (list.size()==0&&bitmaps.length==0){
+                    Toast.makeText(AdvancedfiguresActivity.this,"暂时没有党建活动",Toast.LENGTH_SHORT).show();
+                }else{
+                    for(int i=0;i<list.size();i++){
+                        AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
+                        Map<String,Object> map=new HashMap<>();
+                        map.put("img",bitmaps[i]);
+                        map.put("name","-"+apb.getTitle()+"-");
+                        map.put("introduction",apb.getWorkTask());
+                        map.put("createDate",apb.getCreateDate());
+                        map.put("id",apb.getId());
+                        data.add(map);
+                    }
+                    initView();
+                }
             }
         });
 

@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
@@ -141,19 +142,26 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
     }
 
     @Override
-    public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list, Bitmap[] bs) {
-        for(int i=0;i<list.size();i++){
-            Map<String,Object> map=new HashMap<>();
-            map.put("img",bs[i]);
-            map.put("title",list.get(i).getTitle());
-            map.put("date",list.get(i).getCreateDate());
-            map.put("id",list.get(i).getId());
-            data.add(map);
-        }
+    public void showAllPartyActivity(final List<PartyActivityListBean.PartyActivitiesListBean> list, final Bitmap[] bs) {
+
         handler.post(new Runnable() {
             @Override
             public void run() {
-                setListView();
+                if(list==null||bs==null){
+                    Toast.makeText(CommunistPartyActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                }else if (list.size()==0&&bs.length==0){
+                    Toast.makeText(CommunistPartyActivity.this,"暂时没有先进人物新消息",Toast.LENGTH_SHORT).show();
+                }else{
+                    for(int i=0;i<list.size();i++){
+                        Map<String,Object> map=new HashMap<>();
+                        map.put("img",bs[i]);
+                        map.put("title",list.get(i).getTitle());
+                        map.put("date",list.get(i).getCreateDate());
+                        map.put("id",list.get(i).getId());
+                        data.add(map);
+                    }
+                    setListView();
+                }
             }
         });
     }
