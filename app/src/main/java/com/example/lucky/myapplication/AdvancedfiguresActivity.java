@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.AdvancePersonBean;
 import com.mo.bean.UserLoginBean;
@@ -145,20 +146,26 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      */
     @Override
     public void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list, Bitmap[] bitmaps) {
-        for(int i=0;i<list.size();i++){
-            AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
-            Map<String,Object> map=new HashMap<>();
-            map.put("img",bitmaps[i]);
-            map.put("name","-"+apb.getTitle()+"-");
-            map.put("introduction",apb.getWorkTask());
-            map.put("createDate",apb.getCreateDate());
-            map.put("id",apb.getId());
-            data.add(map);
+        if(list!=null) {
+            for (int i = 0; i < list.size(); i++) {
+                AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
+                Map<String, Object> map = new HashMap<>();
+                map.put("img", bitmaps[i]);
+                map.put("name", "-" + apb.getTitle() + "-");
+                map.put("introduction", apb.getWorkTask());
+                map.put("createDate", apb.getCreateDate());
+                map.put("id", apb.getId());
+                data.add(map);
+            }
         }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                initView();
+                if(data.size()==0){
+                    Toast.makeText(AdvancedfiguresActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }else{
+                    initView();
+                }
             }
         });
 

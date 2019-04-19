@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
@@ -164,19 +165,33 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
     @Override
     public void showBirthActivityList(List<BirthActivityBean.BirthActivitiesListBean> list, Bitmap[] bitmaps) {
         data.clear();
-        for (int i = 0; i < list.size(); i++) {
-            BirthActivityBean.BirthActivitiesListBean bean=list.get(i);
-            Map<String,Object> map=new HashMap<>();
-            map.put("title",bean.getTitle());
-            map.put("bitmap",bitmaps[i]);
-            map.put("date",bean.getCreateDate());
-            map.put("id",bean.getId());
-            data.add(map);
+        if(list!=null){
+            for (int i = 0; i < list.size(); i++) {
+                BirthActivityBean.BirthActivitiesListBean bean=list.get(i);
+                Map<String,Object> map=new HashMap<>();
+                map.put("title",bean.getTitle());
+                map.put("bitmap",bitmaps[i]);
+                map.put("date",bean.getCreateDate());
+                map.put("id",bean.getId());
+                data.add(map);
+            }
+        }else{
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BirthdayActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }
+            });
         }
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                initView();
+                if(data.size()==0){
+                    Toast.makeText(BirthdayActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }else {
+                    initView();
+                }
             }
         });
     }

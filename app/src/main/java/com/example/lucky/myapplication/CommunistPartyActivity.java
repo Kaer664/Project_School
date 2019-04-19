@@ -8,16 +8,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
@@ -142,18 +141,31 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
 
     @Override
     public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list, Bitmap[] bs) {
-        for(int i=0;i<list.size();i++){
-            Map<String,Object> map=new HashMap<>();
-            map.put("img",bs[i]);
-            map.put("title",list.get(i).getTitle());
-            map.put("date",list.get(i).getCreateDate());
-            map.put("id",list.get(i).getId());
-            data.add(map);
+        if(list!=null) {
+            for (int i = 0; i < list.size(); i++) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("img", bs[i]);
+                map.put("title", list.get(i).getTitle());
+                map.put("date", list.get(i).getCreateDate());
+                map.put("id", list.get(i).getId());
+                data.add(map);
+            }
+        }else{
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(CommunistPartyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }
+            });
         }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                setListView();
+                if(data.size()==0){
+                    Toast.makeText(CommunistPartyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }else{
+                    setListView();
+                }
             }
         });
     }

@@ -2,20 +2,19 @@ package com.example.lucky.myapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.AnswerActivityListBean;
 import com.mo.bean.QuestionInfoBean;
@@ -183,7 +182,11 @@ public class AnswerActivity extends AppCompatActivity implements IAnswerActivity
         handler.post(new Runnable() {
             @Override
             public void run() {
-                initView();
+                if(data.size()==0){
+                    Toast.makeText(AnswerActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }else{
+                    initView();
+                }
             }
         });
     }
