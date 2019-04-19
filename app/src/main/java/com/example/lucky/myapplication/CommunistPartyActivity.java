@@ -8,12 +8,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -142,24 +140,30 @@ public class CommunistPartyActivity extends AppCompatActivity implements IPartyA
     }
 
     @Override
-    public void showAllPartyActivity(final List<PartyActivityListBean.PartyActivitiesListBean> list, final Bitmap[] bs) {
-
+    public void showAllPartyActivity(List<PartyActivityListBean.PartyActivitiesListBean> list, Bitmap[] bs) {
+        if(list!=null) {
+            for (int i = 0; i < list.size(); i++) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("img", bs[i]);
+                map.put("title", list.get(i).getTitle());
+                map.put("date", list.get(i).getCreateDate());
+                map.put("id", list.get(i).getId());
+                data.add(map);
+            }
+        }else{
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(CommunistPartyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(list==null||bs==null){
-                    Toast.makeText(CommunistPartyActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
-                }else if (list.size()==0&&bs.length==0){
-                    Toast.makeText(CommunistPartyActivity.this,"暂时没有先进人物新消息",Toast.LENGTH_SHORT).show();
+                if(data.size()==0){
+                    Toast.makeText(CommunistPartyActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
                 }else{
-                    for(int i=0;i<list.size();i++){
-                        Map<String,Object> map=new HashMap<>();
-                        map.put("img",bs[i]);
-                        map.put("title",list.get(i).getTitle());
-                        map.put("date",list.get(i).getCreateDate());
-                        map.put("id",list.get(i).getId());
-                        data.add(map);
-                    }
                     setListView();
                 }
             }

@@ -5,15 +5,27 @@
     android:background="@color/colorwhite"
     android:layout_height="match_parent">
     <ImageView
-        android:layout_width="60dp"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="10dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="14sp"
+        android:id="@+id/tvCount"
+        android:text="1"
+        android:layout_marginRight="2dp"
+        android:textColor="#DC143C"
+        android:gravity="center"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
         android:layout_gravity="center"
         android:layout_weight="1"
         android:orientation="horizontal">
@@ -38,7 +50,7 @@
             android:paddingRight="16dp"
             android:text="8"
             android:textColor="#9b9b9b"
-            android:textSize="12sp"/>
+            android:textSize="14sp"/>
     </LinearLayout>
 
 </LinearLayout>

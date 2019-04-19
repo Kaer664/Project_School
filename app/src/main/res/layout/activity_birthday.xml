@@ -44,15 +44,28 @@
         android:id="@+id/tvBirthdayName"
         android:layout_width="match_parent"
         android:textColor="@color/colorred"
+        android:layout_marginLeft="@dimen/details_margin_left"
+        android:layout_marginRight="@dimen/details_margin_left"
         android:text=""
-        android:gravity="center"
-        android:textSize="25sp"
+        android:textStyle="bold"
+        android:textSize="@dimen/details_text_size"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/details_margin_top"
         android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:layout_margin="@dimen/details_margin_left"
+        android:text="生日活动列表"
+        android:textColor="@color/colorblack"/>
     <ListView
         android:id="@+id/lvBirthdayActivity"
         android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/details_margin_left"
+        android:layout_marginRight="@dimen/details_margin_left"
         android:dividerHeight="1px"
         android:divider="@color/black"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
     </ListView>
 </LinearLayout>

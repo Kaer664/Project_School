@@ -2,7 +2,7 @@
 <resources>
     <dimen name="main_bottom_size">11sp</dimen>
 
-    <dimen name="part_text_size">18sp</dimen>
+    <dimen name="part_text_size">19sp</dimen>
     <dimen name="part_line_padding">4dp</dimen>
     <dimen name="part_img_height">60dp</dimen>
     <color name="d_c">#dcd918</color>
@@ -28,8 +28,8 @@
     <dimen name="advance_item_text_size1">17sp</dimen>
     <dimen name="advance_item_text_size">16sp</dimen>
     <dimen name="advance_item_margin_size">5sp</dimen>
-    <dimen name="advance_item_img_height_size">209sp</dimen>
-    <dimen name="advance_item_img_weight_size">157sp</dimen>
+    <dimen name="advance_item_img_height_size">209dp</dimen>
+    <dimen name="advance_item_img_weight_size">157dp</dimen>
 
     <dimen name="think_title_text_size">21sp</dimen>
     <dimen name="think_edit_size">19sp</dimen>

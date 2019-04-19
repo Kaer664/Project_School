@@ -3,27 +3,25 @@ package com.example.lucky.myapplication;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
 import com.mo.bean.UserLoginBean;
-import com.mo.model.BirthDao;
 import com.mo.presenter.BirthPresenter;
 import com.mo.presenter.ToolsPresenter;
 import com.mo.view.IBirthView;
@@ -68,23 +66,25 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
     }
 
 
+    private boolean mIsScroll;
     private void init(){
         lvBirthdayActivity = (ListView) findViewById(R.id.lvBirthdayActivity);
         tvBirthdayName= (TextView) findViewById(R.id.tvBirthdayName);
         bp=new BirthPresenter(this,this);
         bp.getBirthMonth();
-        lvBirthdayActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String id1 = (String) data.get(position).get("id");
-                Intent intent = new Intent(BirthdayActivity.this, BirthdaydetailsActivity.class);
-                intent.putExtra("id",id1);
-                startActivity(intent);
-            }
-        });
+//        lvBirthdayActivity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                String id1 = (String) data.get(position).get("id");
+//                Intent intent = new Intent(BirthdayActivity.this, BirthdaydetailsActivity.class);
+//                intent.putExtra("id",id1);
+//                startActivity(intent);
+//            }
+//        });
     }
+    private int count=1;
     private void initView() {
-        BaseAdapter adapter1=new BaseAdapter() {
+        BaseAdapter adapter=new BaseAdapter() {
             @Override
             public int getCount() {
                 return data.size();
@@ -101,33 +101,46 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
             }
 
             @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
+            public View getView(final int position, View convertView, ViewGroup parent) {
                 ViewHolder holder=null;
                 LayoutInflater inflater=LayoutInflater.from(BirthdayActivity.this);
                 if(convertView==null){
                     holder=new ViewHolder();
                     convertView=inflater.inflate(R.layout.bitth_item,null);
-                    holder.imgView= (ImageView) convertView.findViewById(R.id.item_img);
-                    holder.birthTvName= (TextView) convertView.findViewById(R.id.birthTvName);
-                    holder.birthTvMsg= (TextView) convertView.findViewById(R.id.birthTvMsg);
-                    convertView.setTag(holder);
+                    holder.title= (TextView) convertView.findViewById(R.id.birthTvName);
+                    //holder.title.setMovementMethod(ScrollingMovementMethod.getInstance());  //设置textView可以滚动
+                    holder.imageView = (ImageView) convertView.findViewById(R.id.item_img);
+                    holder.date= (TextView) convertView.findViewById(R.id.birthTvMsg);
+                    Map<String,Object> mapHolder=new HashMap<>();
+                    mapHolder.put("holder",holder);
+                    mapHolder.put("id",holder);
+                    convertView.setTag(mapHolder);
+                    convertView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String id=(String) data.get(position).get("id");
+                            Log.i("TestNUm", id);
+                            Intent intent=new Intent(BirthdayActivity.this,BirthdaydetailsActivity.class);
+                            intent.putExtra("id",id);
+                            startActivity(intent);
+                        }
+                    });
                 }else{
-                    holder= (ViewHolder) convertView.getTag();
+                    holder= (ViewHolder) ((Map) convertView.getTag()).get("holder");
                 }
                 Map<String,Object> map=data.get(position);
-                holder.birthTvMsg.setText((String) map.get("date"));
-                holder.birthTvName.setText((String) map.get("title"));
-                holder.imgView.setImageBitmap((Bitmap) map.get("bitmap"));
-//                holder.imgView.setImageResource((Integer) map.get("img"));
+                        holder.imageView.setImageBitmap((Bitmap) map.get("bitmap"));
+                holder.date.setText((String)map.get("date"));
+                holder.title.setText((String)map.get("title"));
                 return convertView;
             }
-            class ViewHolder {
-                public ImageView imgView;
-                public TextView birthTvName;
-                public TextView birthTvMsg;
+            class ViewHolder{
+                public ImageView imageView;
+                public TextView title;
+                public TextView date;
             }
         };
-        lvBirthdayActivity.setAdapter(adapter1);
+        lvBirthdayActivity.setAdapter(adapter);
     }
 
     String name="";
@@ -152,19 +165,33 @@ public class BirthdayActivity extends AppCompatActivity implements IBirthView, I
     @Override
     public void showBirthActivityList(List<BirthActivityBean.BirthActivitiesListBean> list, Bitmap[] bitmaps) {
         data.clear();
-        for (int i = 0; i < list.size(); i++) {
-            BirthActivityBean.BirthActivitiesListBean bean=list.get(i);
-            Map<String,Object> map=new HashMap<>();
-            map.put("title",bean.getTitle());
-            map.put("bitmap",bitmaps[i]);
-            map.put("date",bean.getCreateDate());
-            map.put("id",bean.getId());
-            data.add(map);
+        if(list!=null){
+            for (int i = 0; i < list.size(); i++) {
+                BirthActivityBean.BirthActivitiesListBean bean=list.get(i);
+                Map<String,Object> map=new HashMap<>();
+                map.put("title",bean.getTitle());
+                map.put("bitmap",bitmaps[i]);
+                map.put("date",bean.getCreateDate());
+                map.put("id",bean.getId());
+                data.add(map);
+            }
+        }else{
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(BirthdayActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }
+            });
         }
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                initView();
+                if(data.size()==0){
+                    Toast.makeText(BirthdayActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
+                }else {
+                    initView();
+                }
             }
         });
     }

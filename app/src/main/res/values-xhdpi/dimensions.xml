@@ -3,7 +3,7 @@
 
     <dimen name="main_bottom_size">12sp</dimen>
 
-    <dimen name="part_text_size">18sp</dimen>
+    <dimen name="part_text_size">19sp</dimen>
     <dimen name="part_line_padding">4dp</dimen>
     <dimen name="part_img_height">100dp</dimen>
     <color name="d_c">#ae0ff7</color>

@@ -7,6 +7,15 @@ package com.example.lucky.myapplication.bean;
 public class ChildBean {
    private String title;
     private String score;
+    private String count;
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
 
     public ChildBean(String title, String score) {
         this.title = title;

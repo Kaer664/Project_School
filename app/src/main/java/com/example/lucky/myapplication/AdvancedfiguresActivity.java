@@ -145,26 +145,25 @@ public class AdvancedfiguresActivity extends AppCompatActivity implements IAdvan
      * @param bitmaps
      */
     @Override
-    public void showAdvancePersonList(final List<AdvancePersonBean.AdvancedPersonListBean> list, final Bitmap[] bitmaps) {
-
+    public void showAdvancePersonList(List<AdvancePersonBean.AdvancedPersonListBean> list, Bitmap[] bitmaps) {
+        if(list!=null) {
+            for (int i = 0; i < list.size(); i++) {
+                AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
+                Map<String, Object> map = new HashMap<>();
+                map.put("img", bitmaps[i]);
+                map.put("name", "-" + apb.getTitle() + "-");
+                map.put("introduction", apb.getWorkTask());
+                map.put("createDate", apb.getCreateDate());
+                map.put("id", apb.getId());
+                data.add(map);
+            }
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                if(list==null||bitmaps==null){
-                    Toast.makeText(AdvancedfiguresActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
-                }else if (list.size()==0&&bitmaps.length==0){
-                    Toast.makeText(AdvancedfiguresActivity.this,"暂时没有党建活动",Toast.LENGTH_SHORT).show();
+                if(data.size()==0){
+                    Toast.makeText(AdvancedfiguresActivity.this,"无法获取数据请稍后再试",Toast.LENGTH_LONG).show();
                 }else{
-                    for(int i=0;i<list.size();i++){
-                        AdvancePersonBean.AdvancedPersonListBean apb = list.get(i);
-                        Map<String,Object> map=new HashMap<>();
-                        map.put("img",bitmaps[i]);
-                        map.put("name","-"+apb.getTitle()+"-");
-                        map.put("introduction",apb.getWorkTask());
-                        map.put("createDate",apb.getCreateDate());
-                        map.put("id",apb.getId());
-                        data.add(map);
-                    }
                     initView();
                 }
             }

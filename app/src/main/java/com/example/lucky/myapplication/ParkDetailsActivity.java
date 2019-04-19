@@ -21,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lucky.myapplication.view.CommentView;
+import com.example.lucky.myapplication.ResizableImageView.CommentView;
 import com.mo.bean.PartyActivityBean;
 import com.mo.bean.PartyActivityListBean;
 import com.mo.bean.UserLoginBean;
@@ -104,7 +104,11 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         details_top_title.setText((String) tMap.get("title"));
         tvWriterName.setText((String) tMap.get("writer"));
         textView.setText((String) tMap.get("content"));
-        imgView.setImageBitmap((Bitmap) tMap.get("img"));
+        if((Bitmap) tMap.get("img")==null){
+            imgView.setVisibility(View.GONE);
+        }else{
+            imgView.setImageBitmap((Bitmap) tMap.get("img"));
+        }
         for (int i = 0; i < reply_data.size(); i++) {
             lineAdd.addView(new CommentView(this, reply_data.get(i)));
             TextView t = new TextView(this);

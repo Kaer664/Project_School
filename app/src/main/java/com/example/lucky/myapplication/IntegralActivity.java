@@ -24,6 +24,8 @@ import com.mo.view.IToolsView;
 
 import java.security.acl.Group;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +49,7 @@ public class IntegralActivity extends AppCompatActivity implements IScoreView , 
         init();
 
         exListView= (ExpandableListView) findViewById(R.id.exListView);
+        exListView.setGroupIndicator(null);
         tvSumScore= (TextView) findViewById(R.id.tvSumScore);
     }
 
@@ -110,7 +113,9 @@ public class IntegralActivity extends AppCompatActivity implements IScoreView , 
                 LayoutInflater inflater=LayoutInflater.from(IntegralActivity.this);
                 View v=inflater.inflate(R.layout.child_item,null);
                 TextView c= (TextView) v.findViewById(R.id.tvChildTitle);
+                TextView tvCount= (TextView) v.findViewById(R.id.tvCount);
                 TextView cScore= (TextView) v.findViewById(R.id.tvChildScore);
+                tvCount.setText(childBean.get(groupPosition).get(childPosition).getCount());
                 c.setText(childBean.get(groupPosition).get(childPosition).getTitle());
                 cScore.setText(childBean.get(groupPosition).get(childPosition).getScore());
                 return v;
@@ -158,16 +163,22 @@ public class IntegralActivity extends AppCompatActivity implements IScoreView , 
 
 
                 List<ChildBean> list=new ArrayList<>();
+                int count1=0;
                 for (UserScoreBean.UserAnswerActivityScorelistBean scoreBean:activityScorelist){
                     ChildBean cb=new ChildBean(scoreBean.getTitle(),scoreBean.getScore());
+                    count1++;
+                    cb.setCount(String.valueOf(count1));
                     list.add(cb);
                 }
 
 
-                List<ChildBean> list1=new ArrayList<>();
+                final List<ChildBean> list1=new ArrayList<>();
                 //回复
+                int count=0;
                 for (UserScoreBean.UserReplyScoreListBean scoreBean:replyScoreList){
                     ChildBean cb=new ChildBean(scoreBean.getTitle(),scoreBean.getScore());
+                    count++;
+                    cb.setCount(String.valueOf(count));
                     list1.add(cb);
                 }
                 childBean.add(list);

@@ -1,7 +1,5 @@
 package com.example.lucky.myapplication;
 
-import android.app.DownloadManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -14,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,10 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.example.lucky.myapplication.view.CommentView;
+import com.example.lucky.myapplication.ResizableImageView.CommentView;
 import com.mo.bean.LearningGardenInfoBean;
 import com.mo.bean.LearningGardenListBean;
-import com.mo.bean.PartyActivityBean;
 import com.mo.bean.UserLoginBean;
 import com.mo.presenter.LearningGardenPresenter;
 import com.mo.presenter.ToolsPresenter;
@@ -36,7 +32,6 @@ import com.mo.util.Address;
 import com.mo.view.ILearningGardenView;
 import com.mo.view.IToolsView;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -211,8 +206,8 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                 //显示活动信息
                 if (bean != null) {
                     LearningGardenInfoBean.LearningGardenListBean bean1 = bean.getLearningGardenList().get(0);
-                    tvStudyDetailsTitle.setText(bean1.getTitle());//标题
-                    tvStudyDetailsWriter.setText(bean1.getWriterPersonName());//创建者
+                    tvStudyDetailsTitle.setText(bean1.getWriterPersonName());//标题
+                    tvStudyDetailsWriter.setText(bean1.getTitle());//创建者
                     tvStudyDetailsContent.setText(bean1.getWorkTask());//内容
                     tvStudyDetailsDownload.setText(bean1.getFileUrl());
                     if (bean1.getVideoUrl() != null) {

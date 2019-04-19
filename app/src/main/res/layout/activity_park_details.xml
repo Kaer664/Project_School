@@ -60,11 +60,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:layout_marginTop="@dimen/details_margin_top"
-                    android:layout_marginLeft="@dimen/details_margin_left"
-                    android:layout_marginRight="@dimen/details_margin_left"
                     android:text=""
+                    android:textStyle="bold"
                     android:textSize="@dimen/details_text_size"
                     android:textColor="@color/black"
                     android:id="@+id/details_top_title"/>
@@ -73,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/details_margin_left"
                     android:layout_marginRight="@dimen/details_margin_left"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:gravity="center">
 
@@ -82,27 +82,27 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorgray"
                         android:text="来源："
-                        android:textSize="@dimen/details_btn_size" />
+                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textColor="@color/colorgray"
-                        android:textSize="@dimen/details_btn_size"
                         android:id="@+id/tvWriterName"/>
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textView"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="@color/black"
                 android:textSize="@dimen/details_btn_size" />
-            <ImageView
+            <com.example.lucky.myapplication.ResizableImageView.ResizableImageView
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:id="@+id/imgView"
                 />
             <TextView
@@ -154,6 +154,7 @@
             android:layout_width="0dp"
             android:layout_margin="1dp"
             android:hint="欢迎发表你的观点"
+            android:textSize="@dimen/details_btn_size"
             android:textColorHint="#919090"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
@@ -164,9 +165,10 @@
         <Button
             android:id="@+id/btnBottom"
             android:layout_width="wrap_content"
+            android:textSize="@dimen/details_btn_size"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:text="评论" />
+            android:text="回复" />
     </LinearLayout>
 </RelativeLayout>

@@ -42,45 +42,75 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tbbirthdayDetails"
-        android:layout_above="@+id/line_bottom">
+        android:layout_marginLeft="@dimen/details_margin_left"
+        android:layout_marginRight="@dimen/details_margin_left"
+        android:layout_below="@+id/tbbirthdayDetails"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/llBirthdaydetails"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:layout_marginTop="@dimen/details_margin_top"
-                    android:layout_marginLeft="@dimen/details_margin_left"
-                    android:layout_marginRight="@dimen/details_margin_left"
+                    android:text=""
+                    android:textStyle="bold"
                     android:textSize="@dimen/details_text_size"
                     android:textColor="@color/black"
                     android:id="@+id/tvBirthdayTitle"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/details_margin_left"
+                    android:layout_marginRight="@dimen/details_margin_left"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorgray"
+                        android:text="来源："
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/colorgray"
+                        android:id="@+id/tvWriterBName"/>
+                </LinearLayout>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/textView"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="这是测试文本"
+                android:text=""
                 android:textColor="@color/black"
-                android:layout_marginLeft="@dimen/answer_detail_margin"
-                android:layout_marginRight="@dimen/answer_detail_margin"
-                android:layout_marginTop="@dimen/answer_detail_margin"
                 android:textSize="@dimen/details_btn_size" />
-            <ImageView
+
+
+            <com.example.lucky.myapplication.ResizableImageView.ResizableImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/imgView"
                 />
+
+
             <TextView
                 android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/details_margin_top"
                 android:layout_height="1dp"
                 android:background="#ccc"/>
             <LinearLayout
@@ -96,7 +126,7 @@
                     android:text="观点"
                     android:gravity="center"
                     android:layout_margin="@dimen/details_margin_left"
-                    android:textSize="@dimen/details_bold_size"
+                    android:textSize="@dimen/details_text_size"
                     android:textColor="@color/black"
                     android:textStyle="bold"/>
             </LinearLayout>
@@ -128,6 +158,7 @@
             android:layout_margin="5dp"
             android:hint="请发表内容"
             android:textColor="@color/black"
+            android:textSize="@dimen/details_btn_size"
             android:textColorHint="#969494"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"

@@ -47,13 +47,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/lineBot"
-        android:padding="10dp"
-        android:layout_below="@+id/tbStudyDetails">
+        android:layout_marginLeft="@dimen/details_margin_left"
+        android:layout_marginRight="@dimen/details_margin_left"
+        android:layout_below="@+id/tbStudyDetails"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvStudyDetailsWriter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/details_margin_top"
+                android:text=""
+                android:textStyle="bold"
+                android:textSize="@dimen/details_text_size"
+                android:textColor="@color/black"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/details_margin_left"
+                android:layout_marginRight="@dimen/details_margin_left"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorgray"
+                    android:text="来源："
+                     />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/colorgray"
+
+                    android:id="@+id/tvStudyDetailsTitle"/>
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/rlvvStudyDetailsVideo"
@@ -64,78 +101,67 @@
                 <VideoView
                     android:id="@+id/vvStudyDetailsVideo"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal" />
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tvStudyDetailsTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="24sp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tvStudyDetailsWriter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textSize="20sp"
-                android:textColor="@color/colorgray" />
-
-            <TextView
                 android:id="@+id/tvStudyDetailsContent"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/black" />
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/details_btn_size" />
 
-            <ImageView
+            <com.example.lucky.myapplication.ResizableImageView.ResizableImageView
                 android:id="@+id/imgStudyDetails"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvStudyDetailsDownload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorblack">
-
-            </TextView>
+                android:textColor="@color/colorPrimary"/>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/details_margin_top"
                 android:layout_height="1dp"
-                android:background="#ccc"/>
+                android:layout_marginTop="@dimen/details_margin_top"
+                android:background="#ccc" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="观点"
-                    android:gravity="center"
                     android:layout_margin="@dimen/details_margin_left"
-                    android:textSize="@dimen/details_text_size"
+                    android:gravity="center"
+                    android:text="观点"
                     android:textColor="@color/black"
-                    android:textStyle="bold"/>
+                    android:textSize="@dimen/details_text_size"
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#ccc"/>
+                android:background="#ccc" />
+
             <LinearLayout
+                android:id="@+id/lineStu"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/lineStu"></LinearLayout>
+                android:orientation="vertical"></LinearLayout>
         </LinearLayout>
     </ScrollView>
 
@@ -152,9 +178,10 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_gravity="center_vertical"
+            android:textSize="@dimen/details_btn_size"
             android:layout_weight="10"
-            android:textColor="@color/black"
-            android:background="@color/colorwhite"/>
+            android:background="@color/colorwhite"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/btnStudyDetailsSendComment"

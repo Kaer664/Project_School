@@ -72,6 +72,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                             linearLayout.setGravity(Gravity.CENTER_VERTICAL);
                             tvNews1 = new TextView(getActivity());
                             tvNews2 = new TextView(getActivity());
+
+                            tvNews1.setSingleLine(true);
+                            tvNews1.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                            tvNews2.setSingleLine(true);
+                            tvNews2.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+
+
                             tvNews1.setText(ss[count]);
                             tvNews1.setTag(count);
                             count++;
@@ -108,15 +115,21 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                             LinearLayout linearLayout = new LinearLayout(getActivity());
                             linearLayout.setOrientation(LinearLayout.VERTICAL);
                             linearLayout.setGravity(Gravity.CENTER_VERTICAL);
+
                             tvNews1 = new TextView(getActivity());
                             tvNews2 = new TextView(getActivity());
+
+                            tvNews1.setSingleLine(true);
+                            tvNews1.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
+                            tvNews2.setSingleLine(true);
+                            tvNews2.setEllipsize(TextUtils.TruncateAt.valueOf("END"));
                             tvNews1.setText(ss[count]);
                             tvNews1.setTag(count);
                             count++;
                             tvNews1.setGravity(Gravity.CENTER_VERTICAL);
                             tvNews1.setTextColor(Color.BLACK);
-//                            tvNews1.setEllipsize(TextUtils.TruncateAt.END);
-//                            tvNews1.setSingleLine();
+                            tvNews1.setEllipsize(TextUtils.TruncateAt.END);
+                            tvNews1.setSingleLine();
                             tvNews1.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
@@ -126,8 +139,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, IToo
                             tvNews2.setText(ss[count]);
                             tvNews2.setTag(count);
                             count++;
-//                            tvNews2.setGravity(Gravity.CENTER_VERTICAL);
-//                            tvNews2.setTextColor(Color.BLACK);
+                            tvNews2.setGravity(Gravity.CENTER_VERTICAL);
+                            tvNews2.setTextColor(Color.BLACK);
                             tvNews2.setEllipsize(TextUtils.TruncateAt.END);
                             tvNews2.setSingleLine(true);
                             tvNews2.setOnClickListener(new View.OnClickListener() {

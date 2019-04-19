@@ -4,16 +4,16 @@
 
     <dimen name="main_bottom_size">14sp</dimen>
 
-    <dimen name="part_text_size">19sp</dimen>
+    <dimen name="part_text_size">20sp</dimen>
     <dimen name="part_line_padding">3dp</dimen>
     <dimen name="part_img_height">90dp</dimen>
     <color name="d_c">#b6afb1</color>
 
     <!--党务活动界面-->
-    <dimen name="details_text_size">26sp</dimen>
+    <dimen name="details_text_size">25sp</dimen>
     <dimen name="details_margin_top">28sp</dimen>
     <dimen name="details_margin_left">14dp</dimen>
-    <dimen name="details_btn_size">20sp</dimen>
+    <dimen name="details_btn_size">19sp</dimen>
 
 
     <!--党务活动评论区的-->

@@ -9,18 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lucky.myapplication.view.CommentView;
+import com.example.lucky.myapplication.ResizableImageView.CommentView;
 import com.mo.bean.BirthActivityBean;
 import com.mo.bean.BirthdayMonthBean;
 import com.mo.bean.UserLoginBean;
@@ -38,7 +37,7 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
     private Toolbar toolbar;
     private EditText etComment;
     private Button btnSendComment;
-    private TextView textView, tvBirthdayTitle;
+    private TextView textView, tvBirthdayTitle,tvWriterBName;
     private ImageView imgView;
     private ToolsPresenter toolsPresenter;
     private BirthPresenter birthPresenter;
@@ -101,6 +100,7 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
         etComment = (EditText) findViewById(R.id.etComment);
         btnSendComment = (Button) findViewById(R.id.btnSendComment);
         textView = (TextView) findViewById(R.id.textView);
+        tvWriterBName= (TextView) findViewById(R.id.tvWriterBName);
         tvBirthdayTitle = (TextView) findViewById(R.id.tvBirthdayTitle);
         imgView = (ImageView) findViewById(R.id.imgView);
         line = (LinearLayout) findViewById(R.id.line);
@@ -191,10 +191,13 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
             public void run() {
                 if (bean != null) {
                     BirthActivityBean.BirthActivitiesListBean bean1 = bean.getBirthActivitiesList().get(0);
+                    tvWriterBName.setText(bean1.getWriterPersonName());
                     tvBirthdayTitle.setText(bean1.getTitle());
                     textView.setText(bean1.getWorkTask());
                     if (bitmap != null) {
                         imgView.setImageBitmap(bitmap);
+                    }else{
+                        imgView.setVisibility(View.GONE);
                     }
 
                     String name = toolsPresenter.readUserInfo().getString("userRealName", "");

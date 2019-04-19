@@ -1,6 +1,7 @@
 package com.example.lucky.myapplication;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -27,10 +29,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AnswerDetailActivity extends AppCompatActivity implements IAnswerActivityView, IToolsView {
+public class AnswerDetailActivity extends AppCompatActivity implements IAnswerActivityView, IToolsView, View.OnClickListener {
     private Toolbar toolbar;
-    private TextView rbQuestionContext;
+    private TextView rbQuestionContext,now,sum;
     private RadioButton rbAnswerA, rbAnswerB, rbAnswerC, rbAnswerD;
+
     private Button btnNext;
     private RadioGroup rgSelect;
     private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
@@ -45,6 +48,7 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         settoolbarName();
         id = getIntent().getStringExtra("id");
         title = getIntent().getStringExtra("title");
+        // init2();
         AnswerActivityPresenter aap = new AnswerActivityPresenter(this, this);
         if (id == null) {
             Toast.makeText(this, "数据可能有错，请稍后再试", Toast.LENGTH_LONG).show();
@@ -53,6 +57,7 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
             init();
         }
     }
+
 
     private void toolBar() {
         toolbar = (Toolbar) findViewById(R.id.tbAnswerdetail);
@@ -73,6 +78,12 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         rbAnswerB = (RadioButton) findViewById(R.id.rbAnswerB);
         rbAnswerC = (RadioButton) findViewById(R.id.rbAnswerC);
         rbAnswerD = (RadioButton) findViewById(R.id.rbAnswerD);
+        now= (TextView) findViewById(R.id.now);
+        sum= (TextView) findViewById(R.id.sum);
+        rbAnswerA.setOnClickListener(this);
+        rbAnswerB.setOnClickListener(this);
+        rbAnswerC.setOnClickListener(this);
+        rbAnswerD.setOnClickListener(this);
         rgSelect = (RadioGroup) findViewById(R.id.rgSelect);
         rbQuestionContext = (TextView) findViewById(R.id.rbQuestionContext);
 
@@ -105,6 +116,8 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
 
     private void setData() {
         count = count + 1;
+        now.setText(String.valueOf(count+1));
+        sum.setText(String.valueOf(sign));
         String title = data.get(count).get("title");
         String a = data.get(count).get("a");
         String b = data.get(count).get("b");
@@ -115,14 +128,14 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         rbAnswerB.setText(b);
         rbAnswerC.setText(c);
         rbAnswerD.setText(d);
-        if (count == sign - 1){//如果走到最后一项，将按钮变成提交
+        if (count == sign - 1) {//如果走到最后一项，将按钮变成提交
             btnNext.setText("提交");
         }
     }
 
 
     @Override
-    public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list,String serverTime) {
+    public void showAnswerActivityList(List<AnswerActivityListBean.UserAnswerActivityListBean> list, String serverTime) {
 
     }
 
@@ -225,6 +238,36 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
             } else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.rbAnswerA:
+                rbAnswerA.setBackgroundColor(Color.parseColor("#57faff"));
+                rbAnswerB.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerC.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerD.setBackgroundColor(Color.parseColor("#00000000"));
+                break;
+            case R.id.rbAnswerB:
+                rbAnswerB.setBackgroundColor(Color.parseColor("#57faff"));
+                rbAnswerA.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerC.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerD.setBackgroundColor(Color.parseColor("#00000000"));
+                break;
+            case R.id.rbAnswerC:
+                rbAnswerC.setBackgroundColor(Color.parseColor("#57faff"));
+                rbAnswerB.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerA.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerD.setBackgroundColor(Color.parseColor("#00000000"));
+                break;
+            case R.id.rbAnswerD:
+                rbAnswerD.setBackgroundColor(Color.parseColor("#57faff"));
+                rbAnswerB.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerC.setBackgroundColor(Color.parseColor("#00000000"));
+                rbAnswerA.setBackgroundColor(Color.parseColor("#00000000"));
+                break;
         }
     }
 }
