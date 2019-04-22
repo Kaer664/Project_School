@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.presenter.ToolsPresenter;
+import com.mo.util.PermissionPageUtils;
 import com.mo.util.UpdateApp;
 import com.mo.view.IToolsView;
 
@@ -141,8 +142,24 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length == 0 || PackageManager.PERMISSION_GRANTED != grantResults[0]) {
-            Toast.makeText(this, "你拒绝了权限,无法检查更新!", Toast.LENGTH_LONG).show();
-        } else {
+            AlertDialog alertDialog=new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("使用软件需要相关权限，是否前往设置")
+                    .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            System.exit(0);
+                        }
+                    })
+                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new PermissionPageUtils(SettingActivity.this).jumpPermissionPage();
+                        }
+                    })
+                    .show();
+            Toast.makeText(this, "您拒绝了权限,无法检查更新!", Toast.LENGTH_LONG).show();
+        }else {
             UpdateApp updateApp = new UpdateApp(this);
             updateApp.execute();
         }

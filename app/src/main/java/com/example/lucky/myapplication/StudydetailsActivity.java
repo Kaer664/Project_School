@@ -33,6 +33,7 @@ import com.mo.presenter.LearningGardenPresenter;
 import com.mo.presenter.ToolsPresenter;
 import com.mo.util.Address;
 import com.mo.util.HttpTools;
+import com.mo.util.PermissionPageUtils;
 import com.mo.util.UpdateApp;
 import com.mo.view.ILearningGardenView;
 import com.mo.view.IToolsView;
@@ -278,9 +279,25 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length == 0 || PackageManager.PERMISSION_GRANTED != grantResults[0]) {
-            Toast.makeText(this, "你拒绝了权限,无法检查更新!", Toast.LENGTH_LONG).show();
-        } else {
-            HttpTools.getFile(StudydetailsActivity.this, Address.FILE_URL, tvStudyDetailsDownload.getText().toString());
+            AlertDialog alertDialog=new AlertDialog.Builder(this)
+                    .setTitle("提示")
+                    .setMessage("使用软件需要相关权限，是否前往设置")
+                    .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            System.exit(0);
+                        }
+                    })
+                    .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new PermissionPageUtils(StudydetailsActivity.this).jumpPermissionPage();
+                        }
+                    })
+                    .show();
+        }else {
+            UpdateApp updateApp = new UpdateApp(this);
+            updateApp.execute();
         }
     }
 

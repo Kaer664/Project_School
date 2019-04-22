@@ -189,6 +189,7 @@ public class UpdateApp extends AsyncTask<Void, Void, Boolean> {
                 intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
             }
             context.startActivity(intent);
+            System.exit(0);
         }
     }
 }
