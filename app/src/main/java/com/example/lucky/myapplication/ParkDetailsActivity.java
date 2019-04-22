@@ -129,6 +129,15 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
 
     @Override
     public void showPartyActivityInfo(PartyActivityBean bean, Bitmap bitmap) {
+        if (bean==null){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(ParkDetailsActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
         data.clear();
         reply_data.clear();
         //新闻消息内容
@@ -162,7 +171,11 @@ public class ParkDetailsActivity extends AppCompatActivity implements IPartyActi
         handler.post(new Runnable() {
             @Override
             public void run() {
-                initView();
+                if (data.size()!=0){
+                    initView();
+                }else{
+                    Toast.makeText(ParkDetailsActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

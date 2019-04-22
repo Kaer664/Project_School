@@ -1,5 +1,6 @@
 package com.example.lucky.myapplication;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -146,6 +147,15 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
 
     @Override
     public void showQuestionInfo(List<QuestionInfoBean.ProblemListBean> list) {
+        if (list==null){
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(AnswerDetailActivity.this,"网络连接失败",Toast.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
         sign = list.size();
         for (int i = 0; i < list.size(); i++) {
             Map<String, String> map = new HashMap<>();
@@ -175,7 +185,12 @@ public class AnswerDetailActivity extends AppCompatActivity implements IAnswerAc
         handler.post(new Runnable() {
             @Override
             public void run() {
-                setData();
+                if (data.size()!=0){
+                    setData();
+                }else {
+                    Toast.makeText(AnswerDetailActivity.this,"此套试题没有题目",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

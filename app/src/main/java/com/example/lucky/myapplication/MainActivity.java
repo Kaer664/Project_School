@@ -1,9 +1,12 @@
 package com.example.lucky.myapplication;
 
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mo.bean.UserLoginBean;
 import com.mo.presenter.ToolsPresenter;
@@ -26,22 +30,28 @@ public class MainActivity extends AppCompatActivity implements IToolsView {
     private LinearLayout btnhome;
     private LinearLayout btnperson;
     private HomeFragment homeFragment;
-    private ImageView imgMainHome,imgMainPersonal;
+    private ImageView imgMainHome, imgMainPersonal;
     private PersonalFragment personalFragment;
     FragmentManager fm;
-    private ToolsPresenter toolsPresenter=new ToolsPresenter(this, this);
+    private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //检查权限是否开启，如果开启就进行下载
+        ActivityCompat.requestPermissions(this, new String[]{android
+                .Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10001);
+
         tbHomeActivity = (Toolbar) findViewById(R.id.tbHomeActivity);
         tbHomeActivity.setTitle("");
         setSupportActionBar(tbHomeActivity);
         settoolbarName();
-        btnhome= (LinearLayout) findViewById(R.id.btnHomepage);
-        btnperson= (LinearLayout) findViewById(R.id.btnPersonal);
-        imgMainHome= (ImageView) findViewById(R.id.imgMainHome);
-        imgMainPersonal= (ImageView) findViewById(R.id.imgMainPersonal);
+        btnhome = (LinearLayout) findViewById(R.id.btnHomepage);
+        btnperson = (LinearLayout) findViewById(R.id.btnPersonal);
+        imgMainHome = (ImageView) findViewById(R.id.imgMainHome);
+        imgMainPersonal = (ImageView) findViewById(R.id.imgMainPersonal);
         fm = getSupportFragmentManager();
         setTabSelection(0);
         btnhome.setOnClickListener(new OnClickListener() {
@@ -70,20 +80,18 @@ public class MainActivity extends AppCompatActivity implements IToolsView {
                 }
             }
         });
-        UpdateApp updateApp=new UpdateApp(this);
-        updateApp.execute();
     }
 
 
-    private void setTabSelection(int index){
+    private void setTabSelection(int index) {
         FragmentTransaction ft = fm.beginTransaction();
         hideFragment(ft);
         switch (index) {
             case 0:
-                if(homeFragment==null){
+                if (homeFragment == null) {
                     homeFragment = new HomeFragment();
                     ft.add(R.id.flmain, homeFragment);
-                }else{
+                } else {
                     ft.show(homeFragment);
                 }
                 imgMainHome.setImageDrawable(getResources().getDrawable(R.drawable.index1));
@@ -91,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements IToolsView {
                 break;
 
             case 1:
-                if(personalFragment==null){
+                if (personalFragment == null) {
                     personalFragment = new PersonalFragment();
                     ft.add(R.id.flmain, personalFragment);
                 }
@@ -102,18 +110,21 @@ public class MainActivity extends AppCompatActivity implements IToolsView {
         }
         ft.commit();
     }
+
     //用于隐藏fragment
-    private void hideFragment(FragmentTransaction ft){
-        if(homeFragment!=null){
+    private void hideFragment(FragmentTransaction ft) {
+        if (homeFragment != null) {
             ft.hide(homeFragment);
-        }if(personalFragment!=null){
+        }
+        if (personalFragment != null) {
             ft.hide(personalFragment);
         }
     }
+
     /*重写按钮返回事件，返回直接推出程序*/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
             new AlertDialog.Builder(this)
                     .setMessage("确定退出系统吗？")
                     .setNegativeButton("取消",
@@ -159,16 +170,33 @@ public class MainActivity extends AppCompatActivity implements IToolsView {
     public void isChangePass(boolean b) {
 
     }
+
     public void settoolbarName() {
         SharedPreferences sharedPreferences = toolsPresenter.readUserInfo();
         String userRealName = sharedPreferences.getString("userRealName", null);
         if (userRealName != null) {
             TextView tvtbTempnewsUserName = (TextView) findViewById(R.id.tvtbMainUserName);
-            if(userRealName.length()<3){
+            if (userRealName.length() < 3) {
                 tvtbTempnewsUserName.setText(userRealName.toString());
-            }else {
+            } else {
                 tvtbTempnewsUserName.setText(userRealName.substring(1).toString());
             }
+        }
+    }
+
+    /**
+     * 检查权限的回调方法
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length == 0 || PackageManager.PERMISSION_GRANTED != grantResults[0]) {
+            Toast.makeText(this, "你拒绝了权限,无法检查更新!", Toast.LENGTH_LONG).show();
+        } else {
+            UpdateApp updateApp = new UpdateApp(this);
+            updateApp.execute();
         }
     }
 }

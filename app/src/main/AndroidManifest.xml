@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--安卓8.0之后，自动安装程序需要的权限-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
         android:allowBackup="true"
@@ -40,6 +42,25 @@
         <activity android:name=".RankingActivity" />
         <activity android:name=".IntegralActivity" />
         <activity android:name=".AdvancedDetailActivity" />
+
+        <!--自动安装软件需要的provider-->
+        <provider
+
+            android:name="android.support.v4.content.FileProvider"
+
+            android:authorities="com.example.lucky.myapplication.provider"
+
+            android:grantUriPermissions="true"
+
+            android:exported="false">
+
+            <meta-data
+
+                android:name="android.support.FILE_PROVIDER_PATHS"
+
+                android:resource="@xml/file_paths"/>
+
+        </provider>
     </application>
 
 </manifest>

@@ -1,12 +1,15 @@
 package com.example.lucky.myapplication;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +32,8 @@ import com.mo.bean.UserLoginBean;
 import com.mo.presenter.LearningGardenPresenter;
 import com.mo.presenter.ToolsPresenter;
 import com.mo.util.Address;
+import com.mo.util.HttpTools;
+import com.mo.util.UpdateApp;
 import com.mo.view.ILearningGardenView;
 import com.mo.view.IToolsView;
 
@@ -50,7 +55,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     private int width;
     private int height;
     private ToolsPresenter toolsPresenter = new ToolsPresenter(this, this);
-    boolean isReply=false;
+    boolean isReply = false;
     MediaController controller;
     RelativeLayout rlvvStudyDetailsVideo;
 
@@ -111,21 +116,33 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId()) {
             case R.id.btnStudyDetailsSendComment:
                 String replyContent = etStudyDetailsComment.getText().toString().trim();
-                if (isReply){
-                    new AlertDialog.Builder(this).setMessage("此活动您已发表观点").setNegativeButton("确定",null).show();
-                }else if (replyContent.length()<=10){
-                    new AlertDialog.Builder(this).setMessage("每个观点至少10个字以上").setNegativeButton("确定",null).show();
-                } else{
-                    toolsPresenter.addReply(id, "学习园地评论",replyContent);
+                if (isReply) {
+                    new AlertDialog.Builder(this).setMessage("此活动您已发表观点").setNegativeButton("确定", null).show();
+                } else if (replyContent.length() <= 10) {
+                    new AlertDialog.Builder(this).setMessage("每个观点至少10个字以上").setNegativeButton("确定", null).show();
+                } else {
+                    toolsPresenter.addReply(id, "学习园地评论", replyContent);
                 }
 
                 break;
             case R.id.tvStudyDetailsDownload:
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
-                startActivity(intent);
+                AlertDialog alertDialog = new AlertDialog.Builder(this)
+                        .setMessage("是否下载" + tvStudyDetailsDownload.getText().toString())
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+//                                  检查权限是否开启，如果开启就进行下载
+                                ActivityCompat.requestPermissions(StudydetailsActivity.this, new String[]{android
+                                        .Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10001);
+                            }
+                        })
+                        .show();
+//                Intent intent = new Intent();
+//                intent.setAction(Intent.ACTION_VIEW);
+//                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+//                intent.setData(Uri.parse(Address.FILE_URL + tvStudyDetailsDownload.getText().toString()));
+//                startActivity(intent);
                 break;
         }
     }
@@ -190,6 +207,15 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void showLearningGardenInfo(final LearningGardenInfoBean bean, final Bitmap bitmap) {
         data.clear();
+        if (bean == null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(StudydetailsActivity.this, "数据获取失败，请稍后重试", Toast.LENGTH_SHORT).show();
+                }
+            });
+            return;
+        }
         List<LearningGardenInfoBean.ReplyListBean> listBeen = bean.getReplyList();
         for (int i = 0; i < listBeen.size(); i++) {
             LearningGardenInfoBean.ReplyListBean replyListBean = listBeen.get(i);
@@ -217,7 +243,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                         vvStudyDetailsVideo.setMediaController(controller);
                         controller.setMediaPlayer(vvStudyDetailsVideo);
                     }
-                    if (bitmap!=null){
+                    if (bitmap != null) {
                         imgStudyDetails.setVisibility(View.VISIBLE);
                         imgStudyDetails.setImageBitmap(bitmap);
                     }
@@ -225,21 +251,37 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
 
                 //显示用户评论
                 String name = toolsPresenter.readUserInfo().getString("userRealName", "");
-                if(data.size()!=0){
-                    for(int i=0;i<data.size();i++){
-                        lineStu.addView(new CommentView(StudydetailsActivity.this,data.get(i)));
-                        TextView t=new TextView(StudydetailsActivity.this);
+                if (data.size() != 0) {
+                    for (int i = 0; i < data.size(); i++) {
+                        lineStu.addView(new CommentView(StudydetailsActivity.this, data.get(i)));
+                        TextView t = new TextView(StudydetailsActivity.this);
                         t.setWidth(width);
                         t.setHeight(1);
                         t.setBackgroundColor(Color.BLACK);
-                        lineStu .addView(t);
-                        if (name.equals(data.get(i).get("name"))){
-                            isReply=true;
+                        lineStu.addView(t);
+                        if (name.equals(data.get(i).get("name"))) {
+                            isReply = true;
                         }
                     }
                 }
             }
         });
+    }
+
+    /**
+     * 检查权限的回调方法
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length == 0 || PackageManager.PERMISSION_GRANTED != grantResults[0]) {
+            Toast.makeText(this, "你拒绝了权限,无法检查更新!", Toast.LENGTH_LONG).show();
+        } else {
+            HttpTools.getFile(StudydetailsActivity.this, Address.FILE_URL, tvStudyDetailsDownload.getText().toString());
+        }
     }
 
 }

@@ -223,6 +223,8 @@ public class BirthdaydetailsActivity extends AppCompatActivity implements View.O
                         t.setBackgroundColor(Color.BLACK);
                         line.addView(t);
                     }
+                }else{
+                    Toast.makeText(BirthdaydetailsActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
                 }
             }
         });

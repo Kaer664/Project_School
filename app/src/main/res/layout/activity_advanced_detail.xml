@@ -84,7 +84,7 @@
                                 android:id="@+id/tvName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="吴大观"
+                                android:text=""
                                 android:layout_margin="5dp"
                                 android:textColor="@color/red"
                                 android:textSize="@dimen/details_btn_size" />
@@ -92,13 +92,13 @@
                                 android:id="@+id/tvMsg"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="20"
+                                android:text=""
                                 android:layout_margin="5dp"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/details_btn_size" />
                             <TextView
                                 android:id="@+id/tvDate"
-                                android:text="这是时间"
+                                android:text=""
                                 android:layout_margin="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
             </LinearLayout>
             <TextView
                 android:id="@+id/tvPeople"
-                android:text="ssssssssss"
+                android:text=""
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"

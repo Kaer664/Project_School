@@ -1,6 +1,9 @@
 package com.example.lucky.myapplication;
 
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.content.DialogInterface;
@@ -26,6 +29,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
 
     private Button btnExitLogin;
     private ToolsPresenter toolsPresenter;
+    private ProgressDialog progressDialog=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
         setContentView(R.layout.activity_setting);
         toolBar();
         toolsPresenter = new ToolsPresenter(this, this);
+        progressDialog=new ProgressDialog(this);
         settoolbarName();
 
         aboutUs = (LinearLayout) findViewById(R.id.aboutUs);
@@ -58,7 +63,8 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
         checkUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new UpdateApp(SettingActivity.this).execute();
+                ActivityCompat.requestPermissions(SettingActivity.this, new String[]{android
+                        .Manifest.permission.WRITE_EXTERNAL_STORAGE}, 10001);
             }
         });
         changePassword.setOnClickListener(new View.OnClickListener() {
@@ -131,5 +137,14 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
     @Override
     public void isChangePass(boolean b) {
 
+    }
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length == 0 || PackageManager.PERMISSION_GRANTED != grantResults[0]) {
+            Toast.makeText(this, "你拒绝了权限,无法检查更新!", Toast.LENGTH_LONG).show();
+        } else {
+            UpdateApp updateApp = new UpdateApp(this);
+            updateApp.execute();
+        }
     }
 }

@@ -128,6 +128,8 @@ public class AdvancedDetailActivity extends AppCompatActivity implements IToolsV
                     tvMsg.setText(bean.getTypeName());
                     tvDate.setText(bean.getCreateDate());
                     tvPeople.setText(bean.getWorkTask());
+                }else{
+                    Toast.makeText(AdvancedDetailActivity.this,"数据获取失败，请稍后重试",Toast.LENGTH_SHORT).show();
                 }
             }
         });
