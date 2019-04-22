@@ -207,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements IToolsView {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             new PermissionPageUtils(MainActivity.this).jumpPermissionPage();
+                            System.exit(0);
                         }
                     })
                     .show();

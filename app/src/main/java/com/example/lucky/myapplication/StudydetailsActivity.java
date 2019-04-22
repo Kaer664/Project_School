@@ -292,6 +292,7 @@ public class StudydetailsActivity extends AppCompatActivity implements View.OnCl
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             new PermissionPageUtils(StudydetailsActivity.this).jumpPermissionPage();
+                            System.exit(0);
                         }
                     })
                     .show();

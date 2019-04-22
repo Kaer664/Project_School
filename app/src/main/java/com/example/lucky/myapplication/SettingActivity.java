@@ -155,6 +155,7 @@ public class SettingActivity extends AppCompatActivity implements IToolsView {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             new PermissionPageUtils(SettingActivity.this).jumpPermissionPage();
+                            System.exit(0);
                         }
                     })
                     .show();
